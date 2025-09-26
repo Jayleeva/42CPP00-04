@@ -1,5 +1,5 @@
 #include "phonebook.hpp"
-#include "ft_itoa.cpp"
+#include "ft_atoi.cpp"
 
 int	get_len(string input)
 {
@@ -10,12 +10,26 @@ int	get_len(string input)
 	return (i);
 }
 
+int	ft_isnum(string input)
+{
+	int	i = 0;
+
+	while (input[i])
+	{
+		if (input[i] < '0' || input[i] > '9')
+			return (0);
+		i ++;
+	}
+	return (1);
+}
+
 int	main()
 {
 	PhoneBook	book;
 	int			i = 0;
 	string		cmd;
 	int			index;
+	string		input;
 
 	while (1)
 	{
@@ -37,25 +51,23 @@ int	main()
 		else if (cmd == "SEARCH")
 		{
 			cout << "> Enter contact index (0 to 7):" << endl;
-			cin >> index;
-			if (isdigit(index))
-				cout << "THIS IS A DIGIT" << endl;
-			if ((index < 0 || index > 7)) // || !isdigit(index))
+			cin >> input;
+			if (!ft_isnum(input))
 			{
-				/*if (!isdigit(index))
-				{
-					cin.clear();
-					//string s = to_string(index); // marche pas, transforme tout en un 0, donc 1 char.
-					//int l = get_len(index);
-					//cout << l << endl;
-					cin.ignore(2);
-				}*/
+				cin.clear();
+				cin.ignore(get_len(input));
 				cout << "> Invalid index." << endl;
 			}
 			else
 			{
-				cout << "index | first name | last name | nickname" << endl;
-				cout << index << " | " << book.contactList[index].firstName << " | " << book.contactList[index].lastName << " | " << book.contactList[index].nickname << endl;
+				index = ft_atoi(input);
+				if (index < 0 || index > 7)
+					cout << "> Invalid index." << endl;
+				else
+				{
+					cout << "index | first name | last name | nickname" << endl;
+					cout << index << " | " << book.contactList[index].firstName << " | " << book.contactList[index].lastName << " | " << book.contactList[index].nickname << endl;
+				}
 			}
 		}
 		else if (cmd == "EXIT")
