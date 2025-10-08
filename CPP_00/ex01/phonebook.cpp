@@ -1,5 +1,4 @@
 #include "phonebook.hpp"
-#include "utils.cpp"
 
 string	truncate(string str)
 {
@@ -25,7 +24,6 @@ int	main()
 	string		cmd;
 	int			index;
 	string		input;
-	//string		tab[6] = {"index", "first name", "last name", "nickname", "phone number", "darkest secret"};
 
 	while (1)
 	{

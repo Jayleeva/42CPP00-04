@@ -29,4 +29,7 @@ class PhoneBook
 		Contact	contactList[8];
 };
 
+int	ft_isnum(string input);
+int	ft_atoi(string str);
+
 #endif
