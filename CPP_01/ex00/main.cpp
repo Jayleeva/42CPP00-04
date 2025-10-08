@@ -1,7 +1,7 @@
 #include "Zombie.hpp"
 
 //Crée un premier zombie et l'annonce, puis le supprime, puis demande à l'utilisateur un nom pour créer un deuxième zombie.
-//la première création se fait sur la (stack/heap?) et la deuxième sur la (heap/stack?)
+//la première création se fait sur la (heap/stack?) et la deuxième sur la (stack/heap?)
 int	main()
 {
 	string	name;
