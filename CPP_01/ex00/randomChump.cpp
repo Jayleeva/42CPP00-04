@@ -1,10 +1,8 @@
 #include "Zombie.hpp"
 
-//This function creates a zombie, names it, and makes it announce itself.
+//Réappelle le constructeur avec le nom reçu en argument et fait l'annonce de son zombie.
 void randomChump( std::string name )
 {
-	Zombie	z;
-	
-	z = Zombie(name);
+	Zombie	z = Zombie(name);
 	z.announce();
 }

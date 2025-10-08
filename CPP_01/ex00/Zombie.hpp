@@ -3,10 +3,6 @@
 #include <iostream>
 #include <iomanip>
 #include <stack>
-#include "Zombie.cpp"
-#include "newZombie.cpp"
-#include "randomChump.cpp"
-#include "main.cpp"
 
 using namespace std;
 
@@ -19,5 +15,8 @@ class Zombie
 	private:
 		string	name;
 };
+
+Zombie *newZombie( std::string name );
+void randomChump( std::string name );
 
 #endif

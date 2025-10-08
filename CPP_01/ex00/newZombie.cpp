@@ -1,6 +1,6 @@
 #include "Zombie.hpp"
 
-//This function creates a zombie, names it, and returns it so you can use it outside of the function scope.
+//Retourne une nouvelle instance créée avec le mot-clé "new" suivi d'un appel du constructeur 
 Zombie *newZombie( std::string name )
 {
 	return (new Zombie(name));
