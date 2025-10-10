@@ -9,14 +9,14 @@ using namespace std;
 class Zombie
 {
 	public:
-		Zombie(std::string);
+		Zombie(void);
 		~Zombie(void);
+		void	giveName(std::string);
 		void	announce(void);
 	private:
 		string	name;
 };
 
 Zombie	*zombieHorde( int N, std::string name );
-Zombie	*newZombie( std::string name );
 
 #endif

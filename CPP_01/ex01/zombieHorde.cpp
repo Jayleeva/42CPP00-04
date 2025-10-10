@@ -1,26 +1,17 @@
 #include "Zombie.hpp"
 
+//Alloue la horde en une seule allocation avec le mot-clé "new" (sans appeler le constructeur? en utilisant juste la classe comme un type, avec le N comme taille?), puis attribue un nom à chaque instance, retourne la tête de l'array.
 Zombie *zombieHorde( int N, std::string name )
 {
-	Zombie	*z;
-    Zombie  *zz;
+	Zombie *horde = new Zombie[N];
     string  names[7] = {name, "Zavier", "Zénon", "Zélie", "Zelda", "Zara", "Zoé"};
-    int     i = 1;
+    int     i = 0;
 
-    z = newZombie(name);
-    z->announce();
     while (i < N)
     {
-        name = names[i++];
-        zz = newZombie(name);
-        zz->announce();
-        //delete zz;
+        name = names[i];
+        horde[i].giveName(name);
+        i ++;
     }
-    return (z);
-}
-
-//Retourne une nouvelle instance créée avec le mot-clé "new" suivi d'un appel du constructeur 
-Zombie *newZombie( std::string name )
-{
-	return (new Zombie(name));
+    return (horde);
 }

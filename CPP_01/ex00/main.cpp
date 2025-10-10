@@ -1,7 +1,8 @@
 #include "Zombie.hpp"
 
 //Crée un premier zombie et l'annonce, puis le supprime, puis demande à l'utilisateur un nom pour créer un deuxième zombie.
-//la première création se fait sur la (heap/stack?) et la deuxième sur la (stack/heap?)
+//La première création se fait sur la heap car utilise le mot-clé new, et la deuxième sur la stack car se contente du constructeur.
+//Comme la 1ère était faite sur la heap, il faut la déallouer avec le mot-clé delete, alors que ce n'est pas nécessaire pour la 2ème.
 int	main()
 {
 	string	name;
