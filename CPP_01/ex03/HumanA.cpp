@@ -15,5 +15,5 @@ HumanA::~HumanA()
 
 void	HumanA::attack(void)
 {
-	cout << this->name << "attacks with their " << this->w.getType() << endl;
+	cout << this->name << " attacks with their " << this->w.getType() << endl;
 }

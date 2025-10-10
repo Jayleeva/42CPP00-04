@@ -12,7 +12,7 @@ class	HumanB
 		HumanB(string name);
 		~HumanB(void);
 		void	attack();
-		void	setWeapon(Weapon w);
+		void	setWeapon(Weapon &w);
 	private:
 		string	name;
 		Weapon	w;

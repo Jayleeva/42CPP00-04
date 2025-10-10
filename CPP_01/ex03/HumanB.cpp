@@ -12,12 +12,12 @@ HumanB::~HumanB()
 	cout << this->name << " has been destroyed." << endl;
 }
 
-void	HumanB::setWeapon(Weapon w)
+void	HumanB::setWeapon(Weapon &w)
 {
 	this->w = w;
 }
 
 void	HumanB::attack(void)
 {
-	cout << this->name << "attacks with their " << this->w.getType() << endl;
+	cout << this->name << " attacks with their " << this->w.getType() << endl;
 }

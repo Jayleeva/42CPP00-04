@@ -8,6 +8,7 @@ using namespace std;
 class	Weapon
 {
 	public:
+		Weapon();
 		Weapon(string type);
 		~Weapon(void);
 		const string	&getType();
