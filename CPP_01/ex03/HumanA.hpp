@@ -6,6 +6,8 @@
 
 using namespace std;
 
+//On construit en passant une référence à l'arme.
+//Donc, l'attribut weapon est une référence.
 class	HumanA
 {
 	public:
@@ -14,7 +16,7 @@ class	HumanA
 		void	attack();
 	private:
 		string	name;
-		Weapon	w;
+		Weapon	&w;
 };
 
 #endif
