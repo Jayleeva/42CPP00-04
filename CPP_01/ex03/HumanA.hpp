@@ -9,7 +9,7 @@ using namespace std;
 class	HumanA
 {
 	public:
-		HumanA(string name, Weapon w);
+		HumanA(string name, Weapon &w);
 		~HumanA(void);
 		void	attack();
 	private:

@@ -2,7 +2,7 @@
 #include "HumanA.hpp"
 #include "HumanB.hpp"
 
-HumanA::HumanA(string name, Weapon w)
+HumanA::HumanA(string name, Weapon &w)
 {
 	this->name = name;
 	this->w = w;

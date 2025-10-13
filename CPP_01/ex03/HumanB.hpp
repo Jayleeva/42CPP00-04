@@ -15,7 +15,7 @@ class	HumanB
 		void	setWeapon(Weapon &w);
 	private:
 		string	name;
-		Weapon	w;
+		Weapon	*w;
 };
 
 #endif

@@ -13,7 +13,7 @@ Weapon::Weapon(string type)
 Weapon::~Weapon()
 {}
 
-const string&	Weapon::getType()
+string const&	Weapon::getType()
 {
 	return (this->type);
 }
