@@ -1,91 +1,42 @@
 #include "sed.hpp"
 
-int ft_strlen(string s)
+int	ft_replace(char *path, string text, string s1, string s2)
 {
-    int i = 0;
+	ofstream	outfile;
+	int			pos;
 
-    while (s[i])
-        i++;
-    return (i);
+	outfile.open((string(path) + ".replace").c_str());
+	if (outfile.fail())
+		return (1);
+	for (int i = 0; i < (int)text.size(); i++)
+	{
+		pos = text.find(s1, i);
+		if (pos != -1 && pos == i)
+		{
+			outfile << s2;
+			i += string(s1).size() - 1;
+		}
+		else
+			outfile << text[i];
+	}
+	outfile.close();
+	return (0);
 }
 
-/*string ft_update_name(string path, string extension)
+int ft_sed(char *path, string s1, string s2)
 {
-    path.resize(ft_strlen(path) + ft_strlen("_replace") + ft_strlen(extension));
-    string npath = new string[ft_strlen(path)];
-    npath = path + "_replace" + extension;
-    return (npath);
-}
+	char			c;
+	ifstream	infile;
+	string		text;
 
-string  ft_trim_extension(string *path)
-{
-    int i = 0;
-    int end = 0;
-
-    while (path[i])
-    {
-        if (path[i] == '.')
-            end = i;
-        i ++;
-    }
-    if (end > 0)
-        path->resize(end);
-
-    int j = 0;
-    while (j < end)
-    {
-        *path ++;
-        j ++;
-    }
-    return (*path);
-}
-
-string ft_replace(string text, string s1, string s2)
-{
-    int i = 0;
-
-    while (text[i])
-    {
-
-        i ++;
-    }
-    return (text);
-}*/
-
-int ft_sed(string path, string s1, string s2)
-{
-    if (path.empty() || s1.empty() || s2.empty())
-    {
-        cout << "Argument invalid. Format: int sed(string path, string s1, string s2)" << endl;
-        return (1);
-    }
-    filesystem::path filePath = path;
-    ifstream file(filePath);
-    if (!file.is_open())
-    {
-        cout << "File could not open. Check path." << endl;
-        return (1);
-    }
-    else
-    {
-        file.seekg (0, file.end);
-        int length = file.tellg();
-        file.seekg (0, file.beg);
-        string buffer = new string[length];
-        file.read (buffer,length);
-        if (!file)
-            cout << "error: only " << file.gcount() << " could be read";
-        file.close();
-
-        //ft_replace(buffer, s1, s2);
-        string extension = filePath.extension();
-        filesystem::path newFilePath = "hello" + extension;
-        //string name = ft_update_name(path, extension);
-        ofstream outfile(newFilePath);
-        outfile << buffer;
-        outfile.close();
-        // ...buffer contains the entire file...
-        delete[] buffer;
-    }
-    return (0);
+	infile.open(path);
+	if (infile.fail())
+	{
+		cout << "Error: " << path << ": no such file or directory" << endl;
+		return (1);
+	}
+	while(!infile.eof() && infile >> noskipws >> c)
+		text += c;
+	infile.close();
+	return (ft_replace(path, text, s1, s2));
 }

@@ -8,6 +8,6 @@
 
 using namespace std;
 
-int ft_sed(string path, string s1, string s2);
+int ft_sed(char *path, string s1, string s2);
 
 #endif

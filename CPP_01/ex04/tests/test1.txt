@@ -1,4 +1,4 @@
-Bonjour c'est le FICHIER TEST!
+Bonjour c'est le FICHIER TEST numéro 1!
 Aujourd'hui nous allons TESTer notre propre replace, qui doit ouvrir un FICHIER TEST et le recopier dans un autre fichier,
 en remplaçant toutes les occurences de la string A par la string B!
 Quel exercice passionnant!

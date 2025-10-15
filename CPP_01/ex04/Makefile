@@ -1,6 +1,8 @@
 
 SRC = main.cpp sed.cpp
 OBJ = $(SRC:.cpp=.o)
+RPL = tests/*.replace
+
 CC = c++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
@@ -13,7 +15,7 @@ $(NAME): $(OBJ)
 	$(CC) $(CPPFLAGS) $(OBJ) -o $(NAME)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(RPL)
 
 fclean: clean
 	$(RM) $(NAME)

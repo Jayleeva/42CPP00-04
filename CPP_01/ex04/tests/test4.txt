@@ -1,0 +1,8 @@
+Bonjour c'est le FICHIER TEST numéro 4!
+Aujourd'hui nous allons TESTer notre propre replace, qui doit ouvrir un FICHIER TEST et le recopier dans un autre fichier,
+en remplaçant toutes les occurences de la string A par la string B!
+Quel exercice passionnant!
+Je me réjouis de faire ce TEST!
+Pour cela, il faut que je mette un terme à l'édition de ce FICHIER
+ TEST.
+Adieu!

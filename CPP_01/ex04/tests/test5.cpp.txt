@@ -1,0 +1,4 @@
+Ici on TESTe si plusieurs extensions ça marche ou pas.
+Voici donc un nouveau FICHIER TEST, le numéro 5!
+Est-ce que ça maaarche? Qu'en dis-tu, FICHIER
+ TEST?
