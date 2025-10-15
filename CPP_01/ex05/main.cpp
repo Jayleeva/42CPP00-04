@@ -15,4 +15,5 @@ int	main()
 			return (0);
 		h.complain(level);
 	}
+	return (0);
 }

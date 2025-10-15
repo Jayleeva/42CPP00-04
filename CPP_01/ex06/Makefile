@@ -6,7 +6,7 @@ CC = c++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
-NAME = harl
+NAME = harlFilter
 
 all: $(NAME)
 
