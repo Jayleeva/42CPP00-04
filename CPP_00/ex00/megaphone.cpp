@@ -1,29 +1,23 @@
 #include <iostream>
-
-using namespace std;
+#include <cctype>
 
 int main(int argc, char **argv)
 {
-    int i;
-    int space;
 
     if (argc < 2)
     {
-        cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-        cout << endl;
+        std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
         return 0;
     }
-    i = 1;
-    space = 0;
-    while (argv[i])
+    for (int i = 0; i < argc; i++)
     {
-        if (space)
-            cout << ' ';
-        cout << argv[i];
-        if (argv[i + 1])
-            space = 1;
-        i ++;
+        std::string str =  argv[i];
+        for (unsigned int j = 0; j < str.size(); j++)
+        {
+            str[j] = std::toupper(str[j]);
+        }
+        std::cout << str;
     }
-    cout << endl;
-    return 0;
+    std::cout << std::endl;
 }
+

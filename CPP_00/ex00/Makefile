@@ -1,12 +1,11 @@
 
-SRC = main.cpp Fixed.cpp
+SRC = megaphone.cpp
 OBJ = $(SRC:.cpp=.o)
-
 CC = c++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = moreFixed
+NAME = megaphone
 
 all: $(NAME)
 

@@ -1,6 +1,51 @@
 #include "phonebook.hpp"
+#include "contact.hpp"
 
-string	truncate(string str)
+PhoneBook::PhoneBook()
+{}
+
+PhoneBook::~PhoneBook()
+{}
+
+void	PhoneBook::safeGetline(std::string &input)
+{
+	getline(std::cin, input);
+	if (std::cin.eof())
+		exit(0);
+}
+
+void	PhoneBook::setMaxContacts(int maxC)
+{
+	this->max_contacts = maxC;
+}
+int		PhoneBook::getMaxContacts() const
+{
+	return (this->max_contacts);
+}
+
+void    PhoneBook::add_contact(int i)
+{
+    std::string  input;
+
+	std::cout << "> Enter first name :" << std::endl;
+	this->safeGetline(input);
+    this->contactList[i].setFirstName(input);
+	std::cout << "> Enter last name :" << std::endl;
+	safeGetline(input);
+    this->contactList[i].setLastName(input);
+	std::cout << "> Enter nickname :" << std::endl;
+	safeGetline(input);
+    this->contactList[i].setNickName(input);
+	std::cout << "> Enter phone number :" << std::endl;
+	safeGetline(input);
+    this->contactList[i].setPhoneNumber(input);
+	std::cout << "> Enter darkest secret (in \"\") :" << std::endl;
+	safeGetline(input);
+    this->contactList[i].setDarkestSecret(input);
+	std::cout << "> Welcome, " << this->contactList[i].getFirstName() << " " << this->contactList[i].getLastName() << " !" << std::endl;
+}
+
+std::string	truncate(std::string str)
 {
 	int	i;
 
@@ -15,85 +60,61 @@ string	truncate(string str)
 		return (str);
 }
 
-int	main()
+void    PhoneBook::search_contact(int n)
 {
-	PhoneBook	book;
-	int			i = 0;
-	int			j;
-	int			tmp;
-	string		cmd;
-	int			index;
-	string		input;
+	std::string		input;
+	int				index;
+	int				j;
+	int				k;
 
-	while (1)
+	std::cout << std::setw(10) << std::right << truncate("index") << "|";
+	std::cout << std::setw(10) << std::right << truncate("first name") << "|";
+	std::cout << std::setw(10) << std::right << truncate("last name") << "|";
+	std::cout << std::setw(10) << std::right << truncate("nickname") << "|";
+	std::cout << std::setw(10) << std::right << truncate("phone number") << "|";
+	std::cout << std::setw(10) << std::right << truncate("darkest secret") << std::endl;
+
+	j = 0;
+	while (j < n)
 	{
-		cout << "> Enter command (ADD, SEARCH, EXIT) :" << endl;
-		cin >> cmd;
-		if (cmd == "ADD")
-		{
-			if (i == 8)
-				i = 0;
-			cout << "> Enter first name :" << endl;
-			cin >> book.contactList[i].firstName;
-			cout << "> Enter last name :" << endl;
-			cin >> book.contactList[i].lastName;
-			cout << "> Enter nickname :" << endl;
-			cin >> book.contactList[i].nickname;
-			cout << "> Enter phone number :" << endl;
-			cin >> book.contactList[i].phoneNumber;
-			cout << "> Enter darkest secret :" << endl;
-			cin >> book.contactList[i].darkestSecret;
-			cout << "> Welcome, " << book.contactList[i].firstName << " " << book.contactList[i].lastName << " !" << endl;
-			i ++;
-		}
-		else if (cmd == "SEARCH")
-		{
-			cout << setw(10) << right << truncate("index") << "|";
-			cout << setw(10) << right << truncate("first name") << "|";
-			cout << setw(10) << right << truncate("last name") << "|";
-			cout << setw(10) << right << truncate("nickname") << "|";
-			cout << setw(10) << right << truncate("phone number") << "|";
-			cout << setw(10) << right << truncate("darkest secret") << endl;
-			j = 0;
-			while (j < i)
-			{
-				cout << setw(10) << right << j << "|";
-				cout << setw(10) << right << truncate(book.contactList[j].firstName) << "|";
-				cout << setw(10) << right << truncate(book.contactList[j].lastName) << "|";
-				cout << setw(10) << right << truncate(book.contactList[j].nickname) << "|";
-				cout << setw(10) << right << truncate(book.contactList[j].phoneNumber) << "|";
-				cout << setw(10) << right << truncate(book.contactList[j].darkestSecret) << endl;
-				j ++;
-			}
-			if (i < 2)
-				tmp = 0;
-			else
-				tmp = i -1;
-			cout << "> Enter contact index (0 to " << tmp << "):" << endl;
-			cin >> input;
-			if (!ft_isnum(input))
-			{
-				cin.clear();
-				cin.ignore(input.length());
-				cout << "> Invalid index." << endl;
-			}
-			else
-			{
-				index = ft_atoi(input);
-				if (index < 0 || index > 7)
-					cout << "> Invalid index." << endl;
-				else
-				{							
-					cout << book.contactList[index].firstName << endl;
-					cout << book.contactList[index].lastName << endl;
-					cout << book.contactList[index].nickname << endl;
-					cout << book.contactList[index].phoneNumber << endl;
-					cout << book.contactList[index].darkestSecret << endl;
-				}
-			}
-		}
-		else if (cmd == "EXIT")
-			break;
+		std::cout << std::setw(10) << std::right << j << "|";
+		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getFirstName()) << "|";
+		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getLastName()) << "|";
+		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getNickName()) << "|";
+		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getPhoneNumber()) << "|";
+		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getDarkestSecret()) << std::endl;
+		j ++;
 	}
-	return (0);
+
+    if (n == 0)
+        return;
+    std::cout << "> Enter contact index (0 to " << n - 1 << "):" << std::endl;
+	std::cin >> input;
+	k = 0;
+	j = 0;
+	while (input[j])
+	{
+		if (!isdigit(input[j]))
+			k = 1;
+		j ++;
+	}
+	if (k == 1)
+	{
+		std::cin.clear();
+		std::cout << "> Invalid index." << std::endl;
+	}
+	else
+	{
+		if ((input[0] < '0' || input[0] > n - 1 + '0') || input[1])
+			std::cout << "> Invalid index." << std::endl;
+		else
+		{					
+			index = input[0] - '0';
+			std::cout << this->contactList[index].getFirstName() << std::endl;
+			std::cout << this->contactList[index].getLastName() << std::endl;
+			std::cout << this->contactList[index].getNickName() << std::endl;
+			std::cout << this->contactList[index].getPhoneNumber() << std::endl;
+			std::cout << this->contactList[index].getDarkestSecret() << std::endl;
+		}
+	}
 }
