@@ -22,11 +22,11 @@ int	main()
             }
             else if (n < book.getMaxContacts())
                 n ++;
-            book.add_contact(i);
+            book.addContact(i);
             i ++;
         }
 		else if (cmd == "SEARCH")
-            book.search_contact(n);
+            book.searchContact(n);
 		else if (cmd == "EXIT")
 			break;
 	}

@@ -2,13 +2,9 @@
 #include "contact.hpp"
 
 Contact::Contact()
-{
-    std::cout << YELLOW << "[DEBUG] : contact created" << DEFAULT << std::endl;
-}
+{}
 Contact::~Contact()
-{
-	std::cout << YELLOW << "[DEBUG] : contact destroyed" << DEFAULT << std::endl;
-}
+{}
 
 void	Contact::setFirstName(std::string firstName)
 {

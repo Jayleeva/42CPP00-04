@@ -23,7 +23,7 @@ int		PhoneBook::getMaxContacts() const
 	return (this->max_contacts);
 }
 
-void    PhoneBook::add_contact(int i)
+void    PhoneBook::addContact(int i)
 {
     std::string  input;
 
@@ -60,7 +60,7 @@ std::string	truncate(std::string str)
 		return (str);
 }
 
-void    PhoneBook::search_contact(int n)
+void    PhoneBook::searchContact(int n)
 {
 	std::string		input;
 	int				index;
@@ -117,4 +117,5 @@ void    PhoneBook::search_contact(int n)
 			std::cout << this->contactList[index].getDarkestSecret() << std::endl;
 		}
 	}
+	std::cin.ignore(1);
 }

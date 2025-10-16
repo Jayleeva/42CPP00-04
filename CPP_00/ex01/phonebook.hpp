@@ -10,8 +10,8 @@ class PhoneBook
 	public:
 		PhoneBook();
 		~PhoneBook();
-		void	add_contact(int i);
-		void    search_contact(int n);
+		void	addContact(int i);
+		void    searchContact(int n);
 		void	safeGetline(std::string &input);
 
 		void	setMaxContacts(int maxC);
