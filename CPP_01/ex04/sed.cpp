@@ -20,6 +20,7 @@ int	ft_replace(char *path, std::string text, std::string s1, std::string s2)
 			outfile << text[i];
 	}
 	outfile.close();
+	std::cout << "[DEBUG] : REPLACED" << std::endl;
 	return (0);
 }
 
@@ -29,10 +30,15 @@ int ft_sed(char *path, std::string s1, std::string s2)
 	std::ifstream	infile;
 	std::string		text;
 
+	if (!path || s1.empty() || s2.empty())
+	{
+		std::cout << YELLOW << "Error: invalid parameters." << DEFAULT << std::endl;
+		return (1);
+	}
 	infile.open(path);
 	if (infile.fail())
 	{
-		std::cout << "Error: " << path << ": no such file or directory" << std::endl;
+		std::cout << YELLOW << "Error: " << path << ": could not open file." << DEFAULT << std::endl;
 		return (1);
 	}
 	while(!infile.eof() && infile >> std::noskipws >> c)
