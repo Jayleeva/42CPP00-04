@@ -9,11 +9,11 @@ Zombie::Zombie( std::string name )
 //Destructeur: imprimer le nom de l'instance suivi du message de destruction, toujours avec le mot-clé "this".
 Zombie::~Zombie()
 {
-	cout << this->name << " has been destroyed." << endl;
+	std::cout << this->name << " has been destroyed." << std::endl;
 }
 
 //Fonction membre: imprimer le nom de l'instance suivi du message d'annonce, toujours avec le mot-clé "this".
 void Zombie::announce( void )
 {
-	cout << this->name << ": BraiiiiiiinnnzzzZ..." << endl;
+	std::cout << this->name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }

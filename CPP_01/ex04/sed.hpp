@@ -6,8 +6,6 @@
 #include <cstring>
 #include <filesystem>
 
-using namespace std;
-
-int ft_sed(char *path, string s1, string s2);
+int ft_sed(char *path, std::string s1, std::string s2);
 
 #endif

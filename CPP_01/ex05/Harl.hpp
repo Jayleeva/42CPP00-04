@@ -4,8 +4,6 @@
 #include <iostream>
 #include <cctype>
 
-using namespace std;
-
 # define DEFAULT "\001\033[0;39m\002"
 # define MAGENTA "\001\033[1;35m\002"
 # define BLUE "\001\033[1;34m\002"

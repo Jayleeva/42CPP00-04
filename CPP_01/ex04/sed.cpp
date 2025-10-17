@@ -1,11 +1,11 @@
 #include "sed.hpp"
 
-int	ft_replace(char *path, string text, string s1, string s2)
+int	ft_replace(char *path, std::string text, std::string s1, std::string s2)
 {
-	ofstream	outfile;
+	std::ofstream	outfile;
 	int			pos;
 
-	outfile.open((string(path) + ".replace").c_str());
+	outfile.open((std::string(path) + ".replace").c_str());
 	if (outfile.fail())
 		return (1);
 	for (int i = 0; i < (int)text.size(); i++)
@@ -14,7 +14,7 @@ int	ft_replace(char *path, string text, string s1, string s2)
 		if (pos != -1 && pos == i)
 		{
 			outfile << s2;
-			i += string(s1).size() - 1;
+			i += std::string(s1).size() - 1;
 		}
 		else
 			outfile << text[i];
@@ -23,19 +23,19 @@ int	ft_replace(char *path, string text, string s1, string s2)
 	return (0);
 }
 
-int ft_sed(char *path, string s1, string s2)
+int ft_sed(char *path, std::string s1, std::string s2)
 {
 	char			c;
-	ifstream	infile;
-	string		text;
+	std::ifstream	infile;
+	std::string		text;
 
 	infile.open(path);
 	if (infile.fail())
 	{
-		cout << "Error: " << path << ": no such file or directory" << endl;
+		std::cout << "Error: " << path << ": no such file or directory" << std::endl;
 		return (1);
 	}
-	while(!infile.eof() && infile >> noskipws >> c)
+	while(!infile.eof() && infile >> std::noskipws >> c)
 		text += c;
 	infile.close();
 	return (ft_replace(path, text, s1, s2));

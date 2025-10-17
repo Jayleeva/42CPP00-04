@@ -5,14 +5,14 @@
 //Comme la 1ère était faite sur la heap, il faut la déallouer avec le mot-clé delete, alors que ce n'est pas nécessaire pour la 2ème.
 int	main()
 {
-	string	name;
+	std::string	name;
 	Zombie	*z;
 	
 	z = newZombie("Zach");
 	z->announce();
 	delete z;
-	cout << "> Enter zombie name: " << endl;
-	cin >> name;
+	std::cout << "> Enter zombie name: " << std::endl;
+	std::cin >> name;
 	randomChump(name);
 	return (0);
 }

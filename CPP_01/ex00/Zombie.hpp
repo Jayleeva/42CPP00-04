@@ -4,8 +4,6 @@
 #include <iomanip>
 #include <stack>
 
-using namespace std;
-
 class Zombie
 {
 	public:
@@ -13,7 +11,7 @@ class Zombie
 		~Zombie(void);
 		void	announce(void);
 	private:
-		string	name;
+		std::string	name;
 };
 
 Zombie *newZombie( std::string name );

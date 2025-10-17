@@ -22,15 +22,15 @@ void ft_switch( int i )
 			h.complain("ERROR");
 			break;
 		default:
-			cout << GRAY << "[OTHER]   ";
-			cout << "*muted*" << DEFAULT << endl;
+			std::cout << GRAY << "[OTHER]   ";
+			std::cout << "*muted*" << DEFAULT << std::endl;
 			break;
 	}
 }
 
 int	ft_translate(char *level)
 {
-	string const levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	std::string const levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
 	int i = 0;
 	while (i < 4)

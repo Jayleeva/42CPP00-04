@@ -8,7 +8,7 @@ Harl::~Harl()
 
 void Harl::complain( std::string level )
 {
-	string const levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	std::string const levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	void	(Harl::*funcPtr[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
 	int i = 0;
@@ -23,31 +23,31 @@ void Harl::complain( std::string level )
 	}
 	if (i == 4)
 	{
-		cout << GRAY << "[OTHER]   ";
-		cout << "*muted*" << DEFAULT << endl;
+		std::cout << GRAY << "[OTHER]   ";
+		std::cout << "*muted*" << DEFAULT << std::endl;
 	}
 }
 
 void Harl::debug( void )
 {
-	cout << MAGENTA << "[DEBUG]   ";
-	cout << "Is this working...? I would have done it differently." << DEFAULT << endl;
+	std::cout << MAGENTA << "[DEBUG]   ";
+	std::cout << "Is this working...? I would have done it differently." << DEFAULT << std::endl;
 }
 
 void Harl::info( void )
 {
-	cout << BLUE << "[INFO]   ";
-	cout << "*I* am the ONLY one who knows how to properly code in c++." << DEFAULT << endl;
+	std::cout << BLUE << "[INFO]   ";
+	std::cout << "*I* am the ONLY one who knows how to properly code in c++." << DEFAULT << std::endl;
 }
 
 void Harl::warning( void )
 {
-	cout << YELLOW << "WARNING]   ";
-	cout << "If you don't do it my way, it's just not gonna work!" << DEFAULT << endl;
+	std::cout << YELLOW << "WARNING]   ";
+	std::cout << "If you don't do it my way, it's just not gonna work!" << DEFAULT << std::endl;
 }
 
 void Harl::error( void )
 {
-	cout << RED << "[ERROR]   ";
-	cout << "I TOLD YOU SO!!!" << DEFAULT << endl;
+	std::cout << RED << "[ERROR]   ";
+	std::cout << "I TOLD YOU SO!!!" << DEFAULT << std::endl;
 }

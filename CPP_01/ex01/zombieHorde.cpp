@@ -4,7 +4,7 @@
 Zombie *zombieHorde( int N, std::string name )
 {
 	Zombie *horde = new Zombie[N];
-    string  names[7] = {name, "Zavier", "Zénon", "Zélie", "Zelda", "Zara", "Zoé"};
+    std::string  names[7] = {name, "Zavier", "Zénon", "Zélie", "Zelda", "Zara", "Zoé"};
     int     i = 0;
 
     while (i < N)

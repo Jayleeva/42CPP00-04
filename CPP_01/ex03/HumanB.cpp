@@ -3,7 +3,7 @@
 #include "HumanB.hpp"
 
 //Construit l'instance et assigne à son nom celui reçu en argument.
-HumanB::HumanB(string name)
+HumanB::HumanB(std::string name)
 {
 	this->name = name;
 }
@@ -11,7 +11,7 @@ HumanB::HumanB(string name)
 //Déconstruit l'instance et imprime un message.
 HumanB::~HumanB()
 {
-	cout << this->name << " has been destroyed." << endl;
+	std::cout << this->name << " has been destroyed." << std::endl;
 }
 
 //Comme n'est pas un constructeur, ne peut pas initialiser la référence comme dans HumanA().
@@ -25,5 +25,5 @@ void	HumanB::setWeapon(Weapon &w)
 //Comme on utilise un pointeur pour l'arme, on appelle getType avec "->" et pas '.'.
 void	HumanB::attack(void)
 {
-	cout << this->name << " attacks with their " << this->w->getType() << endl;
+	std::cout << this->name << " attacks with their " << this->w->getType() << std::endl;
 }
