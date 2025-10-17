@@ -6,6 +6,13 @@ Harl::Harl()
 Harl::~Harl()
 {}
 
+void	Harl::safeGetline(std::string &input)
+{
+	getline(std::cin, input);
+	if (std::cin.eof())
+		exit(0);
+}
+
 void Harl::complain( std::string level )
 {
 	std::string const levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};

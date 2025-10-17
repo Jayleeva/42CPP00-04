@@ -10,7 +10,9 @@ int	main()
 	while (1)
 	{
 		std::cout << "Enter level (DEBUG, INFO, WARNING, ERROR), or EXIT: " << std::endl;
-		std::cin >> level;
+		h.safeGetline(level);
+		if (level.empty())
+			continue ;
 		if (level == "EXIT")
 			return (0);
 		h.complain(level);

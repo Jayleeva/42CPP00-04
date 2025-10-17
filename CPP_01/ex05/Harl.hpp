@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cctype>
+#include <cstdlib>
 
 # define DEFAULT "\001\033[0;39m\002"
 # define MAGENTA "\001\033[1;35m\002"
@@ -16,13 +17,14 @@ class Harl
 	public:
 		Harl();
 		~Harl();
-		void complain( std::string level );
+		void	safeGetline(std::string &input);
+		void	complain( std::string level );
 
 	private:
-		void debug( void );
-		void info( void );
-		void warning( void );
-		void error( void );
+		void	debug( void );
+		void	info( void );
+		void	warning( void );
+		void	error( void );
 };
 
 #endif
