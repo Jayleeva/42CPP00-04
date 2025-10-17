@@ -13,7 +13,9 @@ int	main()
 	{
 		std::cout << "> Enter command (ADD, SEARCH, EXIT) :" << std::endl;
 		book.safeGetline(cmd);
-		if (cmd == "ADD")
+        if (cmd.empty())
+            continue ;
+		else if (cmd == "ADD")
         {
             if (i == book.getMaxContacts())
             {
@@ -29,6 +31,8 @@ int	main()
             book.searchContact(n);
 		else if (cmd == "EXIT")
 			break;
+        else
+            std::cout << YELLOW << "> Invalid command." << DEFAULT << std::endl;
 	}
 	return (0);
 }

@@ -23,26 +23,34 @@ int		PhoneBook::getMaxContacts() const
 	return (this->max_contacts);
 }
 
+std::string	PhoneBook::addContactUtils(std::string in)
+{
+	std::string	input;
+
+	while (input.empty())
+	{
+		std::cout << in << std::endl;
+		safeGetline(input);
+	}
+	return (input);
+}
+
 void    PhoneBook::addContact(int i)
 {
     std::string  input;
 
-	std::cout << "> Enter first name :" << std::endl;
-	this->safeGetline(input);
-    this->contactList[i].setFirstName(input);
-	std::cout << "> Enter last name :" << std::endl;
-	safeGetline(input);
-    this->contactList[i].setLastName(input);
-	std::cout << "> Enter nickname :" << std::endl;
-	safeGetline(input);
-    this->contactList[i].setNickName(input);
-	std::cout << "> Enter phone number :" << std::endl;
-	safeGetline(input);
-    this->contactList[i].setPhoneNumber(input);
-	std::cout << "> Enter darkest secret (in \"\") :" << std::endl;
-	safeGetline(input);
-    this->contactList[i].setDarkestSecret(input);
-	std::cout << "> Welcome, " << this->contactList[i].getFirstName() << " " << this->contactList[i].getLastName() << " !" << std::endl;
+	input = addContactUtils("> Enter first name :");
+	this->contactList[i].setFirstName(input);
+	input = addContactUtils("> Enter last name :");
+	this->contactList[i].setLastName(input);
+	input = addContactUtils("> Enter nickname :");
+	this->contactList[i].setNickName(input);
+	input = addContactUtils("> Enter phone number :");
+	this->contactList[i].setPhoneNumber(input);
+	input = addContactUtils("> Enter darkest secret :");
+	this->contactList[i].setDarkestSecret(input);
+
+	std::cout << YELLOW << "> Interesting secret, " << this->contactList[i].getFirstName() << " " << this->contactList[i].getLastName() << "..." << DEFAULT << std::endl;
 }
 
 std::string	truncate(std::string str)
@@ -87,9 +95,14 @@ void    PhoneBook::searchContact(int n)
 	}
 
     if (n == 0)
-        return;
-    std::cout << "> Enter contact index (0 to " << n - 1 << "):" << std::endl;
-	std::cin >> input;
+	{
+        return ;
+	}
+	while (input.empty())
+	{
+		std::cout << "> Enter contact index (0 to " << n - 1 << "):" << std::endl;
+		safeGetline(input);
+	}
 	k = 0;
 	j = 0;
 	while (input[j])
@@ -101,12 +114,12 @@ void    PhoneBook::searchContact(int n)
 	if (k == 1)
 	{
 		std::cin.clear();
-		std::cout << "> Invalid index." << std::endl;
+		std::cout << YELLOW << "> Invalid index." << DEFAULT << std::endl;
 	}
 	else
 	{
 		if ((input[0] < '0' || input[0] > n - 1 + '0') || input[1])
-			std::cout << "> Invalid index." << std::endl;
+			std::cout << YELLOW << "> Invalid index." << DEFAULT << std::endl;
 		else
 		{					
 			index = input[0] - '0';
@@ -117,5 +130,4 @@ void    PhoneBook::searchContact(int n)
 			std::cout << this->contactList[index].getDarkestSecret() << std::endl;
 		}
 	}
-	std::cin.ignore(1);
 }
