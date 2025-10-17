@@ -3,11 +3,14 @@
 int	ft_replace(char *path, std::string text, std::string s1, std::string s2)
 {
 	std::ofstream	outfile;
-	int			pos;
+	int				pos;
 
 	outfile.open((std::string(path) + ".replace").c_str());
 	if (outfile.fail())
+	{
+		std::cout << YELLOW << "Error: " << (std::string(path) + ".replace").c_str() << ": could not open file." << DEFAULT << std::endl;
 		return (1);
+	}
 	for (int i = 0; i < (int)text.size(); i++)
 	{
 		pos = text.find(s1, i);

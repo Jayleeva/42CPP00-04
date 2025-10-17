@@ -2,7 +2,7 @@
 
 int ft_sed(char *path, std::string s1, std::string s2);
 
-int main()
+int main(int argc, char **argv)
 {
     char    *path0 = NULL;
     std::string p1 = "tests/test1.txt";
@@ -18,6 +18,7 @@ int main()
     std::string str = "";
 
     //MISSING PARAMETERS
+    std::cout << "[DEBUG] : ** START OF HARD CODED TESTS **" << std::endl << "---------------------------------" << std::endl;
     std::cout << "[DEBUG] : MISSING PARAMETERS" << std::endl;
     ft_sed(path0, "FICHIER TEST", "fichier test");
     ft_sed(path1, "FICHIER TEST", str);
@@ -32,5 +33,14 @@ int main()
     ft_sed(path3, "FICHIER\n TEST", "fichier\n test");
     ft_sed(path4, "FICHIER TEST", "fichier\n test");
     ft_sed(path5, "FICHIER TEST", "fichier test");
+
+    //END OF HARD CODED TESTS
+    std::cout << "[DEBUG] : ** END OF HARD CODED TESTS **" << std::endl << "---------------------------------" << std::endl;
+    if (argc < 4)
+	{
+		std::cout << YELLOW << "Error: missing parameters." << DEFAULT << std::endl;
+		return (1);
+	}
+    ft_sed(argv[1], argv[2], argv[3]);
     return (0);
 }
