@@ -17,7 +17,7 @@ Weapon::~Weapon()
 {}
 
 //Retourne une référence constante à une string pas constante: le type d'arme assigné à l'instance.
-string const&	Weapon::getType()
+std::string const&	Weapon::getType()
 {
 	return (this->type);
 }
