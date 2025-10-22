@@ -124,15 +124,22 @@ Fixed Fixed::operator/(Fixed const &fixedPt) const
 }
 
 //-------- incr decr --------
-Fixed	Fixed::operator++(void) // void parce que placé après la variable à incrémenter? 
+
+//Pour siginifier de faire l'incr/décr avant ou après avoir utilisé la variable, il faut deux choses:
+//1) si l'incr/décr est faite après, la fonction ne reçoit pas d'argument, car il n'y a rien après les ++/--.
+// si elle est faite avant, la fonction reçoit un int (pas nommé car pas important), soit la variable à incr/décr.
+//2) si l'incr/décr est faite après, on déréférence "this" au moment de return uniquement, soit APRES l'incr/décr.
+// si elle est faite avant, on déréférence "this" dès le départ, soit AVANT l'incr/décr. C'est pourquoi une temporaire est nécessaire.
+//Pas besoin de s'embêter à trouver ce que vaut "the smallest representable epsilon", on peut juste utiliser les ++/-- de base.
+Fixed	Fixed::operator++(void)
 {
-	++(this->rawBits); // devrait être (this->rawBits)++ du coup non? non, car le calcul est le même dans tous les cas. Comment signifier "fais-le après?"
+	++(this->rawBits);
 	return (*this);
 }
 
-Fixed	Fixed::operator++(int) // int parce que placé avant la variable à incrémenter? on ne l'utilise pas? jpp??
+Fixed	Fixed::operator++(int)
 {
-	Fixed	tmp = *this; // pourquoi utiliser une temporaire si on renvoie aussi *this?
+	Fixed	tmp = *this;
 
 	++(this->rawBits);
 	return (tmp);
