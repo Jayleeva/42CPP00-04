@@ -97,41 +97,59 @@ const Fixed &Fixed::max(Fixed const &a, Fixed const &b)
 	return (b);
 }
 
+//-------- Calculs --------
+Fixed Fixed::operator+(Fixed const &fixedPt) const
+{
+	return (Fixed(this->toFloat() + fixedPt.toFloat()));
+}
+
+Fixed Fixed::operator-(Fixed const &fixedPt) const
+{
+	return (Fixed(this->toFloat() - fixedPt.toFloat()));
+}
+
+Fixed Fixed::operator*(Fixed const &fixedPt) const
+{
+	return (Fixed(this->toFloat() * fixedPt.toFloat()));
+}
+
+Fixed Fixed::operator/(Fixed const &fixedPt) const
+{
+	if (fixedPt.toFloat() == 0)
+	{
+		std::cout << RED << "Error: division by 0." << DEFAULT << std::endl;
+		exit(1);
+	}
+	return (Fixed(this->toFloat() / fixedPt.toFloat()));
+}
+
 //-------- incr decr --------
-Fixed	&Fixed::operator++(void) // pas par 1 mais par le plus petit représentable, non?
+Fixed	Fixed::operator++(void) // void parce que placé après la variable à incrémenter? 
 {
-	this->setRawBits(this->getRawBits() + 1);
+	++(this->rawBits); // devrait être (this->rawBits)++ du coup non? non, car le calcul est le même dans tous les cas. Comment signifier "fais-le après?"
 	return (*this);
 }
 
-Fixed	&Fixed::operator--(void)
+Fixed	Fixed::operator++(int) // int parce que placé avant la variable à incrémenter? on ne l'utilise pas? jpp??
 {
-	this->setRawBits(this->getRawBits() - 1);
+	Fixed	tmp = *this; // pourquoi utiliser une temporaire si on renvoie aussi *this?
+
+	++(this->rawBits);
+	return (tmp);
+}
+
+Fixed	Fixed::operator--(void)
+{
+	--(this->rawBits);
 	return (*this);
 }
 
-Fixed	Fixed::operator++(int n) //pourquoi cette méthode alambiquée? pourquoi ps juste return (*this) sans passer par res?
+Fixed	Fixed::operator--(int)
 {
-	Fixed	res;
+	Fixed	tmp = *this;
 
-	res = *this;
-
-	if (!n)
-		n = 1;
-	this->setRawBits(this->getRawBits() + n);
-	return (res);
-}
-
-Fixed	Fixed::operator--(int n)
-{
-	Fixed	res;
-
-	res = *this;
-
-	if (!n)
-		n = 1;
-	this->setRawBits(this->getRawBits() - n);
-	return (res);
+	--(this->rawBits);
+	return (tmp);
 }
 
 //-------- append --------

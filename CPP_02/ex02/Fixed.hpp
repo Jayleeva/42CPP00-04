@@ -6,6 +6,7 @@
 
 # define DEFAULT "\001\033[0;39m\002"
 # define YELLOW "\001\033[1;93m\002"
+# define RED "\001\033[1;91m\002"
 
 class	Fixed
 {
@@ -35,10 +36,15 @@ class	Fixed
 		static const Fixed	&min(Fixed const &a, Fixed const &b);
 		static const Fixed	&max(Fixed const &a, Fixed const &b);
 
-		Fixed	&operator++(void);
-		Fixed	&operator--(void);
-		Fixed	operator++(int n);
-		Fixed	operator--(int n);
+		Fixed	operator+(Fixed const &fixedPt) const;
+		Fixed	operator-(Fixed const &fixedPt) const;
+		Fixed	operator*(Fixed const &fixedPt) const;
+		Fixed	operator/(Fixed const &fixedPt) const;
+
+		Fixed	operator++(void);
+		Fixed	operator--(void);
+		Fixed	operator++(int);
+		Fixed	operator--(int);
 
 	private:
 		int					rawBits;

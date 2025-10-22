@@ -6,7 +6,7 @@ CC = c++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = moreFixed
+NAME = evenMoreFixed
 
 all: $(NAME)
 
