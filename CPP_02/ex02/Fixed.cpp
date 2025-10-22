@@ -37,6 +37,7 @@ Fixed &Fixed::operator=(Fixed const &original)
 	return (*this);
 }
 
+
 //-------- lesser greater bool --------
 bool	Fixed::operator==(const Fixed &fixedPt) const
 {
