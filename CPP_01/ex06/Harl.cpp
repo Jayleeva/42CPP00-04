@@ -14,7 +14,7 @@ void Harl::complain( std::string level )
 	int i = 0;
 	while (i < 4)
 	{
-		if (level == levels[i])
+		if (levels[i] == level)
 		{
 			(this->*funcPtr[i])();
 			break ;

@@ -22,21 +22,21 @@ Fixed::~Fixed()
 //Redéfinit ce que fait un opérateur, ici le '='.
 //Assigne la valeur de l'attribut de l'objet référencé en argument.
 //Retourne une déréférence ?
-Fixed & Fixed::operator=(Fixed const &original)
+Fixed &Fixed::operator=(Fixed const &original)
 {
 	std::cout << YELLOW << "[DEBUG]: Copy assignment operator called" << DEFAULT << std::endl;
-	this->rawBit = original.getRawBits();
+	this->rawBits = original.getRawBits();
 	return (*this);
 }
 
 int		Fixed::getRawBits( void ) const
 {
 	std::cout << YELLOW << "[DEBUG]: getRawBits member function called" << DEFAULT << std::endl;
-	return (this->rawBit);
+	return (this->rawBits);
 }
 
 void	Fixed::setRawBits( int const raw )
 {
 	std::cout << YELLOW << "[DEBUG]: setRawBits member function called" << DEFAULT << std::endl;
-	this->rawBit = raw;
+	this->rawBits = raw;
 }
