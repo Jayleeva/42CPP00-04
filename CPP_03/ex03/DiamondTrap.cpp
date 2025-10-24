@@ -5,7 +5,7 @@ DiamondTrap::DiamondTrap(): ClapTrap(), FragTrap(), ScavTrap()
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP default constructor called" << DEFAULT << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name"), FragTrap(), ScavTrap()
+DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name")
 {
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP string constructor called" << DEFAULT << std::endl;
 	this->name = name;
@@ -14,8 +14,10 @@ DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name"), FragT
 	std::cout << "diamond hit = " << this->hit << std::endl;
 	this->energy = ScavTrap::energy;
 	//this->energy = 50;
+	std::cout << "diamond energy = " << this->energy << std::endl;
 	this->damage = FragTrap::damage;
 	//this->damage = 30;
+	std::cout << "diamond damage = " << this->damage << std::endl;
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap &original): ClapTrap(original), FragTrap(original), ScavTrap(original)
@@ -27,6 +29,19 @@ DiamondTrap::DiamondTrap(const DiamondTrap &original): ClapTrap(original), FragT
 DiamondTrap::~DiamondTrap()
 {
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP destructor called" << DEFAULT << std::endl;
+}
+
+//tentative de réécrire les données mais semble pas marcher
+DiamondTrap &	DiamondTrap::operator=(DiamondTrap const &original)
+{
+	std::cout << YELLOW << "[DEBUG]: Copy assignment operator = called" << DEFAULT << std::endl;
+	if (this != &original) {
+		this->name = original.name;
+		this->hit = original.hit;
+		this->energy = original.energy;
+		this->damage = original.damage;
+	}
+	return *this;
 }
 
 void	DiamondTrap::whoAmI()
