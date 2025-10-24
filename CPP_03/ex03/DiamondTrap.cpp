@@ -1,6 +1,6 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(): ClapTrap(), FragTrap(), ScavTrap()
+DiamondTrap::DiamondTrap(): ClapTrap()
 {
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP default constructor called" << DEFAULT << std::endl;
 }
@@ -20,6 +20,7 @@ DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name")
 	std::cout << "diamond damage = " << this->damage << std::endl;
 }
 
+
 DiamondTrap::DiamondTrap(const DiamondTrap &original): ClapTrap(original), FragTrap(original), ScavTrap(original)
 {
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP copy constructor called" << DEFAULT << std::endl;
@@ -32,22 +33,24 @@ DiamondTrap::~DiamondTrap()
 }
 
 //tentative de réécrire les données mais semble pas marcher
-DiamondTrap &	DiamondTrap::operator=(DiamondTrap const &original)
+DiamondTrap &DiamondTrap::operator=(DiamondTrap const &original)
 {
 	std::cout << YELLOW << "[DEBUG]: Copy assignment operator = called" << DEFAULT << std::endl;
-	if (this != &original) {
+	//FragTrap::operator=(original);
+	if (this != &original)
+	{
 		this->name = original.name;
 		this->hit = original.hit;
 		this->energy = original.energy;
 		this->damage = original.damage;
 	}
-	return *this;
+	return (*this);
 }
 
 void	DiamondTrap::whoAmI()
 {
 	if (this->hit > 0 && this->energy > 0)
-		std::cout << "\"Who am I? I... I think my DiamondTrap name is " << this->name << ", and the ClapTrap one is " << ClapTrap::name << " ? I'm not sure though...\" says the DiamondTrap." << std::endl;
+		std::cout << "\"Who am I? I... I think my DiamondTrap name is " << this->name << ", and the ClapTrap one is " << ClapTrap::name << " ? I'm not sure though...\" says the DiamondTrap, visibly confused." << std::endl;
 	else
 		std::cout << "The DiamondTrap tried, but it's too weak to recall its names." << std::endl;
 }

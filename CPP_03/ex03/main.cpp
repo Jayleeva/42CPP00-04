@@ -12,12 +12,18 @@ int main( void )
 
 	d.whoAmI();
 	c.highFivesGuys();
+
+	d.attack(c.getName());
+	c.takeDamage(d.getDamage());
+
 	a.attack(d.getName());
 	d.takeDamage(a.getDamage());
+
 	b.guardGate();
 	b.attack(d.getName());
 	d.takeDamage(b.getDamage());
 	d.beRepaired(10);
+
 	while (d.getHit() > 0)
 	{
 		c.attack(d.getName());

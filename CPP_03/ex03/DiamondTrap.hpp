@@ -15,7 +15,7 @@ class DiamondTrap: public FragTrap, public ScavTrap
 		DiamondTrap(const DiamondTrap &original);
 		~DiamondTrap();
 
-		DiamondTrap &	operator=(DiamondTrap const &original); // pour que diamond prenne bien les valeurs des classes enfants au lieu de parent? ne semble pas marcher...
+		DiamondTrap &operator=(DiamondTrap const &original); // pour que diamond prenne bien les valeurs des classes enfants au lieu de parent? ne semble pas marcher...
 
 		void	whoAmI();
 
