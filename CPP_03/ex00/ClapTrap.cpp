@@ -31,20 +31,31 @@ ClapTrap::~ClapTrap()
 
 void	ClapTrap::attack(const std::string &target)
 {
-	std::cout << "ClapTrap " << this->name << " attacks " << target << ", causing " << this->damage << " points of damage!" << std::endl;
-	this->setEnergy(this->getEnergy() - 1);
+	if (this->hit > 0 && this->energy > 0)
+	{
+		std::cout << "ClapTrap " << this->name << " attacks " << target << ", causing " << this->damage << " points of damage!" << std::endl;
+		this->energy--;
+	}
+	else
+		std::cout << "ClapTrap " << this->name << " tried, but it's too weak to attack..." << std::endl;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
 	std::cout << "ClapTrap " << this->name << " takes " << amount << " points of damage!" << std::endl;
-	this->setHit(this->getHit() - amount);
+	this->hit -= amount;
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	std::cout << "ClapTrap " << this->name << " regains " << amount << " hit points!" << std::endl;
-	this->setEnergy(this->getEnergy() - 1);
+	if (this->hit > 0 && this->energy > 0)
+	{
+		std::cout << "ClapTrap " << this->name << " regains " << amount << " hit points!" << std::endl;
+		this->hit += amount;
+		this->energy--;
+	}
+	else
+		std::cout << "ClapTrap " << this->name << " tried, but it's too weak to repair itself..." << std::endl;
 }
 
 
