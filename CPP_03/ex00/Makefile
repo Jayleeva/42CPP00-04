@@ -1,12 +1,12 @@
 
-SRC = main.cpp 
+SRC = main.cpp ClapTrap.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CC = c++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
-NAME = fixed
+NAME = clap
 
 all: $(NAME)
 

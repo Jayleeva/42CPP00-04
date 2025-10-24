@@ -29,7 +29,7 @@ class	ClapTrap
 		void				setEnergy(int energy);
 		void				setDamage(int damage);
 
-	private:
+	protected:
 		std::string	name;
 		int			hit;
 		int			energy;

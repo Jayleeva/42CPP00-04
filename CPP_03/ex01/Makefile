@@ -1,12 +1,12 @@
 
-SRC = main.cpp
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CC = c++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = moreFixed
+NAME = serena
 
 all: $(NAME)
 

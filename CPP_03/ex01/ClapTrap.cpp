@@ -1,6 +1,5 @@
 #include "ClapTrap.hpp"
 
-		
 ClapTrap::ClapTrap()
 {
 	std::cout << YELLOW << "[DEBUG]: Default constructor called" << DEFAULT << std::endl;
