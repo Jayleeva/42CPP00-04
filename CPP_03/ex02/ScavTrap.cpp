@@ -17,10 +17,10 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 ScavTrap::ScavTrap(const ScavTrap &original): ClapTrap(original)
 {
 	std::cout << YELLOW << "[DEBUG]: SCAVTRAP copy constructor called" << DEFAULT << std::endl;
-	this->setName(original.getName());
-	this->setHit(original.getHit());
-	this->setEnergy(original.getEnergy());
-	this->setDamage(original.getDamage());
+	this->name = original.getName();
+	this->hit = original.getHit();
+	this->energy = original.getEnergy();
+	this->damage = original.getDamage();
 }
 
 ScavTrap::~ScavTrap()

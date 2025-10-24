@@ -3,8 +3,8 @@
 
 #include "ClapTrap.hpp"
 
-// Derived class
-class FragTrap: public ClapTrap
+// Classe dérivée. Pour éviter l'ambiguité, on ajoute "virtual" après "public". 
+class FragTrap: public virtual ClapTrap
 {
 	public:
 		FragTrap();
@@ -13,6 +13,9 @@ class FragTrap: public ClapTrap
 		~FragTrap();
 
 		void	highFivesGuys();
+
+	private:
+		std::string	name;
 };
 
 #endif

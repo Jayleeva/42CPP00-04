@@ -17,10 +17,10 @@ ClapTrap::ClapTrap(std::string name)
 ClapTrap::ClapTrap(const ClapTrap &original)
 {
 	std::cout << YELLOW << "[DEBUG]: Copy constructor called" << DEFAULT << std::endl;
-	this->setName(original.getName());
-	this->setHit(original.getHit());
-	this->setEnergy(original.getEnergy());
-	this->setDamage(original.getDamage());
+	this->name = original.getName();
+	this->hit = original.getHit();
+	this->energy = original.getEnergy();
+	this->damage = original.getDamage();
 }
 
 ClapTrap::~ClapTrap()
