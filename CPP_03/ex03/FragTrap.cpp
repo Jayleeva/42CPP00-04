@@ -17,10 +17,7 @@ FragTrap::FragTrap(std::string name): ClapTrap(name)
 FragTrap::FragTrap(const FragTrap &original): ClapTrap(original)
 {
 	std::cout << YELLOW << "[DEBUG]: FRAGTRAP copy constructor called" << DEFAULT << std::endl;
-	this->name = original.getName();
-	this->hit = original.getHit();
-	this->energy = original.getEnergy();
-	this->damage = original.getDamage();
+	*this = original;
 }
 
 FragTrap::~FragTrap()

@@ -17,10 +17,6 @@ DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name")
 DiamondTrap::DiamondTrap(const DiamondTrap &original): ClapTrap(original), ScavTrap(original), FragTrap(original)
 {
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP copy constructor called" << DEFAULT << std::endl;
-	//this->name = original.getName();
-	//this->hit = original.getHit();
-	//this->energy = original.getEnergy();
-	//this->damage = original.getDamage();
 	*this = original;
 }
 
