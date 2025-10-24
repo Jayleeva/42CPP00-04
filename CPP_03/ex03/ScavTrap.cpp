@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap()
+ScavTrap::ScavTrap(): ClapTrap()
 {
 	std::cout << YELLOW << "[DEBUG]: SCAVTRAP default constructor called" << DEFAULT << std::endl;
 }
