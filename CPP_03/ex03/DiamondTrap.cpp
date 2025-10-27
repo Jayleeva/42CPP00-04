@@ -1,11 +1,12 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(): ClapTrap()
+//besoin de spécifier toutes les classes dont on hérite.
+DiamondTrap::DiamondTrap(): ClapTrap(), FragTrap(), ScavTrap()
 {
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP default constructor called" << DEFAULT << std::endl;
 }
 
-//besoin des "dépendances" pour que les valeurs soient justes. Pas compris comment ça marche exactement
+//idem
 DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name"), FragTrap(name + "_clap_name"), ScavTrap(name + "_clap_name")
 {
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP string constructor called" << DEFAULT << std::endl;
@@ -15,7 +16,7 @@ DiamondTrap::DiamondTrap(std::string name): ClapTrap(name + "_clap_name"), FragT
 	this->damage = FragTrap::damage;
 }
 
-//Depuis ajout des "dépendances" dans le string constructor, ne compile plus sans les "dépendances" ici.
+//idem
 DiamondTrap::DiamondTrap(const DiamondTrap &original): ClapTrap(original.name + "_clap_name"), FragTrap(original.name + "_clap_name"), ScavTrap(original.name + "_clap_name")
 {
 	std::cout << YELLOW << "[DEBUG]: DIAMONDTRAP copy constructor called" << DEFAULT << std::endl;
