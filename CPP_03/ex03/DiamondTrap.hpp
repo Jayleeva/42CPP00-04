@@ -1,8 +1,6 @@
 #ifndef DIAMONDTRAP_HPP
 # define DIAMONDTRAP_HPP
 
-//#pragma once
-
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 
