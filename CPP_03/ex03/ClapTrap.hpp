@@ -14,6 +14,7 @@ class	ClapTrap
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap &original);
 		~ClapTrap();
+		ClapTrap &operator=(const ClapTrap &original); // pour que diamond prenne bien les valeurs des classes enfants au lieu de parent, pas compris comment though
 
 		void	attack(const std::string &target);
 		void	takeDamage(unsigned int amount);

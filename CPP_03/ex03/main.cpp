@@ -31,8 +31,8 @@ int main( void )
 	}
 	d.whoAmI();
 	std::cout << "***\nAt the end of this terrible fight,";
-	std::cout << " ClapTrap " << a.getName() << " has " << a.getHit() << " hit points and " << a.getEnergy() << " energy points, while";
-	std::cout << " ClapTrap " << b.getName() << " has " << b.getHit() << " hit points and " << b.getEnergy() << " energy points,";
-	std::cout << " ClapTrap " << c.getName() << " has " << c.getHit() << " hit points and " << c.getEnergy() << " energy points, and";
-	std::cout << " ClapTrap " << d.getName() << " has " << d.getHit() << " hit points and " << d.getEnergy() << " energy points." << std::endl;
+	std::cout << " ClapTrap " << YELLOW << a.getName() << DEFAULT << " has " << a.getHit() << " hit points and " << a.getEnergy() << " energy points, while";
+	std::cout << " ClapTrap " << YELLOW << b.getName() << DEFAULT << " has " << b.getHit() << " hit points and " << b.getEnergy() << " energy points, and";
+	std::cout << " ClapTrap " << YELLOW << c.getName() << DEFAULT << " has " << c.getHit() << " hit points and " << c.getEnergy() << " energy points, and";
+	std::cout << " ClapTrap " << YELLOW << d.getName() << DEFAULT << " has " << d.getHit() << " hit points and " << d.getEnergy() << " energy points.\n***" << std::endl;
  }

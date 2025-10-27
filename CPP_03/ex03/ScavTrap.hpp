@@ -11,6 +11,7 @@ class ScavTrap: public virtual ClapTrap
 		ScavTrap(std::string name);
 		ScavTrap(const ScavTrap &original);
 		~ScavTrap();
+		ScavTrap &operator=(const ScavTrap &original); // pour que diamond prenne bien les valeurs des classes enfants au lieu de parent, pas compris comment though
 
 		void	guardGate();
 };

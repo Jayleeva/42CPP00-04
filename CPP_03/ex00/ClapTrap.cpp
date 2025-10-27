@@ -26,20 +26,33 @@ ClapTrap::~ClapTrap()
 	std::cout << YELLOW << "[DEBUG]: Destructor called" << DEFAULT << std::endl;
 }
 
+ClapTrap &ClapTrap::operator=(const ClapTrap &original)
+{
+    if (this != &original)
+	{
+		this->name = original.name;
+		this->hit = original.hit;
+		this->energy = original.energy;
+		this->damage = original.damage;
+    }
+    std::cout << YELLOW << "[DEBUG]: Copy assignment operator = called" << DEFAULT << std::endl;
+    return (*this);
+}
+
 void	ClapTrap::attack(const std::string &target)
 {
 	if (this->hit > 0 && this->energy > 0)
 	{
-		std::cout << "ClapTrap " << this->name << " attacks " << target << ", causing " << this->damage << " points of damage!" << std::endl;
+		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " attacks " << YELLOW << target << DEFAULT << ", causing " << this->damage << " points of damage!" << std::endl;
 		this->energy--;
 	}
 	else
-		std::cout << "ClapTrap " << this->name << " tried, but it's too weak to attack..." << std::endl;
+		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to attack..." << std::endl;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
-	std::cout << "ClapTrap " << this->name << " takes " << amount << " points of damage!" << std::endl;
+	std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " takes " << amount << " points of damage!" << std::endl;
 	this->hit -= amount;
 }
 
@@ -47,12 +60,12 @@ void	ClapTrap::beRepaired(unsigned int amount)
 {
 	if (this->hit > 0 && this->energy > 0)
 	{
-		std::cout << "ClapTrap " << this->name << " regains " << amount << " hit points!" << std::endl;
+		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " regains " << amount << " hit points!" << std::endl;
 		this->hit += amount;
 		this->energy--;
 	}
 	else
-		std::cout << "ClapTrap " << this->name << " tried, but it's too weak to repair itself..." << std::endl;
+		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to repair itself..." << std::endl;
 }
 
 

@@ -11,6 +11,7 @@ class FragTrap: public virtual ClapTrap
 		FragTrap(std::string name);
 		FragTrap(const FragTrap &original);
 		~FragTrap();
+		FragTrap &operator=(const FragTrap &original); // pour que diamond prenne bien les valeurs des classes enfants au lieu de parent, pas compris comment though
 
 		void	highFivesGuys();
 
