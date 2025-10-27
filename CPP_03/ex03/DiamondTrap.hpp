@@ -1,7 +1,7 @@
-//#ifndef DIAMONDTRAP_HPP
-//# define DIAMONDTRAP_HPP
+#ifndef DIAMONDTRAP_HPP
+# define DIAMONDTRAP_HPP
 
-#pragma once
+//#pragma once
 
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
@@ -22,4 +22,4 @@ class DiamondTrap: public FragTrap, public ScavTrap
 		std::string	name;
 };
 
-//#endif
+#endif
