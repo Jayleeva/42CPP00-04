@@ -18,10 +18,14 @@ class   Animal
 		std::string		getType(void) const;
 		void	        setType(std::string type);
 
+        //std::string     getSound() const;
+       // void            setSound(std::string sound);
+    
         virtual void    makeSound() const;
 
     protected:
         std::string type;
+        //std::string sound;
 };
 
 #endif

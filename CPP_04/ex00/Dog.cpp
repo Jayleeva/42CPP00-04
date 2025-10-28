@@ -2,7 +2,7 @@
 
 Dog::Dog() : Animal("Dog")
 {
-    this->type = "Dog";
+    //this->sound = "BARK BARK";
 	std::cout << YELLOW << "[DOG]: Default constructor called" << DEFAULT << std::endl;
 }
 
@@ -27,7 +27,7 @@ Dog &Dog::operator=(const Dog &original)
     return (*this);
 }
 
-void    Dog::makeSound() const
+/*void    Dog::makeSound() const
 {
     std::cout << "BARK BARK" << std::endl;
-}
+}*/
