@@ -8,21 +8,27 @@
 int main()
 {
     {
-        Animal  array[4];
+        std::cout << "***\nMain 0" << std::endl;
+        int     n = 4;
+        Animal  *array[n];
 
         int i = 0;
-        while (i < 2)
+        while (i < n/2)
         {
             array[i] = new Dog();
+            array[i + n/2] = new Cat();
             i ++;
         }
-        while (i < 4)
+
+        i = 0;
+        while (i < n)
         {
-            array[i] = new Cat();
+            delete array[i];
             i ++;
         }
     }
     {
+        std::cout << "***\nMain 1" << std::endl;
         const Animal* j = new Dog();
         const Animal* i = new Cat();
         delete j;//should not create a leak
