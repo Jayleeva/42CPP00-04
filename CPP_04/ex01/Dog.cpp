@@ -1,7 +1,9 @@
 #include "Dog.hpp"
+#include "Brain.hpp"
 
 Dog::Dog() : Animal("Dog")
 {
+	this->b = new Brain();
 	std::cout << YELLOW << "[DOG]: Default constructor called" << DEFAULT << std::endl;
 }
 
@@ -13,6 +15,7 @@ Dog::Dog(const Dog &original) : Animal("Dog")
 
 Dog::~Dog()
 {
+	delete this->b;
 	std::cout << YELLOW << "[DOG]: Destructor called" << DEFAULT << std::endl;
 }
 

@@ -1,7 +1,9 @@
 #include "Cat.hpp"
+#include "Brain.hpp"
 
 Cat::Cat() : Animal("Cat")
 {
+	this->b = new Brain();
 	std::cout << YELLOW << "[CAT]: Default constructor called" << DEFAULT << std::endl;
 }
 
@@ -13,6 +15,7 @@ Cat::Cat(const Cat &original) : Animal("Cat")
 
 Cat::~Cat()
 {
+	delete this->b;
 	std::cout << YELLOW << "[CAT]: Destructor called" << DEFAULT << std::endl;
 }
 

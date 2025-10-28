@@ -47,7 +47,7 @@ int main()
         std::cout << "***\nMain 1" << std::endl;
         const Animal* j = new Dog();
         const Animal* i = new Cat();
-        delete j;//should not create a leak
+        delete j;
         delete i;
     }
 
