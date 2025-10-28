@@ -3,12 +3,12 @@
 		
 ClapTrap::ClapTrap()
 {
-	std::cout << YELLOW << "[DEBUG]: Default constructor called" << DEFAULT << std::endl;
+	std::cout << YELLOW << "[CLAPTRAP]: Default constructor called" << DEFAULT << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name)
 {
-	std::cout << YELLOW << "[DEBUG]: string constructor called" << DEFAULT << std::endl;
+	std::cout << YELLOW << "[CLAPTRAP]: string constructor called" << DEFAULT << std::endl;
 	this->name = name;
 	this->hit = 10;
 	this->energy = 10;
@@ -17,13 +17,13 @@ ClapTrap::ClapTrap(std::string name)
 
 ClapTrap::ClapTrap(const ClapTrap &original)
 {
-	std::cout << YELLOW << "[DEBUG]: Copy constructor called" << DEFAULT << std::endl;
+	std::cout << YELLOW << "[CLAPTRAP]: Copy constructor called" << DEFAULT << std::endl;
 	*this = original;
 }
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << YELLOW << "[DEBUG]: Destructor called" << DEFAULT << std::endl;
+	std::cout << YELLOW << "[CLAPTRAP]: Destructor called" << DEFAULT << std::endl;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &original)
@@ -35,7 +35,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &original)
 		this->energy = original.energy;
 		this->damage = original.damage;
     }
-    std::cout << YELLOW << "[DEBUG]: Copy assignment operator = called" << DEFAULT << std::endl;
+    std::cout << YELLOW << "[CLAPTRAP]: Copy assignment operator = called" << DEFAULT << std::endl;
     return (*this);
 }
 

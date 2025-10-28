@@ -2,12 +2,12 @@
 
 FragTrap::FragTrap(): ClapTrap()
 {
-	std::cout << YELLOW << "[DEBUG]: FRAGTRAP default constructor called" << DEFAULT << std::endl;
+	std::cout << YELLOW << "[FRAGTRAP]: Default constructor called" << DEFAULT << std::endl;
 }
 
 FragTrap::FragTrap(std::string name): ClapTrap(name)
 {
-	std::cout << YELLOW << "[DEBUG]: FRAGTRAP string constructor called" << DEFAULT << std::endl;
+	std::cout << YELLOW << "[FRAGTRAP]: String constructor called" << DEFAULT << std::endl;
 	this->name = name;
 	this->hit = 100;
 	this->energy = 100;
@@ -16,13 +16,13 @@ FragTrap::FragTrap(std::string name): ClapTrap(name)
 
 FragTrap::FragTrap(const FragTrap &original): ClapTrap(original)
 {
-	std::cout << YELLOW << "[DEBUG]: FRAGTRAP copy constructor called" << DEFAULT << std::endl;
+	std::cout << YELLOW << "[FRAGTRAP]: Copy constructor called" << DEFAULT << std::endl;
 	*this = original;
 }
 
 FragTrap::~FragTrap()
 {
-	std::cout << YELLOW << "[DEBUG]: FRAGTRAP destructor called" << DEFAULT << std::endl;
+	std::cout << YELLOW << "[FRAGTRAP]: Destructor called" << DEFAULT << std::endl;
 }
 
 FragTrap &FragTrap::operator=(const FragTrap &original)
@@ -34,7 +34,7 @@ FragTrap &FragTrap::operator=(const FragTrap &original)
 		this->energy = original.energy;
 		this->damage = original.damage;
     }
-    std::cout << YELLOW << "[DEBUG]: Copy assignment operator = called" << DEFAULT << std::endl;
+    std::cout << YELLOW << "[FRAGTRAP]: Copy assignment operator = called" << DEFAULT << std::endl;
     return (*this);
 }
 
