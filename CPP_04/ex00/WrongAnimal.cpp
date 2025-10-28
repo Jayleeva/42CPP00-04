@@ -37,7 +37,8 @@ std::string WrongAnimal::getType() const
     return (this->type);
 }
 
+//sera overwritten par la fonction membre des animaux (polymorphisme)
 void    WrongAnimal::makeSound() const
 {
-    std::cout << "WRONG [DEFAULT SOUND]" << std::endl;
+    std::cout << YELLOW << "[WRONG ANIMAL]: makeSound function called" << DEFAULT << std::endl;
 }

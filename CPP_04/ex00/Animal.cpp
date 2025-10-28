@@ -37,19 +37,8 @@ std::string Animal::getType() const
     return (this->type);
 }
 
-/*std::string Animal::getSound() const
-{
-    return (this->sound);
-}*/
-
+//sera overwritten par la fonction membre des animaux (polymorphisme)
 void    Animal::makeSound() const
 {
-    if (this->getType() == "Cat")
-        std::cout << "MEOW MEOW" << std::endl;
-    else if (this->getType() == "Dog")
-        std::cout << "BARK BARK" << std::endl;
-    /*else
-        std::cout << "[DEFAULT SOUND]" << std::endl;*/
-    //std::cout << this->getSound() << std::endl;
-    //std::cout << "[DEFAULT SOUND]" << std::endl;
+    std::cout << YELLOW << "[ANIMAL]: makeSound function called" << DEFAULT << std::endl;
 }
