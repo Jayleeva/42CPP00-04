@@ -77,7 +77,7 @@ Pour signifier une référence, on utilise '&'.
 
 ## Classe
 Les classes me font penser aux structures du C, en mieux.
-- Leur instanciation crée un objet, qui peut contenir non seulement des variables mais aussi des fonctions!
+- Leur instanciation crée un objet, qui peut contenir non seulement des variables mais aussi des fonctions, dites "membres"!
 - Les variables et fonctions d'une classe peuvent être protégées afin d'éviter des modifications fortuites!
 - Les classes peuvent être liées entre elles par de l'héritage, ce qui permet d'éviter des répétitions ET d'affiner ses objets!
 
@@ -189,4 +189,30 @@ void	MyClass::setVarExample(int var)
 	this->varExample = var;
 }
 ```
+
+L'ordre des éléments n'a pas d'importance, cependant, la forme orthodoxe canonique exige:
+- un constructeur par défaut
+- un destructeur
+- un constructeur par variable membre?
+- un constructeur par copie 
+- un constructeur par surcharge d'opérateur d'assignation
+
+### Constructeurs
+Pour instancier un objet, une classe a besoin de constructeurs.
+
+**Constructeur par défaut**
+Le strict minimum est d'avoir un constructeur par défaut, soit sans arguments. Il se compose strictement du nom de la classe et de parenthèses.
+
+**Constructeur par variable membre**
+Si votre classe a des variables membres, la forme orthodoxe canonique demande que chacune soit utilisée dans un constructeur spécifique.
+
+A la différence du constructeur par défaut, ceux-ci assignent directement la valeur reçue en argument à la variable concernée.
+
+**Constructeur par copie**
+
+
+**Constructeur par surcharge d'opérateur d'assignation**
+Une surcharge d'opérateur signifie qu'on redéfinit ce que fait l'opérateur par défaut.
+
+L'opérateur d'assignation est tout simplement le '=' (le symbole qu'on utilise pour assigner).
 
