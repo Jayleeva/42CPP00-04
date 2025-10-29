@@ -193,26 +193,32 @@ void	MyClass::setVarExample(int var)
 L'ordre des éléments n'a pas d'importance, cependant, la forme orthodoxe canonique exige:
 - un constructeur par défaut
 - un destructeur
-- un constructeur par variable membre?
+- un constructeur avec argument (si intéressant/nécessaire?)
 - un constructeur par copie 
 - un constructeur par surcharge d'opérateur d'assignation
 
 ### Constructeurs
-Pour instancier un objet, une classe a besoin de constructeurs.
+Pour instancier un objet, une classe a besoin de constructeurs. Elle doit en avoir un par défaut, et peut en avoir d'autres. 
+
+En C, les multiples constructeurs seraient considérés comme une erreur, puisqu'on redéfinit une fonction déjà définie. En C++, le compilateur comprend que même si elle porte le même nom, puisque les arguments sont différents, il s'agit d'une autre fonction. 
 
 #### Constructeur par défaut
 Le strict minimum est d'avoir un constructeur par défaut, soit sans arguments. Il se compose strictement du nom de la classe et de parenthèses.
 
-#### Constructeur par variable membre
-Si votre classe a des variables membres, la forme orthodoxe canonique demande que chacune soit utilisée dans un constructeur spécifique.
-
-A la différence du constructeur par défaut, ceux-ci assignent directement la valeur reçue en argument à la variable concernée.
+#### Constructeur avec argument
+Selon les cas, il peut être intéressant d'utiliser un constructeur spécifique qui reçoit un argument et en assigne la valeur à la variable concernée.
 
 #### Constructeur par copie
-
+Ce constructeur reçoit une référence à un objet déjà créé, et assigne l'objet référencé à une déréférenciation de lui-même.
 
 #### Constructeur par surcharge d'opérateur d'assignation
 Une surcharge d'opérateur signifie qu'on redéfinit ce que fait l'opérateur par défaut.
 
 L'opérateur d'assignation est tout simplement le '=' (le symbole qu'on utilise pour assigner).
 
+Ce constructeur reçoit lui aussi une référence à un objet déjà créé et la compare avec lui-même: si l'objet n'est pas déjà égal à la référence reçue en argument, on assigne chaque valeur à sa variable correspondante.
+
+### Destructeur
+Pour supprimer un objet, une classe a besoin d'un destructeur.
+
+Il se compose strictement d'une ``~`` du nom de la classe et de parenthèses.
