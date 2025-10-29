@@ -81,7 +81,7 @@ Les classes me font penser aux structures du C, en mieux.
 - Les classes peuvent être liées entre elles par de l'héritage, ce qui permet d'éviter des répétitions ET d'affiner ses objets!
 
 La structure générale d'une classe est la suivante:
-´´´
+´´´´
 Class	MyClass
 {
 	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
@@ -94,9 +94,9 @@ Class	MyClass
 	private:							//les variables et fonctions privées ne sont pas accessibles en-dehors de la classe
 		int	varExample;
 }
-´´´
+´´´´
 Dans le fichier .cpp, on définit les fonctions de la façon suivante:
-´´´
+´´´´
 MyClass::MyClass()
 {
 	std::cout << "[MYCLASS]: Default constructor called" << std::endl;		//par exemple.
@@ -116,11 +116,11 @@ void	MyClass::setVarExample(int var)
 {
 	this->varExample = var;
 }
-´´´
+´´´´
 A partir d'un certain module, il est demandé d'utiliser la forme orthodoxe canonique.
 
 Il faut alors ajouter plusieurs choses:
-´´´
+´´´´
 Class	MyClass
 {
 	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
@@ -136,9 +136,9 @@ Class	MyClass
 	private:							//les variables et fonctions privées ne sont pas accessibles en-dehors de la classe
 		int	varExample;
 }
-´´´
+´´´´
 Dans le fichier .cpp, on adapte:
-´´´
+´´´´
 MyClass::MyClass()
 {
 	std::cout << "[MYCLASS]: Default constructor called" << std::endl;			//par exemple.
@@ -180,4 +180,4 @@ void	MyClass::setVarExample(int var)
 {
 	this->varExample = var;
 }
-´´´
+´´´´
