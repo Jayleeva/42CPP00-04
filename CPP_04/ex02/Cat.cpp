@@ -7,12 +7,11 @@ Cat::Cat() : AAnimal("Cat")
 	this->b = new Brain();
 }
 
-//Pour faire une deep copy et pas une shallow, on ne peut pas utiliser *this = original comme avant, puisque le Brain est alloué avec new.
+//Pour faire une deep copy et pas une shallow, on ne peut pas utiliser *this = original comme avant (qui fait pointer sur la même adresse), il faut allouer un nouvel espace avec new.
 Cat::Cat(const Cat &original) : AAnimal("Cat")
 {
 	std::cout << YELLOW << "[CAT]: Copy constructor called" << DEFAULT << std::endl;
 	this->b = new Brain(*original.b);
-	//*this = original;
 }
 
 Cat::~Cat()
