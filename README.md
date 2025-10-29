@@ -62,13 +62,15 @@ int	main()
 
 Désormais,
 
-### Pointeur
-Un pointeur est une adresse mémoire contenant l'adresse mémoire de la variable sur laquelle il pointe?
-Passer un pointeur à une fonction lui permet d'accéder à l'adresse mémoire où est stockée la valeur de la variable.
 
-### Référence
+### Pointeur - '\*'
+Un pointeur est une adresse mémoire contenant l'adresse mémoire de la variable sur laquelle il pointe.
+Passer un pointeur à une fonction lui permet d'accéder à l'adresse mémoire où est stockée la valeur de la variable.
+Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déférencie le pointeur.
+
+### Référence - '&'
 Une référence est une adresse mémoire contenant la valeur de la variable qu'elle référence.
 Passer l'adresse à une fonction lui permet d'accéder à son contenu.
-
+Pour signifier une référence, on utilise '&'.
 
 
