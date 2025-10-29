@@ -74,3 +74,110 @@ Une référence est une adresse mémoire contenant la valeur de la variable qu'e
 Pour signifier une référence, on utilise '&'.
 
 
+## Classe
+Les classes me font penser aux structures du C, en mieux.
+- Leur instanciation crée un objet, qui peut contenir non seulement des variables mais aussi des fonctions!
+- Les variables et fonctions d'une classe peuvent être protégées afin d'éviter des modifications fortuites!
+- Les classes peuvent être liées entre elles par de l'héritage, ce qui permet d'éviter des répétitions ET d'affiner ses objets!
+
+La structure générale d'une classe est la suivante:
+´´´
+Class	MyClass
+{
+	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
+		MyClass();								//constructeur par défaut
+		~MyClass();								//destructeur
+
+		int		getVarExample() const;			//getter
+		void	setVarExample(int var);			//setter
+
+	private:							//les variables et fonctions privées ne sont pas accessibles en-dehors de la classe
+		int	varExample;
+}
+´´´
+Dans le fichier .cpp, on définit les fonctions de la façon suivante:
+´´´
+MyClass::MyClass()
+{
+	std::cout << "[MYCLASS]: Default constructor called" << std::endl;		//par exemple.
+}
+
+MyClass::~MyClass()
+{
+	std::cout << "[MYCLASS]: Destructor called" << std::endl;				//par exemple.
+}
+
+int		MyClas::getVarExample() const
+{
+	return (this->varExample);
+}
+
+void	MyClass::setVarExample(int var)
+{
+	this->varExample = var;
+}
+´´´
+A partir d'un certain module, il est demandé d'utiliser la forme orthodoxe canonique.
+
+Il faut alors ajouter plusieurs choses:
+´´´
+Class	MyClass
+{
+	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
+		MyClass();								//constructeur par défaut
+		~MyClass();								//destructeur
+		MyClass(int var);						//constructeur avec int
+		MyClass(const MyClass &src)				//constructeur par copie
+		MyClass &operator=(MyClass &src)		//copie par surcharge d'opérateur d'assignation (assignment operator overload)
+
+		int		getVarExample() const;			//getter
+		void	setVarExample(int var);			//setter
+
+	private:							//les variables et fonctions privées ne sont pas accessibles en-dehors de la classe
+		int	varExample;
+}
+´´´
+Dans le fichier .cpp, on adapte:
+´´´
+MyClass::MyClass()
+{
+	std::cout << "[MYCLASS]: Default constructor called" << std::endl;			//par exemple.
+}
+
+MyClass::~MyClass()
+{
+	std::cout << "[MYCLASS]: Destructor called" << std::endl;					//par exemple.
+}
+
+MyClass::MyClass(int var)
+{
+	std::cout << "[MYCLASS]: Int constructor called" << std::endl;				//par exemple.
+	this->varExample = var;
+}
+
+MyClass::MyClass(const MyClass &src)
+{
+	std::cout << "[MYCLASS]: Copy constructor called" << std::endl;				//par exemple.
+	*this = src;
+}
+
+MyClass	&MyClass::operator=(MyClass &src)
+{
+	std::cout << "[MYCLASS]: Copy assignment operator called" << std::endl;		//par exemple.
+	if (this != &src)
+	{
+		this->varExample = src.varExample;
+	}
+	return (*this);
+}
+
+int		MyClas::getVarExample() const
+{
+	return (this->varExample);
+}
+
+void	MyClass::setVarExample(int var)
+{
+	this->varExample = var;
+}
+´´´
