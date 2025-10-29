@@ -200,18 +200,18 @@ L'ordre des éléments n'a pas d'importance, cependant, la forme orthodoxe canon
 ### Constructeurs
 Pour instancier un objet, une classe a besoin de constructeurs.
 
-**Constructeur par défaut**
+#### Constructeur par défaut
 Le strict minimum est d'avoir un constructeur par défaut, soit sans arguments. Il se compose strictement du nom de la classe et de parenthèses.
 
-**Constructeur par variable membre**
+#### Constructeur par variable membre
 Si votre classe a des variables membres, la forme orthodoxe canonique demande que chacune soit utilisée dans un constructeur spécifique.
 
 A la différence du constructeur par défaut, ceux-ci assignent directement la valeur reçue en argument à la variable concernée.
 
-**Constructeur par copie**
+#### Constructeur par copie
 
 
-**Constructeur par surcharge d'opérateur d'assignation**
+#### Constructeur par surcharge d'opérateur d'assignation
 Une surcharge d'opérateur signifie qu'on redéfinit ce que fait l'opérateur par défaut.
 
 L'opérateur d'assignation est tout simplement le '=' (le symbole qu'on utilise pour assigner).
