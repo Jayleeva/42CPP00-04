@@ -133,8 +133,8 @@ Class	MyClass
 		MyClass();								//constructeur par défaut
 		~MyClass();								//destructeur
 		MyClass(int var);						//constructeur avec int
-		MyClass(const MyClass &src)				//constructeur par copie
-		MyClass &operator=(MyClass &src)		//copie par surcharge d'opérateur d'assignation (assignment operator overload)
+		MyClass(const MyClass &src);			//constructeur par copie
+		MyClass &operator=(MyClass &src);		//copie par surcharge d'opérateur d'assignation (assignment operator overload)
 
 		int		getVarExample() const;			//getter
 		void	setVarExample(int var);			//setter
@@ -205,11 +205,26 @@ En C, les multiples constructeurs seraient considérés comme une erreur, puisqu
 #### Constructeur par défaut
 Le strict minimum est d'avoir un constructeur par défaut, soit sans arguments. Il se compose strictement du nom de la classe et de parenthèses.
 
+Exemple:
+```
+MyClass();
+```
+
 #### Constructeur avec argument
 Selon les cas, il peut être intéressant d'utiliser un constructeur spécifique qui reçoit un argument et en assigne la valeur à la variable concernée.
 
+Exemple:
+```
+MyClass(int var);
+```
+
 #### Constructeur par copie
 Ce constructeur reçoit une référence à un objet déjà créé, et assigne l'objet référencé à une déréférenciation de lui-même.
+
+Exemple:
+```
+MyClass(const MyClass &src);
+```
 
 #### Constructeur par surcharge d'opérateur d'assignation
 Une surcharge d'opérateur signifie qu'on redéfinit ce que fait l'opérateur par défaut.
@@ -217,6 +232,11 @@ Une surcharge d'opérateur signifie qu'on redéfinit ce que fait l'opérateur pa
 L'opérateur d'assignation est tout simplement le '=' (le symbole qu'on utilise pour assigner).
 
 Ce constructeur reçoit lui aussi une référence à un objet déjà créé et la compare avec lui-même: si l'objet n'est pas déjà égal à la référence reçue en argument, on assigne chaque valeur à sa variable correspondante.
+
+Exemple:
+```
+MyClass &operator=(MyClass &src);
+```
 
 ### Destructeur
 Pour supprimer un objet, une classe a besoin d'un destructeur.
