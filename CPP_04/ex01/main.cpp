@@ -1,6 +1,4 @@
 //#include "Animal.hpp"
-//#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 #include "Brain.hpp"
@@ -38,7 +36,6 @@ int main()
 		delete dogA;
 		delete dogB;
 	}
-
     //juste? 
 	{
 		std::cout << "***\nMain 2\nCheck deep copy of Cat (no double free + thoughts are different even if set before the copy), using assignment operator overload:" << std::endl;

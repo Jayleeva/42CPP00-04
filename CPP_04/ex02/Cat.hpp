@@ -2,13 +2,13 @@
 # define CAT_HPP
 
 #include <iostream>
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
 
 # define DEFAULT "\001\033[0;39m\002"
 # define YELLOW "\001\033[1;93m\002"
 
-class   Cat: public Animal
+class   Cat: public AAnimal
 {
     public:
         Cat();

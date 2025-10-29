@@ -1,5 +1,5 @@
-#ifndef ANIMAL_HPP
-# define ANIMAL_HPP
+#ifndef AANIMAL_HPP
+# define AANIMAL_HPP
 
 #include <iostream>
 #include "Brain.hpp"
@@ -8,11 +8,11 @@
 # define YELLOW "\001\033[1;93m\002"
 
 //les constructeurs passent en protected pour qu'on ne puisse plus instancier la classe. 
-class   Animal
+class   AAnimal
 {
     public:
-        virtual ~Animal();
-        Animal const &operator=(Animal const &original);
+        virtual ~AAnimal();
+        AAnimal const &operator=(AAnimal const &original);
 
 		std::string		getType(void) const;
 		void	        setType(std::string type);
@@ -22,9 +22,9 @@ class   Animal
         virtual void    makeSound() const;
 
     protected:
-        Animal();
-        Animal(std::string type);
-        Animal(const Animal &original);
+        AAnimal();
+        AAnimal(std::string type);
+        AAnimal(const AAnimal &original);
         std::string type;
 };
 

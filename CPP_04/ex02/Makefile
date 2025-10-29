@@ -1,5 +1,5 @@
 
-SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
+SRC = main.cpp AAnimal.cpp Dog.cpp Cat.cpp Brain.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CC = c++
@@ -7,7 +7,7 @@ RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -Wno-shadow
 #-Wshadow -Wno-shadow
 
-NAME = polybrain
+NAME = abstract
 
 all: $(NAME)
 

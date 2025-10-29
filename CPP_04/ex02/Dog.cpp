@@ -1,14 +1,14 @@
 #include "Dog.hpp"
 #include "Brain.hpp"
 
-Dog::Dog() : Animal("Dog")
+Dog::Dog() : AAnimal("Dog")
 {
 	std::cout << YELLOW << "[DOG]: Default constructor called" << DEFAULT << std::endl;
 	this->b = new Brain();
 }
 
 //Pour faire une deep copy et pas une shallow, on ne peut pas utiliser *this = original comme avant, puisque le Brain est alloué avec new.
-Dog::Dog(const Dog &original) : Animal("Dog")
+Dog::Dog(const Dog &original) : AAnimal("Dog")
 {
 	std::cout << YELLOW << "[DOG]: Copy constructor called" << DEFAULT << std::endl;
 	this->b = new Brain(*original.b);

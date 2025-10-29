@@ -1,14 +1,14 @@
 #include "Cat.hpp"
 #include "Brain.hpp"
 
-Cat::Cat() : Animal("Cat")
+Cat::Cat() : AAnimal("Cat")
 {
 	std::cout << YELLOW << "[CAT]: Default constructor called" << DEFAULT << std::endl;
 	this->b = new Brain();
 }
 
 //Pour faire une deep copy et pas une shallow, on ne peut pas utiliser *this = original comme avant, puisque le Brain est alloué avec new.
-Cat::Cat(const Cat &original) : Animal("Cat")
+Cat::Cat(const Cat &original) : AAnimal("Cat")
 {
 	std::cout << YELLOW << "[CAT]: Copy constructor called" << DEFAULT << std::endl;
 	this->b = new Brain(*original.b);

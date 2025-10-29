@@ -1,28 +1,28 @@
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
-Animal::Animal()
+AAnimal::AAnimal()
 {
 	std::cout << YELLOW << "[ANIMAL]: Default constructor called" << DEFAULT << std::endl;
 }
 
-Animal::Animal(std::string type)
+AAnimal::AAnimal(std::string type)
 {
     this->type = type;
 	std::cout << YELLOW << "[ANIMAL]: String constructor called" << DEFAULT << std::endl;
 }
 
-Animal::Animal(const Animal &original)
+AAnimal::AAnimal(const AAnimal &original)
 {
 	std::cout << YELLOW << "[ANIMAL]: Copy constructor called" << DEFAULT << std::endl;
 	*this = original;
 }
 
-Animal::~Animal()
+AAnimal::~AAnimal()
 {
 	std::cout << YELLOW << "[ANIMAL]: Destructor called" << DEFAULT << std::endl;
 }
 
-Animal const &Animal::operator=(Animal const &original)
+AAnimal const &AAnimal::operator=(AAnimal const &original)
 {
     if (this != &original)
 	{
@@ -32,13 +32,13 @@ Animal const &Animal::operator=(Animal const &original)
     return (*this);
 }
 
-std::string Animal::getType() const
+std::string AAnimal::getType() const
 {
     return (this->type);
 }
 
 //sera overwritten par la fonction membre des animaux (polymorphisme)
-void    Animal::makeSound() const
+void    AAnimal::makeSound() const
 {
     std::cout << YELLOW << "[ANIMAL]: makeSound function called" << DEFAULT << std::endl;
 }
