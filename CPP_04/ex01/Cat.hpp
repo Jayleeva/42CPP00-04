@@ -16,6 +16,9 @@ class   Cat: public Animal
         ~Cat();
         Cat &operator=(const Cat &original);
 
+        Brain   &getBrain() const;
+        void    setBrain(Brain const &brain);
+
         void    makeSound() const;
 
     private:

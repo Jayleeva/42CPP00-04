@@ -12,10 +12,15 @@ class   Brain
         Brain();
         Brain(const Brain &original);
         ~Brain();
-        Brain &operator=(const Brain &original);
+        Brain   &operator=(const Brain &original);
+
+        std::string getIdea(int index) const;
+        void        setIdea(int index, std::string idea);
     
+//besoin du mot-clé static pour pouvoir utiliser la variable dans la déclaration de la suivante 
     protected:
-        std::string ideas[100];
+        static int const    nIdeas = 100;
+        std::string         ideas[nIdeas];
 };
 
 #endif

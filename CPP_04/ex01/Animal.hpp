@@ -2,6 +2,7 @@
 # define ANIMAL_HPP
 
 #include <iostream>
+#include "Brain.hpp"
 
 # define DEFAULT "\001\033[0;39m\002"
 # define YELLOW "\001\033[1;93m\002"
@@ -19,6 +20,8 @@ class   Animal
 
 		std::string		getType(void) const;
 		void	        setType(std::string type);
+    
+		virtual Brain   &getBrain(void) const = 0;
     
         virtual void    makeSound() const;
 

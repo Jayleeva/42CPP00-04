@@ -14,9 +14,9 @@ class	Fixed
 		Fixed(const int i);
 		Fixed(const float f);
 		Fixed(const Fixed &original);
-		Fixed &operator=(Fixed const &original);
 		~Fixed();
-	
+		Fixed	&operator=(Fixed const &original);
+
 		float	toFloat( void ) const;
 		int 	toInt( void ) const;
 	

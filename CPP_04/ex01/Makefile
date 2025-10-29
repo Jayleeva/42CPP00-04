@@ -7,7 +7,7 @@ RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -Wno-shadow
 #-Wshadow -Wno-shadow
 
-NAME = poly
+NAME = polybrain
 
 all: $(NAME)
 

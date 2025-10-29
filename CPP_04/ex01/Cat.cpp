@@ -3,14 +3,16 @@
 
 Cat::Cat() : Animal("Cat")
 {
-	this->b = new Brain();
 	std::cout << YELLOW << "[CAT]: Default constructor called" << DEFAULT << std::endl;
+	this->b = new Brain();
 }
 
+//Pour faire une deep copy et pas une shallow, on ne peut pas utiliser *this = original comme avant, puisque le Brain est alloué avec new.
 Cat::Cat(const Cat &original) : Animal("Cat")
 {
 	std::cout << YELLOW << "[CAT]: Copy constructor called" << DEFAULT << std::endl;
-	*this = original;
+	this->b = new Brain(*original.b);
+	//*this = original;
 }
 
 Cat::~Cat()
@@ -27,6 +29,16 @@ Cat &Cat::operator=(const Cat &original)
     }
     std::cout << YELLOW << "[CAT]: Copy assignment operator = called" << DEFAULT << std::endl;
     return (*this);
+}
+
+Brain	&Cat::getBrain() const
+{
+	return *(this->b);
+}
+
+void	Cat::setBrain(Brain const &brain)
+{
+	*this->b = brain;
 }
 
 void    Cat::makeSound() const
