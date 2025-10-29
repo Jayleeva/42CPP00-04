@@ -7,9 +7,9 @@
 - On n'utilise plus ```printf()``` pour imprimer, mais ```cout```. Pour prendre un input utilisateur, on utilise ```cin```. 
 
 **ATTENTION: même si c'est bien pratique, pas le droit aux namespace!! Pour appeler une fonction ou un mot-clé de la std, il faut y accoller ```std::``` en préfixe.**
-```
-Exemple:
 
+Exemple:
+```
 std::toupper()
 ```
 
