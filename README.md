@@ -45,6 +45,17 @@ Un pointeur est une variable (avec sa propre adresse mémoire) dont la valeur es
 
 Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déférence le pointeur.
 
+Aussi, lorsqu'un pointeur a des propriétés (par ex. si c'est une instanciation d'une structure ou d'une classe), on y accède avec '->', au lieu de '.' si ce n'était pas un pointeur.
+
+Exemples:
+```
+your_struct_instance.var_example;	//l'instance n'est pas référencée
+```
+```
+this->varExample;					//l'instance est référencée
+```
+ASTUCE: Le mot-clé ```this``` (propre au C++) est toujours un pointeur.
+
 ### Référence - '&'
 Une référence est une adresse mémoire contenant la valeur de la variable qu'elle référence.
 
@@ -198,14 +209,14 @@ Il faut alors ajouter plusieurs choses:
 Class	YourClass
 {
 	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
-		YourClass();							//constructeur par défaut
-		~YourClass();							//destructeur
-		YourClass(int var);						//constructeur avec int
-		YourClass(const YourClass &src);		//constructeur par copie
-		YourClass &operator=(YourClass &src);	//copie par surcharge d'opérateur d'assignation (assignment operator overload)
+		YourClass();								//constructeur par défaut
+		~YourClass();								//destructeur
+		YourClass(int var);							//constructeur avec int
+		YourClass(YourClass const &src);			//constructeur par copie
+		YourClass &operator=(YourClass const &src);	//copie par surcharge d'opérateur d'assignation (assignment operator overload)
 
-		int		getVarExample() const;			//getter
-		void	setVarExample(int var);			//setter
+		int		getVarExample() const;				//getter
+		void	setVarExample(int var);				//setter
 
 	private:							//les variables et fonctions privées ne sont pas accessibles en-dehors de la classe
 		int	varExample;
@@ -231,13 +242,13 @@ YourClass::YourClass(int var)
 	this->varExample = var;
 }
 
-MyClass::MyClass(const MyClass &src)
+MyClass::MyClass(MyClass const &src)
 {
 	std::cout << "[YOURCLASS]: Copy constructor called" << std::endl;			//par exemple.
 	*this = src;
 }
 
-YourClass	&YourClass::operator=(YourClass &src)
+YourClass	&YourClass::operator=(YourClass const &src)
 {
 	std::cout << "[YOURCLASS]: Copy assignment operator called" << std::endl;	//par exemple.
 	if (this != &src)
@@ -303,7 +314,7 @@ Ce constructeur reçoit lui aussi une référence à un objet déjà créé et l
 
 Exemple:
 ```
-YourClass &operator=(YourClass &src)
+YourClass &operator=(YourClass const &src)
 {
     if (this != &src)
 	{
