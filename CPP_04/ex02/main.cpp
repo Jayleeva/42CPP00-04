@@ -25,7 +25,7 @@ int main()
             delete array[i];
     }
 	{
-		std::cout << "***\nMain 1\nCheck deep copy of Dog (no double free + thoughts are different because set after the copy):" << std::endl;
+		std::cout << "***\nMain 1\nCheck deep copy of Dog (no double free + first thoughts are different):" << std::endl;
 		Dog *dogA = new Dog;
 		Dog *dogB = new Dog(*dogA);
 
@@ -36,17 +36,15 @@ int main()
 		delete dogA;
 		delete dogB;
 	}
-    //juste? 
 	{
-		std::cout << "***\nMain 2\nCheck deep copy of Cat (no double free + thoughts are different even if set before the copy), using assignment operator overload:" << std::endl;
+		std::cout << "***\nMain 2\nCheck deep copy of Cat (no double free + first thoughts are different), using assignment operator overload:" << std::endl;
 		Cat *catA = new Cat;
 		Cat *catB = new Cat;
-
+        
+        *catB = *catA;
         catA->getBrain().setIdea(0, "I'M A PREDATOR!!!");
         catB->getBrain().setIdea(0, "We cuddle when I say we cuddle.");
     
-		*catA = *catB;
-
         std::cout << "catA's first thought is: \"" << catA->getBrain().getIdea(0) << "\"" << std::endl;
         std::cout << "catB's first thought is: \"" << catB->getBrain().getIdea(0) << "\"" << std::endl;
 		delete catA;

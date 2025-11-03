@@ -188,7 +188,10 @@ int	main()
 }
 ```
 
-virtual YourClass   &getElement(void) const = 0;	**???**
+ATTENTION, lorsque votre fonction getter est virtuelle, il faut absolument la référencer de la façon suivante:
+```
+virtual YourClass   &getElement(void) const = 0;
+```
 
 ## Classe
 Les classes me font penser aux structures du C, en mieux.
@@ -366,3 +369,19 @@ YourClass const	&operator=(YourClass const &src)
 Pour supprimer un objet, une classe a besoin d'un destructeur.
 
 Il se compose strictement d'une ``~`` du nom de la classe et de parenthèses.
+
+## Différence entre deep et shallow copy
+Lorsqu'on copie une variable, on peut copier soit sa valeur, soit son adresse.
+
+- Si on copie son adresse, les deux variables contiendront toujours la même valeur partagée, car elles accèdent au même endroit de la mémoire. Modifier l'une modifiera l'autre.
+- Si on copie sa valeur, les deux variables ne seront pas liées, et modifier l'une ne modifiera pas l'autre.
+
+### Deep copy
+La deep copy nécessite d'aller copier un à un tous les attributs de l'objet copié.
+
+Lors de la libération de la mémoire, il faudra libérer les espaces attribués à chaque objet, car ce sont bien deux objets séparés.
+
+### Shallow copy
+La shallow copy nécessite uniquement de copier l'adresse de l'objet.
+
+Lors de la libération de la mémoire, il ne faudra libérer que l'unique espace partagé par chaque objet.

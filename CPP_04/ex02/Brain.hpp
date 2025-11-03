@@ -16,11 +16,9 @@ class   Brain
 
         std::string getIdea(int index) const;
         void        setIdea(int index, std::string idea);
-    
-//besoin du mot-clé static pour pouvoir utiliser la variable dans la déclaration de la suivante 
+
     protected:
-        static int const    nIdeas = 100;
-        std::string         ideas[nIdeas];
+        std::string         ideas[100];
 };
 
 #endif

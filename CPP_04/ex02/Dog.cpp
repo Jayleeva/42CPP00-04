@@ -21,11 +21,13 @@ Dog::~Dog()
 
 }
 
+//Utiliser set et get pour que ça marche à cause du fait que Brain *b est un pointeur. Autre syntaxe qui permet de contourner le soucis?
 Dog &Dog::operator=(const Dog &original)
 {
     if (this != &original)
 	{
 		this->type = original.type;
+		this->setBrain(original.getBrain());
     }
     std::cout << YELLOW << "[DOG]: Copy assignment operator = called" << DEFAULT << std::endl;
     return (*this);

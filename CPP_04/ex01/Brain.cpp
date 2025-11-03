@@ -21,7 +21,7 @@ Brain   &Brain::operator=(const Brain &original)
 {
     if (this != &original)
 	{
-        for (int i = 0; i < this->nIdeas; i ++)
+        for (int i = 0; i < 100; i ++)
 		    this->ideas[i] = original.ideas[i];
     }
     std::cout << YELLOW << "[BRAIN]: Copy assignment operator = called" << DEFAULT << std::endl;
@@ -30,13 +30,13 @@ Brain   &Brain::operator=(const Brain &original)
 
 std::string Brain::getIdea(int index) const
 {
-    if (index < 0 || index > this->nIdeas)
+    if (index < 0 || index > 100)
         return ("");
     return (this->ideas[index]);
 }
 
 void    Brain::setIdea(int index, std::string idea)
 {
-    if (index >= 0 && index <= this->nIdeas)
+    if (index >= 0 && index <= 100)
         this->ideas[index] = idea;
 }
