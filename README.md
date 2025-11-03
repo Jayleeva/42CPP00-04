@@ -125,7 +125,7 @@ class	Bag
 {
 	public:
 		Bag(std::string brand);
-		Bag const &operator=(Bag const &src);	//surcharge d'opérateur d'assignation
+		Bag const &operator=(Bag &src);	//surcharge d'opérateur d'assignation
 		std::string	getBag() const;
 		void		setBag(string brand);
 		
@@ -209,14 +209,14 @@ Il faut alors ajouter plusieurs choses:
 Class	YourClass
 {
 	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
-		YourClass();								//constructeur par défaut
-		~YourClass();								//destructeur
-		YourClass(int var);							//constructeur avec int
-		YourClass(YourClass const &src);			//constructeur par copie
-		YourClass &operator=(YourClass const &src);	//copie par surcharge d'opérateur d'assignation (assignment operator overload)
+		YourClass();							//constructeur par défaut
+		~YourClass();							//destructeur
+		YourClass(int var);						//constructeur avec int
+		YourClass(YourClass &src);				//constructeur par copie
+		YourClass &operator=(YourClass &src);	//copie par surcharge d'opérateur d'assignation (assignment operator overload)
 
-		int		getVarExample() const;				//getter
-		void	setVarExample(int var);				//setter
+		int		getVarExample() const;			//getter
+		void	setVarExample(int var);			//setter
 
 	private:							//les variables et fonctions privées ne sont pas accessibles en-dehors de la classe
 		int	varExample;
@@ -242,13 +242,13 @@ YourClass::YourClass(int var)
 	this->varExample = var;
 }
 
-MyClass::MyClass(MyClass const &src)
+MyClass::MyClass(MyClass &src)
 {
 	std::cout << "[YOURCLASS]: Copy constructor called" << std::endl;			//par exemple.
 	*this = src;
 }
 
-YourClass	&YourClass::operator=(YourClass const &src)
+YourClass	const &YourClass::operator=(YourClass &src)
 {
 	std::cout << "[YOURCLASS]: Copy assignment operator called" << std::endl;	//par exemple.
 	if (this != &src)
@@ -314,7 +314,7 @@ Ce constructeur reçoit lui aussi une référence à un objet déjà créé et l
 
 Exemple:
 ```
-YourClass &operator=(YourClass const &src)
+YourClass const	&operator=(YourClass &src)
 {
     if (this != &src)
 	{
