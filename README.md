@@ -48,7 +48,9 @@ std::string	YourClass::getElement() const
 ```
 
 ## Eviter les doubles inclusions
-En vérité, on peut faire comme on a fait jusque-là, avec des ```ifndef, define, endif```.
+Si on ne fait pas attention, on peut inclure un même fichier plusieurs fois, ce qui reviendrait à redéfinir ce qu'il contient, et donc empêcherait la compilation.
+
+Pour éviter ce problème, on peut faire comme, en réalité, on a déjà fait jusque-là, avec des ```ifndef, define, endif```.
 
 On peut aussi remplacer ce système en écrivant simplement ```pragma once``` en début de header, pour le même résultat.
 
