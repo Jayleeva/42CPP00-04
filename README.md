@@ -40,7 +40,8 @@ De même que pour la heap/stack, bien qu'on ait déjà utilisé et les pointeurs
 
 Les deux permettent de passer des adresses mémoires au lieu de simples valeurs, ce qui permet de conserver les modifications effecutées sur leur contenu d'une fonction à l'autre.
 
-Jusqu'ici, en C, nous avons utilisé les deux de la façon suivante:
+### Utilisation en C
+Jusqu'ici, nous avons utilisé les deux de la façon suivante:
 ```
 void	incr(int *ptr)									//Réception du pointeur (avec '*' pour signifier que c'est un pointeur)
 {
@@ -64,67 +65,67 @@ Dans notre exemple, la variable ```a``` n'est pas un pointeur, si bien que pour 
 
 A l'inverse, lors de l'appel de la fonction ```printf()```, on veut imprimer la valeur de ```a```, donc pas besoin de la référencer, et la valeur de ```b```, qui elle doit être déréférencée. Sinon, on aura une erreur de compilation, qu'on pourra corriger de deux façons: soit on déférence ```b``` pour imprimer sa valeur, soit on utilise '%p' à la place de '%d' pour imprimer son adresse (comme dans la fonction ```incr()```).
 
-
-Désormais, en C++, nos fonctions peuvent attendre de recevoir des références.
+### Utilisation en C++
+Désormais, nos variables peuvent être directement des références, recevables telles quelles par nos fonctions:
 ```
-//On construit en passant une référence à l'arme.
-//Donc, l'attribut weapon est une référence.
-class	HumanA
+class	MannequinA
 {
 	public:
-		HumanA(std::string name, Weapon &w);
-		~HumanA(void);
-		void	attack();
+		MannequinA(std::string model, Bag &bag);
 	private:
-		std::string	name;
-		Weapon	&w;
+		std::string	model;
+		Color		&bag;
 };
-
-//Construit l'instance en assignant directement la référence pour weapon après les deux points car une référence DOIT être initialisée.
-//Assigne le nom de l'instance avec celui reçu en argument.
-HumanA::HumanA(std::string name, Weapon &w): w(w)
-{
-	this->name = name;
-}
 ```
-
+ATTENTION, si une référence est attendue par un **constructeur** (voir chapitre sur les classes), elle doit être initialisée. Pour ce faire, on ajoute ```: yourRef(yourRef)``` à la suite du nom de la fonction:
 ```
-//Bien que l'arme soit assignée dans une fonction membre au lieu du constructeur, on utilise la même méthode, donc une référence.
-//En revanche, puisque l'arme est assignée dans un second temps, l'attribut weapon est un pointeur.
-//On pourrait utiliser une référence (avec les modifications appropriées) mais l'exercice veut nous faire utiliser un mix des deux.
-class	HumanB
+MannequinA::MannequinA(std::string model, Bag &bag): bag(bag)
+```
+ATTENTION, une telle initialisation n'est possible QUE dans un **constructeur**.
+
+ATTENTION, bien qu'on puisse utiliser les références, on peut toujours utiliser des pointeurs:
+```
+class	MannequinB
 {
 	public:
-		HumanB(std::string name);
-		~HumanB(void);
-		void	attack();
-		void	setWeapon(Weapon &w);
+		MannequinB(std::string model);
+		void	setBag(Bag &bag);
 	private:
-		std::string	name;
-		Weapon	*w;
+		std::string	model;
+		Bag		*bag;
 };
-
-//Comme n'est pas un constructeur, ne peut pas initialiser la référence comme dans HumanA().
-//Assigne l'arme de l'instance avec celle référencée en argument.
-void	HumanB::setWeapon(Weapon &w)
-{
-	this->w = &w;
-}
 ```
+Ici, il est plus intéressant d'utiliser un pointeur au lieu d'une référence car ???
 
+Dans les exercices en C++, il arrive aussi de référencer des fonctions entières:
+```
+class	Bag
+{
+	public:
+		Bag(string brand);
+		string const	&getBag();
+		void			setBag(string brand);
+	private:
+		string	brand;
+};
+```
+Car ???
+
+Il est intéressant de noter que dans le main, rien ne nous indique clairement qu'on utilise des références ou des pointeurs.
+C'est dans la définition des fonctions appelées que cela devient visible.
 ```
 int	main()
 {
 	{
-		Weapon club = Weapon("crude spiked club");
-
-		HumanA bob("Bob", club);
+		Bag hermes = Bag("Hermes");
+	
+		MannequinA female("Female model", hermes);
 	}
 	{
-		Weapon club = Weapon("crude spiked club");
+		Bag louisvitton = Bag("Louis Vitton");
 
-		HumanB jim("Jim");
-		jim.setWeapon(club);
+		MannequinB male("Male model");
+		male.setBag(louisvitton);
 	}
 }
 ```
@@ -152,8 +153,8 @@ La structure générale d'une classe est la suivante:
 Class	YourClass
 {
 	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
-		YourClass();								//constructeur par défaut
-		~YourClass();								//destructeur
+		YourClass();							//constructeur par défaut
+		~YourClass();							//destructeur
 
 		int		getVarExample() const;			//getter
 		void	setVarExample(int var);			//setter
@@ -214,7 +215,7 @@ Dans le fichier .cpp, on adapte:
 ```
 YourClass::YourClass()
 {
-	std::cout << "[YOURCLASS]: Default constructor called" << std::endl;			//par exemple.
+	std::cout << "[YOURCLASS]: Default constructor called" << std::endl;		//par exemple.
 }
 
 YourClass::~YourClass()
@@ -224,19 +225,19 @@ YourClass::~YourClass()
 
 YourClass::YourClass(int var)
 {
-	std::cout << "[YOURCLASS]: Int constructor called" << std::endl;				//par exemple.
+	std::cout << "[YOURCLASS]: Int constructor called" << std::endl;			//par exemple.
 	this->varExample = var;
 }
 
 MyClass::MyClass(const MyClass &src)
 {
-	std::cout << "[YOURCLASS]: Copy constructor called" << std::endl;				//par exemple.
+	std::cout << "[YOURCLASS]: Copy constructor called" << std::endl;			//par exemple.
 	*this = src;
 }
 
 YourClass	&YourClass::operator=(YourClass &src)
 {
-	std::cout << "[YOURCLASS]: Copy assignment operator called" << std::endl;		//par exemple.
+	std::cout << "[YOURCLASS]: Copy assignment operator called" << std::endl;	//par exemple.
 	if (this != &src)
 	{
 		this->varExample = src.varExample;
