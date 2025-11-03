@@ -40,6 +40,17 @@ De même que pour la heap/stack, bien qu'on ait déjà utilisé et les pointeurs
 
 Les deux permettent de passer des adresses mémoires au lieu de simples valeurs, ce qui permet de conserver les modifications effecutées sur leur contenu d'une fonction à l'autre.
 
+### Pointeur - '\*'
+Un pointeur est une adresse mémoire contenant l'adresse mémoire de la variable sur laquelle il pointe.
+
+Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déférence le pointeur.
+
+### Référence - '&'
+Une référence est une adresse mémoire contenant la valeur de la variable qu'elle référence.
+
+Pour signifier une référence, on utilise '&'.
+
+
 ### Utilisation en C
 Jusqu'ici, nous avons utilisé les deux de la façon suivante:
 ```
@@ -130,15 +141,7 @@ int	main()
 }
 ```
 
-### Pointeur - '\*'
-Un pointeur est une adresse mémoire contenant l'adresse mémoire de la variable sur laquelle il pointe.
 
-Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déférence le pointeur.
-
-### Référence - '&'
-Une référence est une adresse mémoire contenant la valeur de la variable qu'elle référence.
-
-Pour signifier une référence, on utilise '&'.
 
 
 ## Classe
