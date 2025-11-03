@@ -185,6 +185,7 @@ Les classes me font penser aux structures du C, en mieux.
 - Les classes peuvent être liées entre elles par de l'héritage, ce qui permet d'éviter des répétitions ET d'affiner ses objets!
 
 ### Structure générale d'une classe
+Dans le header, on déclare les variables et fonctions publiques, privées et/ou protégées: 
 ```
 Class	YourClass
 {
@@ -201,7 +202,6 @@ Class	YourClass
 ```
 
 Dans le fichier .cpp, on définit les fonctions de la façon suivante:
-
 ```
 YourClass::YourClass()
 {
