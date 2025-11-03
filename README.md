@@ -133,11 +133,11 @@ class	MannequinA
 		Color		&bag;
 };
 ```
-ATTENTION, si une référence est attendue par un **constructeur** (voir chapitre sur les classes), elle doit être initialisée. Pour ce faire, on ajoute ```: yourRef(yourRef)``` à la suite du nom de la fonction:
+ATTENTION, si une référence est attendue par une fonction, elle doit être initialisée. Pour ce faire, soit elle l'est avant l'appel de la fonction, soit on ajoute ```: yourRef(yourRef)``` à la suite du nom de la fonction:
 ```
 MannequinA::MannequinA(std::string model, Bag &bag): bag(bag)
 ```
-ATTENTION, une telle initialisation n'est possible QUE dans un **constructeur**. Quand on appelle un **constructeur par copie** ou un **constructeur par surcharge d'opérateur d'assignation** (voir chapitre sur les classes), la référence reçue est déjà initialisée, c'est la source à copier.
+Typiquement, une telle initialisation n'est nécessaire que dans un **constructeur** (voir chapitre sur les classes). En effet, quand on appelle un **constructeur par copie** ou un **constructeur par surcharge d'opérateur d'assignation** , la référence reçue est déjà initialisée: c'est la source à copier.
 
 ATTENTION, bien qu'on puisse utiliser les références, on peut toujours utiliser des pointeurs:
 ```
