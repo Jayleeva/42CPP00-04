@@ -15,6 +15,28 @@ Exemple:
 std::toupper()
 ```
 
+## Deux mots sur le mot-clé "const"
+Lorsqu'on précise qu'une variable est constante, on empêche sa modification.
+
+Pour le préciser, on utilise le mot-clé "const" avant ce qu'on veut rendre constant:
+```
+const char c1;           //Le caractère ne peut être modifié
+const char * c2;         //Le caractère pointé ne peut être modifié
+char const *s (prototype donné pour certaines fonctions de la libft)?
+char * const c3;         //Le pointeur vers le caractère ne peut être modifié
+const char * const c4;   //Le pointeur ET le caractère pointé ne peuvent être modifiés
+```
+
+Dans les exercices en C++, les références (voir le chapitre sur les pointeurs et références) sont souvent constantes. On peut compiler sans les rendre constantes, mais le faire permet de sécuriser le code un peu plus?
+```
+YourClass const &operator=(YourClass const &src);
+```
+Idem pour les fonctions getter (voir le chapitre sur les classes): puisqu'elles ne modifient rien, on peut les rendre constantes de la façon suivante:
+```
+std::string	YourClass::getElement() const
+{}
+```
+
 ## Eviter les doubles inclusions
 En vérité, on peut faire comme on a fait jusque-là, avec des ```ifndef, define, endif```.
 
@@ -125,7 +147,7 @@ class	Bag
 {
 	public:
 		Bag(std::string brand);
-		Bag const &operator=(Bag &src);	//surcharge d'opérateur d'assignation
+		Bag const &operator=(Bag const &src);	//surcharge d'opérateur d'assignation
 		std::string	getBag() const;
 		void		setBag(string brand);
 		
@@ -153,6 +175,8 @@ int	main()
 	}
 }
 ```
+
+virtual YourClass   &getElement(void) const = 0;	**???**
 
 ## Classe
 Les classes me font penser aux structures du C, en mieux.
@@ -209,14 +233,14 @@ Il faut alors ajouter plusieurs choses:
 Class	YourClass
 {
 	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
-		YourClass();							//constructeur par défaut
-		~YourClass();							//destructeur
-		YourClass(int var);						//constructeur avec int
-		YourClass(YourClass &src);				//constructeur par copie
-		YourClass &operator=(YourClass &src);	//copie par surcharge d'opérateur d'assignation (assignment operator overload)
+		YourClass();										//constructeur par défaut
+		~YourClass();										//destructeur
+		YourClass(int var);									//constructeur avec int
+		YourClass(YourClass const &src);					//constructeur par copie
+		YourClass const &operator=(YourClass const &src);	//copie par surcharge d'opérateur d'assignation (assignment operator overload)
 
-		int		getVarExample() const;			//getter
-		void	setVarExample(int var);			//setter
+		int		getVarExample() const;						//getter
+		void	setVarExample(int var);						//setter
 
 	private:							//les variables et fonctions privées ne sont pas accessibles en-dehors de la classe
 		int	varExample;
@@ -242,13 +266,13 @@ YourClass::YourClass(int var)
 	this->varExample = var;
 }
 
-MyClass::MyClass(MyClass &src)
+YourClass::YourClass(YourClass const &src)
 {
 	std::cout << "[YOURCLASS]: Copy constructor called" << std::endl;			//par exemple.
 	*this = src;
 }
 
-YourClass	const &YourClass::operator=(YourClass &src)
+YourClass	const &YourClass::operator=(YourClass const &src)
 {
 	std::cout << "[YOURCLASS]: Copy assignment operator called" << std::endl;	//par exemple.
 	if (this != &src)
@@ -302,7 +326,7 @@ Ce constructeur reçoit une référence à un objet déjà créé, et assigne l'
 
 Exemple:
 ```
-YourClass(const YourClass &src);
+YourClass(YourClass const &src);
 ```
 
 #### Constructeur par surcharge d'opérateur d'assignation
@@ -314,7 +338,7 @@ Ce constructeur reçoit lui aussi une référence à un objet déjà créé et l
 
 Exemple:
 ```
-YourClass const	&operator=(YourClass &src)
+YourClass const	&operator=(YourClass const &src)
 {
     if (this != &src)
 	{
