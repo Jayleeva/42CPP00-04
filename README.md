@@ -295,15 +295,24 @@ YourClass(const YourClass &src);
 ```
 
 #### Constructeur par surcharge d'opérateur d'assignation
-Une surcharge d'opérateur signifie qu'on redéfinit ce que fait l'opérateur par défaut.
+Une surcharge d'opérateur signifie qu'on redéfinit ce que fait par défaut l'opérateur.
 
 L'opérateur d'assignation est tout simplement le '=' (le symbole qu'on utilise pour assigner).
 
-Ce constructeur reçoit lui aussi une référence à un objet déjà créé et la compare avec lui-même: si l'objet n'est pas déjà égal à la référence reçue en argument, on assigne chaque valeur à sa variable correspondante.
+Ce constructeur reçoit lui aussi une référence à un objet déjà créé et la compare avec lui-même: si l'objet n'est pas déjà égal à la référence reçue en argument, on assigne chaque valeur à sa variable correspondante. La fonction retourne le mot-clé ```this``` déréférencé, soit l'instance créée par la fonction.
 
 Exemple:
 ```
-YourClass &operator=(YourClass &src);
+YourClass &operator=(YourClass &src)
+{
+    if (this != &src)
+	{
+		this->varExample0 = src.varExample0;
+		this->varExample1 = src.varExample1;
+    }
+    std::cout << "[YOURCLASS]: Copy assignment operator = called" << std::endl;
+    return (*this);
+}
 ```
 
 ### Destructeur
