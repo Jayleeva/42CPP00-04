@@ -184,8 +184,7 @@ Les classes me font penser aux structures du C, en mieux.
 - Les variables et fonctions d'une classe peuvent être protégées afin d'éviter des modifications fortuites!
 - Les classes peuvent être liées entre elles par de l'héritage, ce qui permet d'éviter des répétitions ET d'affiner ses objets!
 
-La structure générale d'une classe est la suivante:
-
+### Structure générale d'une classe
 ```
 Class	YourClass
 {
@@ -225,6 +224,7 @@ void	YourClass::setVarExample(int var)
 }
 ```
 
+### Forme orthodoxe canonique
 A partir d'un certain module, il est demandé d'utiliser la forme orthodoxe canonique.
 
 Il faut alors ajouter plusieurs choses:
