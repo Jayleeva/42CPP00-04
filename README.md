@@ -41,7 +41,7 @@ De même que pour la heap/stack, bien qu'on ait déjà utilisé et les pointeurs
 Les deux permettent de passer des adresses mémoires au lieu de simples valeurs, ce qui permet de conserver les modifications effecutées sur leur contenu d'une fonction à l'autre.
 
 ### Pointeur - '\*'
-Un pointeur est une variable (avec sa propre adresse mémoire) contenant l'adresse mémoire de la variable sur laquelle il pointe.
+Un pointeur est une variable (avec sa propre adresse mémoire) dont la valeur est l'adresse mémoire de la variable sur laquelle il pointe.
 
 Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déférence le pointeur.
 
