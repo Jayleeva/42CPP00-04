@@ -7,6 +7,8 @@
 - On n'utilise plus ```printf()``` pour imprimer, mais ```cout```.
 - Pour faire un retour à la ligne, on préfère ```endl``` au ```\n```. 
 - On n'utilise que des librairies en C++, qui se démarquent car ne finissent pas par .h dans les include. Ex.: ```#include <iostream>```
+- Les extensions changent: au lieu de ```.c``` et ```.h```, on utilise désormais ```.cpp``` et ```.hpp```.
+- Les noms des fichiers prennent le nom de la classe qu'ils définissent, et commencent donc par une majuscule!
 
 **ATTENTION: même si c'est bien pratique, pas le droit aux namespace!! Pour appeler une fonction ou un mot-clé de la std, il faut y accoller ```std::``` en préfixe.**
 
