@@ -92,7 +92,7 @@ ATTENTION, si une référence est attendue par un **constructeur** (voir chapitr
 ```
 MannequinA::MannequinA(std::string model, Bag &bag): bag(bag)
 ```
-ATTENTION, une telle initialisation n'est possible QUE dans un **constructeur**.
+ATTENTION, une telle initialisation n'est possible QUE dans un **constructeur**. Quand on appelle un **constructeur par copie** ou un **constructeur par surcharge d'opérateur d'assignation** (voir chapitre sur les classes), la référence reçue est déjà initialisée, c'est la source à copier.
 
 ATTENTION, bien qu'on puisse utiliser les références, on peut toujours utiliser des pointeurs:
 ```
@@ -106,21 +106,23 @@ class	MannequinB
 		Bag		*bag;
 };
 ```
-Ici, il est plus intéressant d'utiliser un pointeur au lieu d'une référence car ???
+Ici, il est plus intéressant d'utiliser un pointeur au lieu d'une référence car **???**
 
-Dans les exercices en C++, il arrive aussi de référencer des fonctions entières:
+Dans les exercices en C++, on peut aussi référencer les opérateurs, lorsqu'on veut les surcharger:
 ```
 class	Bag
 {
 	public:
-		Bag(string brand);
-		string const	&getBag();
-		void			setBag(string brand);
+		Bag(std::string brand);
+		Bag const &operator=(Bag const &src);	//surcharge d'opérateur d'assignation
+		std::string	getBag() const;
+		void		setBag(string brand);
+		
 	private:
-		string	brand;
+		std::string	brand;
 };
 ```
-Car ???
+*Je suppose que c'est une syntaxe obligatoire qui permet de faire la surcharge: sans, ça ne marche pas.*
 
 Il est intéressant de noter que dans le main, rien ne nous indique clairement qu'on utilise des références ou des pointeurs.
 C'est dans la définition des fonctions appelées que cela devient visible.
@@ -140,9 +142,6 @@ int	main()
 	}
 }
 ```
-
-
-
 
 ## Classe
 Les classes me font penser aux structures du C, en mieux.
