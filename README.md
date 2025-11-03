@@ -40,7 +40,7 @@ De même que pour la heap/stack, bien qu'on ait déjà utilisé et les pointeurs
 
 Les deux permettent de passer des adresses mémoires au lieu de simples valeurs, ce qui permet de conserver les modifications effecutées sur leur contenu d'une fonction à l'autre.
 
-Jusqu'ici, nous avons utilisé les deux de la façon suivante:
+Jusqu'ici, en C, nous avons utilisé les deux de la façon suivante:
 ```
 void	incr(int *ptr)									//Réception du pointeur (avec '*' pour signifier que c'est un pointeur)
 {
@@ -60,14 +60,79 @@ int	main()
 
 //On ne veut pas déréférencer quand on doit travailler avec l'adresse mémoire; à l'inverse, on veut déréfencer quand on doit travailler avec la valeur contenue dans l'adresse.
 ```
+Dans notre exemple, la variable ```a``` n'est pas un pointeur, si bien que pour qu'elle puisse être assignée à ```b```, qui elle est un pointeur, on doit la référencer avec '&'. Même logique lors de l'appel de la fonction ```incr()```.
 
-Désormais,
+A l'inverse, lors de l'appel de la fonction ```printf()```, on veut imprimer la valeur de ```a```, donc pas besoin de la référencer, et la valeur de ```b```, qui elle doit être déréférencée. Sinon, on aura une erreur de compilation, qu'on pourra corriger de deux façons: soit on déférence ```b``` pour imprimer sa valeur, soit on utilise '%p' à la place de '%d' pour imprimer son adresse (comme dans la fonction ```incr()```).
 
+
+Désormais, en C++, nos fonctions peuvent attendre de recevoir des références.
+```
+//On construit en passant une référence à l'arme.
+//Donc, l'attribut weapon est une référence.
+class	HumanA
+{
+	public:
+		HumanA(std::string name, Weapon &w);
+		~HumanA(void);
+		void	attack();
+	private:
+		std::string	name;
+		Weapon	&w;
+};
+
+//Construit l'instance en assignant directement la référence pour weapon après les deux points car une référence DOIT être initialisée.
+//Assigne le nom de l'instance avec celui reçu en argument.
+HumanA::HumanA(std::string name, Weapon &w): w(w)
+{
+	this->name = name;
+}
+```
+
+```
+//Bien que l'arme soit assignée dans une fonction membre au lieu du constructeur, on utilise la même méthode, donc une référence.
+//En revanche, puisque l'arme est assignée dans un second temps, l'attribut weapon est un pointeur.
+//On pourrait utiliser une référence (avec les modifications appropriées) mais l'exercice veut nous faire utiliser un mix des deux.
+class	HumanB
+{
+	public:
+		HumanB(std::string name);
+		~HumanB(void);
+		void	attack();
+		void	setWeapon(Weapon &w);
+	private:
+		std::string	name;
+		Weapon	*w;
+};
+
+//Comme n'est pas un constructeur, ne peut pas initialiser la référence comme dans HumanA().
+//Assigne l'arme de l'instance avec celle référencée en argument.
+void	HumanB::setWeapon(Weapon &w)
+{
+	this->w = &w;
+}
+```
+
+```
+int	main()
+{
+	{
+		Weapon club = Weapon("crude spiked club");
+
+		HumanA bob("Bob", club);
+	}
+	{
+		Weapon club = Weapon("crude spiked club");
+
+		HumanB jim("Jim");
+		jim.setWeapon(club);
+	}
+}
+```
 
 ### Pointeur - '\*'
 Un pointeur est une adresse mémoire contenant l'adresse mémoire de la variable sur laquelle il pointe.
 
-Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déférencie le pointeur.
+Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déférence le pointeur.
 
 ### Référence - '&'
 Une référence est une adresse mémoire contenant la valeur de la variable qu'elle référence.
@@ -84,11 +149,11 @@ Les classes me font penser aux structures du C, en mieux.
 La structure générale d'une classe est la suivante:
 
 ```
-Class	MyClass
+Class	YourClass
 {
 	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
-		MyClass();								//constructeur par défaut
-		~MyClass();								//destructeur
+		YourClass();								//constructeur par défaut
+		~YourClass();								//destructeur
 
 		int		getVarExample() const;			//getter
 		void	setVarExample(int var);			//setter
@@ -101,22 +166,22 @@ Class	MyClass
 Dans le fichier .cpp, on définit les fonctions de la façon suivante:
 
 ```
-MyClass::MyClass()
+YourClass::YourClass()
 {
-	std::cout << "[MYCLASS]: Default constructor called" << std::endl;		//par exemple.
+	std::cout << "[YOURCLASS]: Default constructor called" << std::endl;		//par exemple.
 }
 
-MyClass::~MyClass()
+YourClass::~YourClass()
 {
-	std::cout << "[MYCLASS]: Destructor called" << std::endl;				//par exemple.
+	std::cout << "[YOURCLASS]: Destructor called" << std::endl;				//par exemple.
 }
 
-int		MyClas::getVarExample() const
+int		YourClas::getVarExample() const
 {
 	return (this->varExample);
 }
 
-void	MyClass::setVarExample(int var)
+void	YourClass::setVarExample(int var)
 {
 	this->varExample = var;
 }
@@ -127,14 +192,14 @@ A partir d'un certain module, il est demandé d'utiliser la forme orthodoxe cano
 Il faut alors ajouter plusieurs choses:
 
 ```
-Class	MyClass
+Class	YourClass
 {
 	public:								//les variables et fonctions publiques sont accessibles en-dehors de la classe
-		MyClass();								//constructeur par défaut
-		~MyClass();								//destructeur
-		MyClass(int var);						//constructeur avec int
-		MyClass(const MyClass &src);			//constructeur par copie
-		MyClass &operator=(MyClass &src);		//copie par surcharge d'opérateur d'assignation (assignment operator overload)
+		YourClass();							//constructeur par défaut
+		~YourClass();							//destructeur
+		YourClass(int var);						//constructeur avec int
+		YourClass(const YourClass &src);		//constructeur par copie
+		YourClass &operator=(YourClass &src);	//copie par surcharge d'opérateur d'assignation (assignment operator overload)
 
 		int		getVarExample() const;			//getter
 		void	setVarExample(int var);			//setter
@@ -147,31 +212,31 @@ Class	MyClass
 Dans le fichier .cpp, on adapte:
 
 ```
-MyClass::MyClass()
+YourClass::YourClass()
 {
-	std::cout << "[MYCLASS]: Default constructor called" << std::endl;			//par exemple.
+	std::cout << "[YOURCLASS]: Default constructor called" << std::endl;			//par exemple.
 }
 
-MyClass::~MyClass()
+YourClass::~YourClass()
 {
-	std::cout << "[MYCLASS]: Destructor called" << std::endl;					//par exemple.
+	std::cout << "[YOURCLASS]: Destructor called" << std::endl;					//par exemple.
 }
 
-MyClass::MyClass(int var)
+YourClass::YourClass(int var)
 {
-	std::cout << "[MYCLASS]: Int constructor called" << std::endl;				//par exemple.
+	std::cout << "[YOURCLASS]: Int constructor called" << std::endl;				//par exemple.
 	this->varExample = var;
 }
 
 MyClass::MyClass(const MyClass &src)
 {
-	std::cout << "[MYCLASS]: Copy constructor called" << std::endl;				//par exemple.
+	std::cout << "[YOURCLASS]: Copy constructor called" << std::endl;				//par exemple.
 	*this = src;
 }
 
-MyClass	&MyClass::operator=(MyClass &src)
+YourClass	&YourClass::operator=(YourClass &src)
 {
-	std::cout << "[MYCLASS]: Copy assignment operator called" << std::endl;		//par exemple.
+	std::cout << "[YOURCLASS]: Copy assignment operator called" << std::endl;		//par exemple.
 	if (this != &src)
 	{
 		this->varExample = src.varExample;
@@ -179,12 +244,12 @@ MyClass	&MyClass::operator=(MyClass &src)
 	return (*this);
 }
 
-int		MyClas::getVarExample() const
+int		YourClas::getVarExample() const
 {
 	return (this->varExample);
 }
 
-void	MyClass::setVarExample(int var)
+void	YourClass::setVarExample(int var)
 {
 	this->varExample = var;
 }
@@ -207,7 +272,7 @@ Le strict minimum est d'avoir un constructeur par défaut, soit sans arguments. 
 
 Exemple:
 ```
-MyClass();
+YourClass();
 ```
 
 #### Constructeur avec argument
@@ -215,7 +280,7 @@ Selon les cas, il peut être intéressant d'utiliser un constructeur spécifique
 
 Exemple:
 ```
-MyClass(int var);
+YourClass(int var);
 ```
 
 #### Constructeur par copie
@@ -223,7 +288,7 @@ Ce constructeur reçoit une référence à un objet déjà créé, et assigne l'
 
 Exemple:
 ```
-MyClass(const MyClass &src);
+YourClass(const YourClass &src);
 ```
 
 #### Constructeur par surcharge d'opérateur d'assignation
@@ -235,7 +300,7 @@ Ce constructeur reçoit lui aussi une référence à un objet déjà créé et l
 
 Exemple:
 ```
-MyClass &operator=(MyClass &src);
+YourClass &operator=(YourClass &src);
 ```
 
 ### Destructeur
