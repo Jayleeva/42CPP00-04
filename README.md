@@ -24,9 +24,17 @@ Pour le préciser, on utilise le mot-clé "const" avant ce qu'on veut rendre con
 ```
 const char c1;           //Le caractère ne peut être modifié
 const char * c2;         //Le caractère pointé ne peut être modifié
-char const *s (prototype donné pour certaines fonctions de la libft)?
+
 char * const c3;         //Le pointeur vers le caractère ne peut être modifié
+OU
+char const *s (prototype donné pour certaines fonctions de la libft)?
+
 const char * const c4;   //Le pointeur ET le caractère pointé ne peuvent être modifiés
+```
+```
+1. `const char *p` => pointer to a constant char
+2. `char * const p (OR char const *p ?)` => constant pointer to a char
+3. `const char * const p` => constant pointer to a constant char
 ```
 
 Dans les exercices en C++, les références (voir le chapitre sur les pointeurs et références) sont souvent constantes. On peut compiler sans les rendre constantes, mais le faire permet de sécuriser le code un peu plus?
