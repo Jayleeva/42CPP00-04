@@ -466,14 +466,19 @@ Un point décimal est tout simplement "la virgule" qui sépare un chiffre de ses
 
 Dans la même logique, le point binaire est "la virgule" qui sépare un chiffre de ses "binairales?" ou plutôt, de ses "fractional bits"; le repère qui nous dit la même chose que le point décimal.
 
-Dans son article "Introduction to Fixed Point Number Representation", Hayden So nous explique la chose suivante:
+Dans son article "Introduction to Fixed Point Number Representation", Hayden So nous explique que pour traduire un nombre binaire en base 10, on fait le calcul suivant:
 
-- Le byte voisin de gauche du binary point est égal à 2 (car base 2) puissance 0 (car premier byte pré-point).
-- Celui juste à gauche de lui est égal à 2 puissance 1, son voisin direct à 2 puissance 2, et ainsi de suite jusqu'au dernier byte pré-point.
-- Dans la continuité de cette logique, le premier byte après le point est égal à 2 puissance -1, le deuxième à 2 puissance -2, etc. 
+- Le byte voisin de gauche du binary point est multiplié par 2 (car base 2) puissance 0 (car premier byte pré-point).
+- Celui juste à gauche de lui est multiplié par 2 puissance 1, son voisin direct par 2 puissance 2, et ainsi de suite jusqu'au dernier byte pré-point.
+- Dans la continuité de cette logique, le premier byte après le point est multiplié par 2 puissance -1, le deuxième par 2 puissance -2, etc.
+- On additionne ensuite tous ces produits pour obtenir le nombre en base 10.
 
-Ainsi, 00010.11 peut être transcrit dans la tableau suivant:
+Exemple:
 
 |2<sup>4</sup>|2<sup>3</sup>|2<sup>2</sup>|2<sup>1</sup>|2<sup>0</sup>|Binary point|2<sup>-1</sup>|2<sup>-2</sup>|2<sup>-3</sup>|
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-|0|0|0|1|0|.|1|1|1|
+|0|0|0|1|0|.|1|1|0|
+|0 * 2<sup>4</sup>|0 * 2<sup>3</sup>|0 * 2<sup>2</sup>|1 * 2<sup>1</sup>|0 * 2<sup>0</sup>|.|1 * 2<sup>-1</sup>|1 * 2<sup>-2</sup>|0 * 2<sup>-3</sup>|
+|0 + |0 +|0 + |2 + |0 | + |0.5 +|0.25 +|0|
+
+|2.75|
