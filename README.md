@@ -485,6 +485,17 @@ Exemple:
 
 Si bien qu'en bitshiftant d'un bit vers la droite, on divise le résultat par deux, et en bitshiftant d'un bit vers la gauche, on le multiplie par deux.
 
+### Pourquoi du bitshift?
+Notre objectif est de pouvoir avoir la précision d'un int et l'exactitude d'un float. Pour réaliser cette prouesse, on va transformer notre nombre avec le bitshift.
+
+En bitshiftant notre nombre de 8, on s'assure de stocker toutes les informations importantes dans un int plutôt grand (x256).
+
+Une fois cela fait, on peut choisir d'en récupérer que les information nécessaires à un int en le redivisant par 256, ou d'en récupérer toutes les infos nécessaires à un float en ().
+
+**IMPORTANT: on ne peut pas bitshift des floats, uniquement des int.**
+
+Démonstration de bitshifting:
+```
 42 << 8
 			101010
 1			010100
@@ -496,21 +507,10 @@ Si bien qu'en bitshiftant d'un bit vers la droite, on divise le résultat par de
 1010100		000000
 10101000	000000
 
-10752
+10101000000000<sub>2</sub> = 10752<sub>10</sub>
+```
 
-42.31 << 8
-			101010	11111
-1			010101	11110
-10			101011	11100
-101			010111	11000
-1010		101111	10000
-10101		011111	00000
-101010		111110	00000
-1010101		111100	00000
-10101011	111000	00000
-
-352000
-
+42.31 * (1 << 8), puis arrondir le résultat, puis le cast en int à cause du type de la variable privée.
 1 << 8
 
 	00000000	00000001
@@ -518,6 +518,7 @@ Si bien qu'en bitshiftant d'un bit vers la droite, on divise le résultat par de
 0	00000000	00000100
 ...
 	00000001	00000000
+
 256
 
 
