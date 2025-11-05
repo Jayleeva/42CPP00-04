@@ -462,7 +462,7 @@ Un bit est composé de 8 bytes, par ex.: 01010101 (soit 85 en base 10, soit "U" 
 Le bitshifting est une opération qu'on peut effectuer sur les bits, et qu'on va utiliser dans les fixed points.
 
 ### Decimal points, binary points
-Un point décimal est tout simplement "la virgule" qui sépare un chiffre de ses... décimales. Par exemple, le float 42.2314 a son point décimal après le premier 2: s'ensuivent les "chiffres après la virgule". Ces "chiffres après la virgule" peuvent être représenté par des fractions. Le point nous sert de repère: "à partir de là, on pourrait représenter ces chiffres par une fraction".
+Un point décimal est tout simplement "la virgule" qui sépare un chiffre de ses... décimales. Par exemple, le float 42.2314 a son point décimal après le premier 2: s'ensuivent les "chiffres après la virgule". Ces "chiffres après la virgule" peuvent être représentés par des fractions. Le point nous sert de repère: "à partir de là, on pourrait représenter ces chiffres par une fraction".
 
 Dans la même logique, le point binaire est "la virgule" qui sépare un chiffre de ses "binairales?" ou plutôt, de ses "fractional bits"; le repère qui nous dit la même chose que le point décimal.
 
@@ -472,8 +472,8 @@ Dans son article "Introduction to Fixed Point Number Representation", Hayden So 
 - Celui juste à gauche de lui est égal à 2 puissance 1, son voisin direct à 2 puissance 2, et ainsi de suite jusqu'au dernier byte pré-point.
 - Dans la continuité de cette logique, le premier byte après le point est égal à 2 puissance -1, le deuxième à 2 puissance -2, etc. 
 
-Ainsi, 00010.110 peut être transcrit dans la tableau suivant:
+Ainsi, 00010.11 peut être transcrit dans la tableau suivant:
 
-	2 puissance 4|2 puissance 3|2 puissance 2|2 puissance 1|**2 puissance 0**|**Binary point**|2 puissance -1|2 puissance -2|2 puissance -3
-	0|0|0|1|0|.|1|1|1|0
-
+	|2 puissance 4	|2 puissance 3	|2 puissance 2	|2 puissance 1	|**2 puissance 0**	|**Binary point**	|2 puissance -1	|2 puissance -2	|2 puissance -3	|
+	| -----------	| -----------	| -----------	| -----------	| -----------		| ----------- 		| ----------- 	| ----------- 	| ----------- 	|
+	|0				|0				|0				|1				|0					|.					|1				|1				|1				|
