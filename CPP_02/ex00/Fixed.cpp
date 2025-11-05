@@ -6,11 +6,11 @@ Fixed::Fixed()
 	this->setRawBits(0);
 }
 
-//Crée un nouvel objet en copiant les attributs de celui référencé en argument
+//Crée un nouvel objet en copiant celui référencé en argument
 Fixed::Fixed(const Fixed &original)
 {
 	std::cout << YELLOW << "[DEBUG]: Copy constructor called" << DEFAULT << std::endl;
-	this->setRawBits(original.getRawBits());
+	*this = original;
 }
 
 Fixed::~Fixed()

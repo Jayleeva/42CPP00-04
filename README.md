@@ -101,8 +101,8 @@ Jusqu'ici, nous avons utilisé les deux de la façon suivante:
 ```
 void	incr(int *ptr)									//Réception du pointeur (avec '*' pour signifier que c'est un pointeur)
 {
-	*ptr += 1;											//modification de la valeur contenue dans l'adresse pointée par le pointeur (avec '*' pour dérérencer)
-	printf("address = %p\n", ptr);						//impression de l'adresse pointée par le pointeur (sans '*' pour ne pas dérérencer)
+	*ptr += 1;											//modification de la valeur contenue dans l'adresse pointée par le pointeur (avec '*' pour déréférencer)
+	printf("address = %p\n", ptr);						//impression de l'adresse pointée par le pointeur (sans '*' pour ne pas déréférencer)
 }
 
 int	main()
@@ -112,7 +112,7 @@ int	main()
 
 	incr(b);											//appel de la fonction d'incrémentation, en passant le pointeur (sans '*' pour ne pas déréférencer)
 	incr(&a);											//appel de la fonction d'incrémentation, en passant la référence grâce à '&'
-	printf("a value = %d and b value = %d\n", a, *b);	//impression de la valeur de a, suivie de la valeur contenue dans l'adresse pointée par le pointeur (avec '*' pour dérérencer)
+	printf("a value = %d and b value = %d\n", a, *b);	//impression de la valeur de a, suivie de la valeur contenue dans l'adresse pointée par le pointeur (avec '*' pour déréférencer)
 }
 
 //On ne veut pas déréférencer quand on doit travailler avec l'adresse mémoire; à l'inverse, on veut déréfencer quand on doit travailler avec la valeur contenue dans l'adresse.
@@ -333,7 +333,10 @@ Selon les cas, il peut être intéressant d'utiliser un constructeur spécifique
 
 Exemple:
 ```
-YourClass(int var);
+YourClass(int var)
+{
+	this->varExample = var;
+}
 ```
 
 #### Constructeur par copie
@@ -341,7 +344,10 @@ Ce constructeur reçoit une référence à un objet déjà créé, et assigne l'
 
 Exemple:
 ```
-YourClass(YourClass const &src);
+YourClass(const YourClass &src)
+{
+	*this = src;
+}
 ```
 
 #### Constructeur par surcharge d'opérateur d'assignation
@@ -349,7 +355,7 @@ Une surcharge d'opérateur signifie qu'on redéfinit ce que fait par défaut l'o
 
 L'opérateur d'assignation est tout simplement le '=' (le symbole qu'on utilise pour assigner).
 
-Ce constructeur reçoit lui aussi une référence à un objet déjà créé et la compare avec lui-même: si l'objet n'est pas déjà égal à la référence reçue en argument, on assigne chaque valeur à sa variable correspondante. La fonction retourne le mot-clé ```this``` déréférencé, soit l'instance créée par la fonction.
+Ce constructeur reçoit lui aussi une référence à un objet déjà créé et la compare avec lui-même: si l'objet n'est pas déjà égal à la référence reçue en argument (protection facultative?), on assigne chaque valeur à sa variable correspondante. La fonction retourne le mot-clé ```this``` déréférencé, soit l'instance créée par la fonction.
 
 Exemple:
 ```
@@ -360,8 +366,7 @@ YourClass const	&operator=(YourClass const &src)
 		this->varExample0 = src.varExample0;
 		this->varExample1 = src.varExample1;
     }
-    std::cout << "[YOURCLASS]: Copy assignment operator = called" << std::endl;
-    return (*this);
+	return (*this);
 }
 ```
 
@@ -369,6 +374,11 @@ YourClass const	&operator=(YourClass const &src)
 Pour supprimer un objet, une classe a besoin d'un destructeur.
 
 Il se compose strictement d'une ``~`` du nom de la classe et de parenthèses.
+
+Exemple:
+```
+~YourClass();
+```
 
 ## Différence entre deep et shallow copy
 Lorsqu'on copie une variable, on peut copier soit sa valeur, soit son adresse.
@@ -385,3 +395,85 @@ Lors de la libération de la mémoire, il faudra libérer les espaces attribués
 La shallow copy nécessite uniquement de copier l'adresse de l'objet.
 
 Lors de la libération de la mémoire, il ne faudra libérer que l'unique espace partagé par chaque objet.
+
+## Deux mots sur les fixed points
+
+### Le problème des int et des floats
+Pourquoi aurait-on besoin de fixed points? Parce que les int comme les floats manquent soit de précision (precision) soit d'exactitude (accuracy). Qu'est-ce donc que ce charabia qui joue sur les mots?
+
+Les int sont très précis: 2 n'est rien d'autre que 2, ni plus, ni moins. En revanche, ils manquent d'exactitude, car ne permettent pas de représenter ne serait-ce qu'un 2.5, par exemple. Et que dire d'un 2.725? Ou pire, d'un 3.14159265359...?
+
+Mais les floats règlent ce problème, non? Puisqu'on peut détailler des décimales? Hélas.
+
+- Premièrement, ils manquent de précision: remontez à vos souvenirs d'école, ou vous appreniez que 3/3 = 1, mais aussi, que 1/3 = 0.333 infini, alors que 3 x 0.333 = 0.999. Le consensus mathématique est de dire que 3 x 0.333 infini = 0.999 infini = 1. Il y a comme quelque chose qui nous démange, mais oui, mathématiquement, 0.999 infini est bien égal à 1, car 3 divisé par 3 fait bien 1, même si 1 divisé par 3 donne 0.333 infini. Vous voyez l'idée? Bon, retenez juste que les floats manquent de précision.
+- Deuxièmement, même s'ils sont plus exacts que les int, ils ne le sont pas complètement, du aux limitations matérielles de la machine. En effet, comment représenter matériellement le nombre Pi par exemple, avec une machine qui, de par sa nature, ne peut stocker qu'un nombre limité de décimales? Nous sommes contraints de nous contenter d'une approximation.
+
+Pour des choses simples, nous n'avons pas besoin d'une exactitude parfaite. Cependant, de micro inexactitudes en micro inexactitudes, on finit par obtenir des résultats déviant significativement de la réalité.
+
+Est-ce que les fixed points règlent ce problème? Non (lol). A quoi bon alors?
+
+Les fixed points permettent de détailler des décimales, tout en étant plus performants que les floats, en sacrifiant toutefois encore plus de précision que ces derniers. Selon vos besoins, ils seront alors tout à fait recommandables.
+
+### Les fixed points: comment ça marche?
+Pour comprendre les fixed points, il faut comprendre les binary points. Pas de panique! On respire.
+
+Même si vous ne le savez pas, vous êtes familier-es avec les decimal points, parce que oui, vous connaissez la base 10 (si si, je vous jure). Dix, décimal, vous voyez le lien? (déci = 10). 
+
+#### Base 10, 16, 2...
+Vous avez appris à compter en base 10. Qu'entend-on par là? Si vous deviez compter jusqu'à 50, vous itéreriez une première base 10, puis une deuxième, etc jusqu'à 5 itérations + 1. En effet, nos chiffres occidentaux commencent à 0 et vont jusqu'à 9 (donc 10 chiffres, base 10, tout ça), puis on recommence, en mettant à jour la dizaine, la centaine, etc.
+
+	0	0|1|2|3|4|5|6|7|8|9
+	1	0|1|2|3|4|5|6|7|8|9
+	2	0|1|2|3|4|5|6|7|8|9
+	...
+	10	0|1|2|3|4|5|6|7|8|9
+	11	0|1|2|3|4|5|6|7|8|9
+	12	0|1|2|3|4|5|6|7|8|9
+	...
+
+En informatique, on compte parfois en base 16. Ces chiffres vont de 0 à 16, mais pour plus de clareté (dépendant du point de vue), la suite est la suivante: 0 1 2 3 4 5 6 7 8 9 A B C D E F. De même que pour la base 10, une fois arrivé à F, on reprend avec le 0 en mettant à jour la "seizaine". Par exemple, la valeur 17 en base 10 s'écrirait 11 en base 16 (on passe de (0)F à 10, puis de 10 à 11), la valeur 30 en base 10 s'écrirait 1E en base 16.
+
+	0	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	1	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	...
+	9	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	A	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	B	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	...
+	10	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	11	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	...
+	1F	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+
+Pour les fixed points, on s'intéressera à la base 2, celle utilisée par... le langage binaire (bi = 2). La suite est bien plus courte: 0 1. Donc dès la valeur 2 en base 10, on réitère, ce qui donne 10 en base 2.
+
+	0	0|1|	-> 0|1 en base 10
+	1	0|1|	-> 2|3 en base 10
+	10	0|1|	-> 4|5 en base 10
+	11	0|1|	-> 6|7 en base 10
+	100	0|1|	-> 8|9 en base 10
+	101	0|1|	-> 10|11 en base 10
+	...
+
+Un byte a la valeur d'un chiffre de cette suite: soit 1 soit 0.
+
+Un bit est composé de 8 bytes, par ex.: 01010101 (soit 85 en base 10, soit "U" sur la table ASCII par ailleurs).
+
+Le bitshifting est une opération qu'on peut effectuer sur les bits, et qu'on va utiliser dans les fixed points.
+
+### Decimal points, binary points
+Un point décimal est tout simplement "la virgule" qui sépare un chiffre de ses... décimales. Par exemple, le float 42.2314 a son point décimal après le premier 2: s'ensuivent les "chiffres après la virgule". Ces "chiffres après la virgule" peuvent être représenté par des fractions. Le point nous sert de repère: "à partir de là, on pourrait représenter ces chiffres par une fraction".
+
+Dans la même logique, le point binaire est "la virgule" qui sépare un chiffre de ses "binairales?" ou plutôt, de ses "fractional bits"; le repère qui nous dit la même chose que le point décimal.
+
+Dans son article "Introduction to Fixed Point Number Representation", Hayden So nous explique la chose suivante:
+
+- Le byte voisin de gauche du binary point est égal à 2 (car base 2) puissance 0 (car premier byte pré-point).
+- Celui juste à gauche de lui est égal à 2 puissance 1, son voisin direct à 2 puissance 2, et ainsi de suite jusqu'au dernier byte pré-point.
+- Dans la continuité de cette logique, le premier byte après le point est égal à 2 puissance -1, le deuxième à 2 puissance -2, etc. 
+
+Ainsi, 00010.110 peut être transcrit dans la tableau suivant:
+
+	2 puissance 4|2 puissance 3|2 puissance 2|2 puissance 1|**2 puissance 0**|**Binary point**|2 puissance -1|2 puissance -2|2 puissance -3
+	0|0|0|1|0|.|1|1|1|0
+

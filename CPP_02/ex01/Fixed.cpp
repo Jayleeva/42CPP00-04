@@ -6,12 +6,14 @@ Fixed::Fixed()
 	this->setRawBits(0);
 }
 
+//utilise la surcharge d'opérateur <<
 Fixed::Fixed(const int i)
 {
 	std::cout << YELLOW << "[DEBUG]: Int constructor called" << DEFAULT << std::endl;
 	this->rawBits = i << this->fractionnalBits;
 }
 
+//utilise la surcharge d'opérateur <<
 Fixed::Fixed(const float f)
 {
 	std::cout << YELLOW << "[DEBUG]: Float constructor called" << DEFAULT << std::endl;
@@ -21,7 +23,7 @@ Fixed::Fixed(const float f)
 Fixed::Fixed(const Fixed &original)
 {
 	std::cout << YELLOW << "[DEBUG]: Copy constructor called" << DEFAULT << std::endl;
-	this->setRawBits(original.getRawBits());
+	*this = original;
 }
 
 Fixed::~Fixed()
@@ -36,12 +38,14 @@ Fixed & Fixed::operator=(Fixed const &original)
 	return (*this);
 }
 
+//
 std::ostream &operator<<(std::ostream &o, Fixed const &fixedPt)
 {
 	o << fixedPt.toFloat();
 	return (o);
 }
 
+//utilise la surcharge d'opérateur <<??? 
 float	Fixed::toFloat( void ) const
 {
 	return ((float)this->rawBits / (1 << this->fractionnalBits));
