@@ -506,9 +506,9 @@ Démonstration de bitshifting:
 101010		000000
 1010100		000000
 10101000	000000
-
-10101000000000<sub>2</sub> = 10752<sub>10</sub>
 ```
+10101000000000<sub>2</sub> = 10752<sub>10</sub>
+
 
 42.31 * (1 << 8), puis arrondir le résultat, puis le cast en int à cause du type de la variable privée.
 1 << 8
