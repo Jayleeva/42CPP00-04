@@ -396,7 +396,7 @@ La shallow copy nécessite uniquement de copier l'adresse de l'objet.
 
 Lors de la libération de la mémoire, il ne faudra libérer que l'unique espace partagé par chaque objet.
 
-## Deux mots sur les fixed points
+## Fixed points
 
 ### Le problème des int et des floats
 Pourquoi aurait-on besoin de fixed points? Parce que les int comme les floats manquent soit de précision (precision) soit d'exactitude (accuracy). Qu'est-ce donc que ce charabia qui joue sur les mots?
@@ -412,7 +412,7 @@ Pour des choses simples, nous n'avons pas besoin d'une exactitude parfaite. Cepe
 
 Est-ce que les fixed points règlent ce problème? Non (lol). A quoi bon alors?
 
-Les fixed points permettent de détailler des décimales, tout en étant plus performants que les floats, en sacrifiant toutefois encore plus de précision que ces derniers. Selon vos besoins, ils seront alors tout à fait recommandables.
+Les fixed points permettent ET d'utiliser des entiers (pour plus de précision), ET de détailler des décimales au besoin (pour plus d'exactitude).
 
 ### Les fixed points: comment ça marche?
 Pour comprendre les fixed points, il faut comprendre les binary points. Pas de panique! On respire.
@@ -468,7 +468,7 @@ Dans la même logique, le point binaire est "la virgule" qui sépare un chiffre 
 
 Dans son article "Introduction to Fixed Point Number Representation", Hayden So nous explique que pour traduire un nombre binaire en base 10, on fait le calcul suivant:
 
-- Le byte voisin de gauche du binary point est multiplié par 2 (car base 2) puissance 0 (car premier byte pré-point).
+- Le byte voisin de gauche du binary point est multiplié par 2 (car base 2) puissance 0 (car premier byte pré-point)
 - Celui juste à gauche de lui est multiplié par 2 puissance 1, son voisin direct par 2 puissance 2, et ainsi de suite jusqu'au dernier byte pré-point.
 - Dans la continuité de cette logique, le premier byte après le point est multiplié par 2 puissance -1, le deuxième par 2 puissance -2, etc.
 - On additionne ensuite tous ces produits pour obtenir le nombre en base 10.
@@ -482,4 +482,44 @@ Exemple:
 |0|0|0|2|0|.|0.5|0.25|0|
 
 **Résultat :	0 + 0 + 0 + 2 + 0 + 0.5 + 0.25 + 0 = 2.75**
+
+Si bien qu'en bitshiftant d'un bit vers la droite, on divise le résultat par deux, et en bitshiftant d'un bit vers la gauche, on le multiplie par deux.
+
+42 << 8
+			101010
+1			010100
+10			101000
+101			010000
+1010		100000
+10101		000000
+101010		000000
+1010100		000000
+10101000	000000
+
+10752
+
+42.31 << 8
+			101010	11111
+1			010101	11110
+10			101011	11100
+101			010111	11000
+1010		101111	10000
+10101		011111	00000
+101010		111110	00000
+1010101		111100	00000
+10101011	111000	00000
+
+352000
+
+1 << 8
+
+	00000000	00000001
+1	00000000	00000010
+0	00000000	00000100
+...
+	00000001	00000000
+256
+
+
+
 

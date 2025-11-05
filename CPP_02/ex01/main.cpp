@@ -1,5 +1,6 @@
 #include "Fixed.hpp"
 
+//pourquoi POURQUOOOOOI de juste appeler l'objet ça imprime la valeur de sa variable privééééée pourquooooiiii je vais vomiiiir
 int main( void ) 
 {
 	Fixed a;

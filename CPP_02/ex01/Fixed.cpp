@@ -7,6 +7,7 @@ Fixed::Fixed()
 }
 
 //utilise la surcharge d'opérateur <<
+// prend le int reçu et le multiplie 8x par 2 (bitshift à gauche) / multiplie par 2 puissance 8 POURQUOI MON DIEU POURQUOI
 Fixed::Fixed(const int i)
 {
 	std::cout << YELLOW << "[DEBUG]: Int constructor called" << DEFAULT << std::endl;
@@ -14,6 +15,7 @@ Fixed::Fixed(const int i)
 }
 
 //utilise la surcharge d'opérateur <<
+// prend le float reçu et le multiplie par 256 (1x 2 puissance 8), puis l'arrondit, puis le cast en int (wtf???)
 Fixed::Fixed(const float f)
 {
 	std::cout << YELLOW << "[DEBUG]: Float constructor called" << DEFAULT << std::endl;
@@ -45,12 +47,16 @@ std::ostream &operator<<(std::ostream &o, Fixed const &fixedPt)
 	return (o);
 }
 
-//utilise la surcharge d'opérateur <<??? 
+//utilise la surcharge d'opérateur <<???
+// refait le calcul dans l'autre sens, en divisant par 256 (1 x2 puissance 8) POURQUOI FAIRE OMGGGGG ET POURQUOI JE PEUX PAS JUSTE FAIRE DU BITSHIFT DANS L'AUTRE SEEEEENS POURQUOOIIIII MON DIEU TUEZ-MOIII
 float	Fixed::toFloat( void ) const
 {
+	//std::cout << (this->rawBits) << std::endl;
 	return ((float)this->rawBits / (1 << this->fractionnalBits));
+	//return ((float)this->rawBits >> (float)this->fractionnalBits); // marche PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAS parce qu'on peut pas mettre l'opérateur avec des floats visiblement jpp
 }
 
+// refait le calcul dans l'autre sens en faisant du bitshift dans l'autre sens damn premier truc logique même si putain pourquoi on fait du bitshift de base jpp
 int 	Fixed::toInt( void ) const
 {
 	return (this->rawBits >> this->fractionnalBits);
