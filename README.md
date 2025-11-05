@@ -474,6 +474,6 @@ Dans son article "Introduction to Fixed Point Number Representation", Hayden So 
 
 Ainsi, 00010.11 peut être transcrit dans la tableau suivant:
 
-	|2 puissance 4	|2 puissance 3	|2 puissance 2	|2 puissance 1	|**2 puissance 0**	|**Binary point**	|2 puissance -1	|2 puissance -2	|2 puissance -3	|
-	| -----------	| -----------	| -----------	| -----------	| -----------		| ----------- 		| ----------- 	| ----------- 	| ----------- 	|
-	|0				|0				|0				|1				|0					|.					|1				|1				|1				|
+|2 puissance 4|2 puissance 3|2 puissance 2|2 puissance 1|**2 puissance 0**|**Binary point**|2 puissance -1|2 puissance -2|2 puissance -3|
+| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+|0|0|0|1|0|.|1|1|1|
