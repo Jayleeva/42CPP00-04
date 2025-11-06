@@ -7,7 +7,7 @@ Weapon::Weapon()
 {}
 
 //Construit l'instance et lui assigne un type d'arme.
-Weapon::Weapon(string type)
+Weapon::Weapon(std::string type)
 {
 	this->type = type;
 }
@@ -23,7 +23,7 @@ std::string Weapon::getType() const
 }
 
 //Assigne à l'instance le type reçu en argument.
-void	Weapon::setType(string type)
+void	Weapon::setType(std::string type)
 {
 	this->type = type;
 }

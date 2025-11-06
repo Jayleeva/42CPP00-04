@@ -1,6 +1,6 @@
 #include "Zombie.hpp"
 
-//Alloue la horde en une seule allocation avec le mot-clé "new" (sans appeler le constructeur? en utilisant juste la classe comme un type, avec le N comme taille?), puis attribue un nom à chaque instance, retourne la tête de l'array.
+//Alloue la horde en une seule allocation avec le mot-clé "new", puis attribue un nom à chaque instance, retourne la tête de l'array.
 Zombie *zombieHorde( int N, std::string name )
 {
 	Zombie *horde = new Zombie[N];
