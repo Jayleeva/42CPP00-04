@@ -4,12 +4,12 @@
 Zombie *zombieHorde( int N, std::string name )
 {
 	Zombie *horde = new Zombie[N];
-    std::string  names[7] = {name, "Zavier", "Zénon", "Zélie", "Zelda", "Zara", "Zoé"};
+    //std::string  names[7] = {name, "Zavier", "Zénon", "Zélie", "Zelda", "Zara", "Zoé"}; //pour le debug
     int     i = 0;
 
     while (i < N)
     {
-        name = names[i];
+        //name = names[i];  //pour le debug
         horde[i].giveName(name);
         i ++;
     }
