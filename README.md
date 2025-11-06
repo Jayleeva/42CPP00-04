@@ -486,13 +486,15 @@ Exemple:
 Si bien qu'en bitshiftant d'un bit vers la droite, on divise le résultat par deux, et en bitshiftant d'un bit vers la gauche, on le multiplie par deux.
 
 ### Pourquoi du bitshift?
-Notre objectif est de pouvoir avoir la précision d'un int et l'exactitude d'un float. Pour réaliser cette prouesse, on va transformer notre nombre avec le bitshift.
+Notre objectif est de pouvoir avoir la précision d'un int et l'exactitude d'un float. Pour réaliser cette prouesse, on va transformer notre nombre avec le bitshift. Un fixed point est donc, en realite, un nombre binaire qui peut etre traduit en int comme en float arrondi, en fonction du besoin.
 
-En bitshiftant notre nombre de 8, on s'assure de stocker toutes les informations importantes dans un int plutôt grand (x256).
+En bitshiftant notre nombre de 8, on s'assure de stocker toutes les informations importantes dans un nombre plutôt grand (x256).
 
-Une fois cela fait, on peut choisir d'en récupérer que les information nécessaires à un int en le redivisant par 256, ou d'en récupérer toutes les infos nécessaires à un float en ().
+Une fois cela fait, on peut choisir d'en faire un int ou un float. Dans les deux cas, il va falloir re-bitshift dans l'autre sens.
 
-**IMPORTANT: on ne peut pas bitshift des floats, uniquement des int.**
+Seulement, on ne peut pas bitshift un float. Pour contourner ce probleme, au lieu de leftbitshift notre float de 8, on le multiplie par (1 leftbitshift de 8), ce qui revient au meme car comme vu plus haut, bitshift de 1 revient a multiplier ou diviser par 2. Idem pour rightbitshift notre float, comme ce n'est pas possible, on le divise par (1 leftbitshift de 8), soit par 256.
+
+ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalite cast le résultat de notre calcul en int, car c'est le type donné a la variable qui en stocke la valeur. A l'inverse, au moment d'acceder a sa forme float (dans la fonction ToFloat(), appelee notamment par la surcharge d'operateur <<), il faut cast le résultat en float pour correspondre au type de retour attendu. 
 
 Démonstration de bitshifting:
 ```
@@ -520,6 +522,13 @@ Démonstration de bitshifting:
 	00000001	00000000
 ```
 0000000100000000<sub>2</sub> = 256<sub>10</sub>
+
+### Les operateur << et >>
+Ces operateurs ont un sens different en fonction du contexte.
+
+On peut les utiliser pour inserer des elements dans un stream (entrant ou sortant), ET pour le bitshifting (gauche ou droite).
+
+Dans les exercices de C++ de 42 autour des fixed points, on les emploie pour les deux utilisations. On surcharge specifiquement <<, qui insere des elements dans un stream de sortie, afin que s'il recoit un fixdePt, il insere non pas le fixedPt entier mais bien uniquement la valeur de ses raw bits (la version binaire du nombre recu a sa creation), qui par defaut sera recuperee sous forme de float. On ne touche cependant pas a leur role de bitshifters.
 
 
 

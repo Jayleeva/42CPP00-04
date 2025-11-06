@@ -1,6 +1,6 @@
 #include "Fixed.hpp"
 
-//pourquoi POURQUOOOOOI de juste appeler l'objet ça imprime la valeur de sa variable privééééée pourquooooiiii je vais vomiiiir
+//utilise la surcharge d'opérateur << !!!! ce qui permet d'imprimer la valeur en appelant juste l'objet
 int main( void ) 
 {
 	Fixed a;
