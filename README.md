@@ -1,3 +1,11 @@
+une reference ne peut pas etre reassignee, c'est une protection en plus et pour a qu'on en utilise avec humanA et b et leur weapon
+on utilise un pointeur pour la weapon de human b parce qu'elle n'est pas assignee tout de suite et possiblement jamais, or une reference ne peut pas ne pas etre initialisee.
+PAR CONTRE
+il faut une protection pour eviter de segfault au cas ou HumanB ne recoit pas d'arme et essaye d'attaquer
+
+sed: pour ouvrir le fichier, utiliser ifstream et ofstream comme type de variable, puis ifstream.open() puis if (!isopen()) pour check si ouverture a marche. 
+
+
 # Notions importantes
 
 **ATTENTION: on ne fait plus du C, mais bien du C++!**
