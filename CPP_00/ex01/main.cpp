@@ -31,8 +31,6 @@ int	main()
             book.searchContact(n);
 		else if (cmd == "EXIT")
 			break;
-        else
-            std::cout << YELLOW << "> Invalid command." << DEFAULT << std::endl;
 	}
 	return (0);
 }

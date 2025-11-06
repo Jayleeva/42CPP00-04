@@ -78,9 +78,7 @@ void    PhoneBook::searchContact(int n)
 	std::cout << std::setw(10) << std::right << truncate("index") << "|";
 	std::cout << std::setw(10) << std::right << truncate("first name") << "|";
 	std::cout << std::setw(10) << std::right << truncate("last name") << "|";
-	std::cout << std::setw(10) << std::right << truncate("nickname") << "|";
-	std::cout << std::setw(10) << std::right << truncate("phone number") << "|";
-	std::cout << std::setw(10) << std::right << truncate("darkest secret") << std::endl;
+	std::cout << std::setw(10) << std::right << truncate("nickname") << "|" << std::endl;
 
 	j = 0;
 	while (j < n)
@@ -88,9 +86,7 @@ void    PhoneBook::searchContact(int n)
 		std::cout << std::setw(10) << std::right << j << "|";
 		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getFirstName()) << "|";
 		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getLastName()) << "|";
-		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getNickName()) << "|";
-		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getPhoneNumber()) << "|";
-		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getDarkestSecret()) << std::endl;
+		std::cout << std::setw(10) << std::right << truncate(this->contactList[j].getNickName()) << "|" << std::endl;
 		j ++;
 	}
 

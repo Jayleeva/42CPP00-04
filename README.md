@@ -199,6 +199,28 @@ Les classes me font penser aux structures du C, en mieux.
 - Les variables et fonctions d'une classe peuvent être protégées afin d'éviter des modifications fortuites!
 - Les classes peuvent être liées entre elles par de l'héritage, ce qui permet d'éviter des répétitions ET d'affiner ses objets!
 
+### Public, private, protected
+Les variables et fonctions membres sont classees en 3 categories: publiques, privees, et protegees.
+
+Une bonne pratique (exigee dans le cursus) est de mettre toutes les variables membres en prive/protected, afin qu'elles ne puissent pas etre accidentellement modifiees en-dehors de la classe. Les fonctions (constructeurs, destructeur, setter et getter, etc) sont elles mises en public afin de pouvoir etre utilisees en-dehors de la classe.
+
+Les setter et getter permettent d'acceder aux variables privees/protegees en-dehors de la classe. Ainsi, il y en a autant qu'il y a de variables privees/protegees qu'on doit pouvoir acceder.
+
+C'est quoi etre "en-dehors de la classe"? Par defaut, si vous n'etes pas dans le scope de la declaration de votre classe, vous etes "en-dehors". Cependant, lorsque vous creez une instance de votre classe, vous pouvez y "rentrer" via cette instance, en y appondant un '.' ou un '->' si c'est un pointeur.
+
+Dans les fichiers .cpp ou vous definissez les fonctions membres, le mot-cle ``this`` correspond a une instance. Il devient disponible quand vous precisez que votre fonction est membre de votre classe en ajoutant ``YourClass::`` devant le nom de la fonction.
+
+La categorie "protegee" n'est utilisee que lorsqu'il y a heritage. Elle permet de "partager" l'acces aux variables et fonctions qui y sont rangees avec les classes de la meme "famille".
+
+### Heritage
+On peut faire "heriter" une classe d'une autre. Basiquement, la seconde classe aura des proprietes communes avec la premiere. Par exemple, la classe Velo peut heriter de la classe Vehicule, car un velo est un vehicule, et que tous les deux ont un nombre de roues par ex, meme si le nombre en soi peut etre different.
+
+C'est difficile de vraiment voir l'interet de ce systeme sans un exercice concret. Typiquement, dans un jeu video, on pourrait creer une classe Objet, puis des classes Arme, Munition, Consommable, Quete, ... Et on pourrait detailler ensuite avec d'autres classes encore, Epee, Massue, Fusil, ... Ce qui fait que quand vous voudrez coder "telle arme est utilisee et cause tant de degats", vous n'aurez besoin que des fonctions et variables de la classe parente, au lieu d'en avoir une differente par arme.
+
+Toutes les caracteristiques communes a plusieurs classes devraient donc idealement etre identifiees et declarees dans une classe parente dont elles heriteront.
+
+On peut faire heriter une classe de deux classes parentes differentes (A et B), qui elles-memes heritent d'une classe "chapeau": elle recupere certaines caracteristiques de la classe parente A, et d'autres de la B. Cependant, cela peut creer de l'ambiguite, qu'il faut contrer avec le mot-cle ``virtual``.
+
 ### Structure générale d'une classe
 Dans le header (.hpp), on déclare les variables et fonctions publiques, privées et/ou protégées: 
 ```
@@ -530,6 +552,9 @@ On peut les utiliser pour inserer des elements dans un stream (entrant ou sortan
 
 Dans les exercices de C++ de 42 autour des fixed points, on les emploie pour les deux utilisations. On surcharge specifiquement <<, qui insere des elements dans un stream de sortie, afin que s'il recoit un fixdePt, il insere non pas le fixedPt entier mais bien uniquement la valeur de ses raw bits (la version binaire du nombre recu a sa creation), qui par defaut sera recuperee sous forme de float. On ne touche cependant pas a leur role de bitshifters.
 
+## Lire dans l'entree standard
+Le C++ permet d'utiliser simplement le mot-cle ``cin`` pour lire des inputs dans l'entree standard, cependant, il n'est pas toujours adapte pour ce qu'on souhaite faire.
 
+La fonction ``getline()`` va etre importante, notamment pour lire des suites de mots separes par des espaces, mais il faut egalement la proteger au cas ou elle lirait EOF (fin du fichier), afin d'eviter des comportements inattendus.
 
-
+Pour verifier si une string est vide, on oublie le if (!str), et on utilise la fonction ``empty()``.
