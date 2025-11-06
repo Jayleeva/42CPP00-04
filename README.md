@@ -212,15 +212,6 @@ Dans les fichiers .cpp ou vous definissez les fonctions membres, le mot-cle ``th
 
 La categorie "protegee" n'est utilisee que lorsqu'il y a heritage. Elle permet de "partager" l'acces aux variables et fonctions qui y sont rangees avec les classes de la meme "famille".
 
-### Heritage
-On peut faire "heriter" une classe d'une autre. Basiquement, la seconde classe aura des proprietes communes avec la premiere. Par exemple, la classe Velo peut heriter de la classe Vehicule, car un velo est un vehicule, et que tous les deux ont un nombre de roues par ex, meme si le nombre en soi peut etre different.
-
-C'est difficile de vraiment voir l'interet de ce systeme sans un exercice concret. Typiquement, dans un jeu video, on pourrait creer une classe Objet, puis des classes Arme, Munition, Consommable, Quete, ... Et on pourrait detailler ensuite avec d'autres classes encore, Epee, Massue, Fusil, ... Ce qui fait que quand vous voudrez coder "telle arme est utilisee et cause tant de degats", vous n'aurez besoin que des fonctions et variables de la classe parente, au lieu d'en avoir une differente par arme.
-
-Toutes les caracteristiques communes a plusieurs classes devraient donc idealement etre identifiees et declarees dans une classe parente dont elles heriteront.
-
-On peut faire heriter une classe de deux classes parentes differentes (A et B), qui elles-memes heritent d'une classe "chapeau": elle recupere certaines caracteristiques de la classe parente A, et d'autres de la B. Cependant, cela peut creer de l'ambiguite, qu'il faut contrer avec le mot-cle ``virtual``.
-
 ### Structure générale d'une classe
 Dans le header (.hpp), on déclare les variables et fonctions publiques, privées et/ou protégées: 
 ```
@@ -401,6 +392,74 @@ Exemple:
 ```
 ~YourClass();
 ```
+
+### Heritage
+On peut faire "heriter" une classe d'une autre. Basiquement, la seconde classe aura des proprietes communes avec la premiere. Par exemple, la classe Velo peut heriter de la classe Vehicule, car un velo est un vehicule, et que tous les deux ont un nombre de roues par ex, meme si le nombre en soi peut etre different.
+
+C'est difficile de vraiment voir l'interet de ce systeme sans un exercice concret. Typiquement, dans un jeu video, on pourrait creer une classe Objet, puis des classes Arme, Munition, Consommable, Quete, ... Et on pourrait detailler ensuite avec d'autres classes encore, Epee, Massue, Fusil, ... Ce qui fait que quand vous voudrez coder "telle arme est utilisee et cause tant de degats", vous n'aurez besoin que des fonctions et variables de la classe parente, au lieu d'en avoir une differente par arme.
+
+Toutes les caracteristiques communes a plusieurs classes devraient donc idealement etre identifiees et declarees dans une classe parente dont elles heriteront. 
+
+Pour signifier qu'une classe herite d'une autre, on ajoute ``: public YourParentClass`` apres la declaration de la classe heritiere. De son cote, la classe parente passe ses variables privees qu'elle va devoir partager en protegees.
+
+```
+Class	YourParentClass
+{
+	public:								
+		YourParentClass();
+		~YourParentClass();
+
+		int		getSharedVar() const;
+		void	setSharedVar(int var);
+
+	protected:			
+		int	sharedVar;
+}
+```
+
+```
+Class	YourHeritedClass0 : public YourParentClass
+{
+	public:								
+		YourHeritedClass0();
+		~YourHeritedClass0();
+
+		void	UniqueFunction();
+}
+```
+
+On peut faire heriter une classe de deux classes parentes differentes (A et B), qui elles-memes heritent d'une classe "chapeau": elle recupere certaines caracteristiques de la classe parente A, et d'autres de la B. Cependant, cela peut creer de l'ambiguite, qu'il faut contrer avec le mot-cle ``virtual`` apres le ``public`` qui precede le nom de la classe parente.
+
+```
+Class	YourHeritedClass1 : public virtual YourParentClass
+{
+	public:
+		YourHeritedClass1();
+		~YourHeritedClass1();
+
+		void	UniqueFunction();
+}
+```
+
+```
+Class	YourDoubleHeritedClass : public YourHeritedClass0, public YourHeritedClass1
+{
+	public:								
+		YourDoubleHeritedClass();
+		~YourDoubleHeritedClass();
+
+		void	UniqueFunction();
+}
+```
+
+### Polymorphisme
+Il est possible de redefinir des fonctions heritees pour qu'elles aient des comportements propres a la classe heritee a laquelle elles appartiennent. Par exemple, creons la classe parente Animal, les classes enfants Poule et Vache, et faisons-les heriter de la fonction product(): on peut preciser que pour Poule, cette fonction imprimera "oeuf", alors que pour Vache, elle imprimera "lait". Si c'est directement Animal qui l'appelle, elle imprimera un truc par defaut, par ex "produit".
+
+Les fonctions qui sont ainsi reecrites doivent etre rendues ``virtual`` dans la classe parente pour fonctionner, exemple:
+```
+virtual	void	product();
+``` 
+Cela s'applique aussi aux deconstructeurs pour eviter les comportements inattendus suite au melange de ``delete`` avec le polymorphisme.
 
 ## Différence entre deep et shallow copy
 Lorsqu'on copie une variable, on peut copier soit sa valeur, soit son adresse.
