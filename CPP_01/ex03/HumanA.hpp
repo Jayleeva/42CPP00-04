@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Weapon.hpp"
 
-//On construit en passant une référence à l'arme.
+//On construit en passant une référence à l'arme (pourquoi?)
 //Donc, l'attribut weapon est une référence.
 class	HumanA
 {

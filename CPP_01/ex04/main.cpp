@@ -1,5 +1,6 @@
 #include "sed.hpp"
 
+//NOPE il faut utiliser le open de C++ et donc le path doit etre une string
 int ft_sed(char *path, std::string s1, std::string s2);
 
 int main(int argc, char **argv)
