@@ -584,7 +584,7 @@ Une fois cela fait, on peut choisir d'en faire un int ou un float. Dans les deux
 
 Seulement, on ne peut pas bitshift un float. Pour contourner ce probleme, au lieu de leftbitshift notre float de 8, on le multiplie par (1 leftbitshift de 8), ce qui revient au même car comme vu plus haut, bitshift de 1 revient à multiplier ou diviser par 2. Idem pour rightbitshift notre float, comme ce n'est pas possible, on le divise par (1 leftbitshift de 8), soit par 256.
 
-ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalité cast le résultat de notre calcul en int, car c'est le type donné à la variable qui en stocke la valeur. A l'inverse, au moment d'accéder à sa forme float (dans la fonction ToFloat(), appelé notamment par la surcharge d'opérateur <<), il faut cast le résultat en float pour correspondre au type de retour attendu. 
+ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalité cast le résultat de notre calcul en int, car c'est le type donné à la variable qui en stocke la valeur. A l'inverse, au moment d'accéder à sa forme float (dans la fonction ToFloat(), appelé notamment par la surcharge d'opérateur <<), il faut cast le résultat en float pour correspondre au type de retour attendu.
 
 Démonstration de bitshifting:
 ```
@@ -628,7 +628,7 @@ La fonction ``getline()`` va être importante, notamment pour lire des suites de
 Pour vérifier si une string est vide, on oublie le if (!str), et on utilise la fonction ``empty()``.
 
 ## Ouvrir un fichier
-Comme en C, on utilise la fonction ```open()```, seulement, comme elle doit recevoir un char *, et qu'on doit utiliser des string, on transforme notre string en char * avec la fonction ```c_str()```. De plus, en C++, la fonction open() doit être appelée sur une variable de type stream: ifstream pour un fichier d'entrée, et ofstream pour un fichier de sortie. Pour vérifier que le fichier a bien été ouvert normalement, on peut utiliser ```is_open()``` ou ```fail()```. 
+Comme en C, on utilise la fonction ```open()```, seulement, comme elle doit recevoir un char *, et qu'on doit utiliser des string, on transforme notre string en char * avec la fonction ```c_str()```. De plus, en C++, la fonction open() doit être appelée sur une variable de type stream: ifstream pour un fichier d'entrée, et ofstream pour un fichier de sortie. Pour vérifier que le fichier a bien été ouvert normalement, on peut utiliser ```is_open()``` ou ```fail()```.
 
 Exemple:
 ```
@@ -696,3 +696,26 @@ switch (i)
 Grâce à ce petit changement, si le switch reçoit 1, il peut entrer dans le cas 1 ET dans le cas 2.
 
 ATTENTION: en C++, on ne peut pas utiliser de switch case avec des string directement. Il faut les faire correspondre à un int, soit, typiquement, à un index d'array.
+
+## Boucle for
+Comme nous sommes libérée-s de la norminette, nous pouvons abandonner la boucle ```while``` au profit de la boucle ```for```.
+
+En gros, on donne l'index initialisé, la condition de sortie, et l'incrémentation/décrémentation dans une seule ligne au lieu de plusieurs.
+
+Ainsi:
+```
+int	i;
+
+i = 0;
+while (i < 3)
+{
+	std::cout << "couting from 0 to 3: " << i << std:endl;
+	i ++;
+}
+```
+
+Devient:
+```
+for (int i = 0; i < 3; i++)
+	std::cout << "couting from 0 to 3: " << i << std:endl;
+```

@@ -1,17 +1,11 @@
 #include "Zombie.hpp"
 
-//Alloue la horde en une seule allocation avec le mot-clé "new", puis attribue un nom à chaque instance, retourne la tête de l'array.
-Zombie *zombieHorde( int N, std::string name )
+//Alloue la horde en une seule allocation avec le mot-clé "new", puis attribue le nom à chaque instance, retourne la tête de l'array.
+Zombie *zombieHorde( int n, std::string name )
 {
-	Zombie *horde = new Zombie[N];
-    //std::string  names[7] = {name, "Zavier", "Zénon", "Zélie", "Zelda", "Zara", "Zoé"}; //pour le debug
-    int     i = 0;
-
-    while (i < N)
-    {
-        //name = names[i];  //pour le debug
+	Zombie *horde = new Zombie[n];
+    
+    for (int i = 0; i < n; i++)
         horde[i].giveName(name);
-        i ++;
-    }
     return (horde);
 }
