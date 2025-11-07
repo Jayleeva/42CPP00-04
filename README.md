@@ -1,8 +1,4 @@
 
-
-sed: pour ouvrir le fichier, utiliser ifstream et ofstream comme type de variable, puis ifstream.open() puis if (!isopen()) pour check si ouverture a marche. 
-
-
 # Notions importantes
 
 **ATTENTION: on ne fait plus du C, mais bien du C++!**
@@ -588,7 +584,7 @@ Une fois cela fait, on peut choisir d'en faire un int ou un float. Dans les deux
 
 Seulement, on ne peut pas bitshift un float. Pour contourner ce probleme, au lieu de leftbitshift notre float de 8, on le multiplie par (1 leftbitshift de 8), ce qui revient au meme car comme vu plus haut, bitshift de 1 revient a multiplier ou diviser par 2. Idem pour rightbitshift notre float, comme ce n'est pas possible, on le divise par (1 leftbitshift de 8), soit par 256.
 
-ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalite cast le résultat de notre calcul en int, car c'est le type donné a la variable qui en stocke la valeur. A l'inverse, au moment d'acceder a sa forme float (dans la fonction ToFloat(), appelee notamment par la surcharge d'operateur <<), il faut cast le résultat en float pour correspondre au type de retour attendu. 
+ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalite cast le résultat de notre calcul en int, car c'est le type donné à la variable qui en stocke la valeur. A l'inverse, au moment d'accéder à sa forme float (dans la fonction ToFloat(), appelé notamment par la surcharge d'opérateur <<), il faut cast le résultat en float pour correspondre au type de retour attendu. 
 
 Démonstration de bitshifting:
 ```
@@ -617,16 +613,36 @@ Démonstration de bitshifting:
 ```
 0000000100000000<sub>2</sub> = 256<sub>10</sub>
 
-### Les operateur << et >>
-Ces operateurs ont un sens different en fonction du contexte.
+### Les opérateur << et >>
+Ces opérateurs ont un sens different en fonction du contexte. Me regardez pas moi hein, c'est pas ma décision.
 
-On peut les utiliser pour inserer des elements dans un stream (entrant ou sortant), ET pour le bitshifting (gauche ou droite).
+On peut les utiliser pour insérer des éléments dans un stream (entrant ou sortant), ET pour le bitshifting (gauche ou droite).
 
-Dans les exercices de C++ de 42 autour des fixed points, on les emploie pour les deux utilisations. On surcharge specifiquement <<, qui insere des elements dans un stream de sortie, afin que s'il recoit un fixdePt, il insere non pas le fixedPt entier mais bien uniquement la valeur de ses raw bits (la version binaire du nombre recu a sa creation), qui par defaut sera recuperee sous forme de float. On ne touche cependant pas a leur role de bitshifters.
+Dans les exercices de C++ de 42 autour des fixed points, on les emploie pour les deux utilisations. On surcharge spécifiquement << lorsqu'il insère des éléments dans un stream de sortie, afin que s'il reçoit un fixdePt, il insère non pas le fixedPt en soi mais bien la valeur de ses raw bits (la version binaire du nombre reçu à sa création), qui par défaut sera récupérée sous forme de float. En-dehors de cette surcharge, on s'en sert pour faire du leftbitshifting. On utilisera aussi >> pour faire du rightbitshifting.
 
-## Lire dans l'entree standard
+## Lire dans l'entrée standard
 Le C++ permet d'utiliser simplement le mot-clé ``cin`` pour lire des inputs dans l'entrée standard, cependant, il n'est pas toujours adapté pour ce qu'on souhaite faire.
 
-La fonction ``getline()`` va être importante, notamment pour lire des suites de mots séparés par des espaces, mais il faut egalement la protéger au cas où elle lirait EOF (fin du fichier), afin d'éviter des comportements inattendus.
+La fonction ``getline()`` va être importante, notamment pour lire des suites de mots séparés par des espaces, mais il faut également la protéger au cas où elle lirait EOF (fin du fichier), afin d'éviter des comportements inattendus.
 
 Pour vérifier si une string est vide, on oublie le if (!str), et on utilise la fonction ``empty()``.
+
+## Ouvrir un fichier
+Comme en C, on utilise la fonction ```open()```, seulement, comme elle doit recevoir un char *, et qu'on doit utiliser des string, on transforme notre string en char * avec la fonction ```c_str()```. De plus, en C++, la fonction open() doit être appelée sur une variable de type stream: ifstream pour un fichier d'entrée, et ofstream pour un fichier de sortie. Pour vérifier que le fichier a bien été ouvert normalement, on peut utiliser ```is_open()``` ou ```fail()```. 
+
+Exemple:
+```
+std::string		path = "files/test0.txt";
+std::ifstream	infile;
+
+infile.open(path.c_str());
+```
+
+```
+if (infile.fail())
+	std::cout << "Error: open failed." << std::endl;
+```
+```
+if (!infile.is_open())
+	std::cout << "Error: open failed." << std::endl;
+```
