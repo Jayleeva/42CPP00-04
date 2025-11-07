@@ -648,7 +648,9 @@ if (!infile.is_open())
 ```
 
 ## Switch case
-Un switch case permet notamment de rendre plus lisibles certaines forêts de if. Au lieu de:
+Un switch case permet notamment de rendre plus lisibles certaines forêts de if. 
+
+Au lieu de:
 ```
 if (i == 0)
 	std::cout << "Bonjour! << std::endl;
