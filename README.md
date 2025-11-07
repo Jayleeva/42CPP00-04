@@ -588,7 +588,7 @@ ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalité 
 
 Démonstration de bitshifting:
 ```
-	42 << 8
+42 << 8
 				101010
 	1			010100
 	10			101000
@@ -602,8 +602,8 @@ Démonstration de bitshifting:
 	10101000000000<sub>2</sub> = 10752<sub>10</sub>
 
 ```
-	42.31 * (1 << 8)
-	1 << 8
+42.31 * (1 << 8)
+1 << 8
 
 		00000000	00000001
 	1	00000000	00000010
