@@ -576,45 +576,45 @@ Exemple:
 Si bien qu'en bitshiftant d'un bit vers la droite, on divise le résultat par deux, et en bitshiftant d'un bit vers la gauche, on le multiplie par deux.
 
 ### Pourquoi du bitshift?
-Notre objectif est de pouvoir avoir la précision d'un int et l'exactitude d'un float. Pour réaliser cette prouesse, on va transformer notre nombre avec le bitshift. Un fixed point est donc, en realite, un nombre binaire qui peut etre traduit en int comme en float arrondi, en fonction du besoin.
+Notre objectif est de pouvoir avoir la précision d'un int et l'exactitude d'un float. Pour réaliser cette prouesse, on va transformer notre nombre avec le bitshift. Un fixed point est donc, en réalité, un nombre binaire qui peut être traduit en int comme en float arrondi, en fonction du besoin.
 
-En bitshiftant notre nombre de 8, on s'assure de stocker toutes les informations importantes dans un nombre plutôt grand (x256).
+En bitshiftant notre nombre de sa quantité de ```fractional bits``` (dans nos exercices, 8), on s'assure de stocker toutes les informations importantes dans un nombre plutôt grand (x256).
 
 Une fois cela fait, on peut choisir d'en faire un int ou un float. Dans les deux cas, il va falloir re-bitshift dans l'autre sens.
 
-Seulement, on ne peut pas bitshift un float. Pour contourner ce probleme, au lieu de leftbitshift notre float de 8, on le multiplie par (1 leftbitshift de 8), ce qui revient au meme car comme vu plus haut, bitshift de 1 revient a multiplier ou diviser par 2. Idem pour rightbitshift notre float, comme ce n'est pas possible, on le divise par (1 leftbitshift de 8), soit par 256.
+Seulement, on ne peut pas bitshift un float. Pour contourner ce probleme, au lieu de leftbitshift notre float de 8, on le multiplie par (1 leftbitshift de 8), ce qui revient au même car comme vu plus haut, bitshift de 1 revient à multiplier ou diviser par 2. Idem pour rightbitshift notre float, comme ce n'est pas possible, on le divise par (1 leftbitshift de 8), soit par 256.
 
-ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalite cast le résultat de notre calcul en int, car c'est le type donné à la variable qui en stocke la valeur. A l'inverse, au moment d'accéder à sa forme float (dans la fonction ToFloat(), appelé notamment par la surcharge d'opérateur <<), il faut cast le résultat en float pour correspondre au type de retour attendu. 
+ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalité cast le résultat de notre calcul en int, car c'est le type donné à la variable qui en stocke la valeur. A l'inverse, au moment d'accéder à sa forme float (dans la fonction ToFloat(), appelé notamment par la surcharge d'opérateur <<), il faut cast le résultat en float pour correspondre au type de retour attendu. 
 
 Démonstration de bitshifting:
 ```
-42 << 8
-			101010
-1			010100
-10			101000
-101			010000
-1010		100000
-10101		000000
-101010		000000
-1010100		000000
-10101000	000000
+	42 << 8
+				101010
+	1			010100
+	10			101000
+	101			010000
+	1010		100000
+	10101		000000
+	101010		000000
+	1010100		000000
+	10101000	000000
 ```
-10101000000000<sub>2</sub> = 10752<sub>10</sub>
+	10101000000000<sub>2</sub> = 10752<sub>10</sub>
 
 ```
-42.31 * (1 << 8), puis arrondir le résultat, puis le cast en int à cause du type de la variable privée.
-1 << 8
+	42.31 * (1 << 8)
+	1 << 8
 
-	00000000	00000001
-1	00000000	00000010
-0	00000000	00000100
-...
-	00000001	00000000
+		00000000	00000001
+	1	00000000	00000010
+	0	00000000	00000100
+	...
+		00000001	00000000
 ```
-0000000100000000<sub>2</sub> = 256<sub>10</sub>
+	0000000100000000<sub>2</sub> = 256<sub>10</sub>
 
 ### Les opérateur << et >>
-Ces opérateurs ont un sens different en fonction du contexte. Me regardez pas moi hein, c'est pas ma décision.
+Ces opérateurs ont un sens différent en fonction du contexte. Me regardez pas moi hein, c'est pas ma décision.
 
 On peut les utiliser pour insérer des éléments dans un stream (entrant ou sortant), ET pour le bitshifting (gauche ou droite).
 
