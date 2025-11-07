@@ -646,3 +646,51 @@ if (infile.fail())
 if (!infile.is_open())
 	std::cout << "Error: open failed." << std::endl;
 ```
+
+## Switch case
+Un switch case permet notamment de rendre plus lisibles certaines forêts de if. Au lieu de:
+```
+if (i == 0)
+	std::cout << "Bonjour! << std::endl;
+if (i == 1)
+	std::cout << "Courage cher ami! Vous pouvez le faire! Youhououu! << std::endl;
+if (i == 2)
+	std::cout << "Hé ben! Faut pas se presser hein! << std::endl;
+else
+	std::cout << "[DEFAULT]" << std::endl;
+``` 
+On utilise:
+```
+switch (i)
+	case 0:
+		std::cout << "Bonjour! << std::endl;
+		break;
+	case 1:
+		std::cout << "Courage cher ami! Vous pouvez le faire! Youhououu! << std::endl;
+		break;
+	case 2:
+		std::cout << "Hé ben! Faut pas se presser hein! << std::endl;
+		break;
+	default:
+		std::cout << "[DEFAULT]" << std::endl;
+		break;
+```
+Une particularité est qu'on peut entrer dans plusieurs cas qui se suivent, si au lieu de faire sortir du switch avec le break, on autorise le fallthrough:
+```
+switch (i)
+	case 0:
+		std::cout << "Bonjour! << std::endl;
+		__attribute__ ((fallthrough));
+	case 1:
+		std::cout << "Courage cher ami! Vous pouvez le faire! Youhououu! << std::endl;
+		__attribute__ ((fallthrough));
+	case 2:
+		std::cout << "Hé ben! Faut pas se presser hein! << std::endl;
+		break;
+	default:
+		std::cout << "[DEFAULT]" << std::endl;
+		break;
+```
+Grâce à ce petit changement, si le switch reçoit 1, il peut entrer dans le cas 1 ET dans le cas 2.
+
+ATTENTION: en C++, on ne peut pas utiliser de switch case avec des string directement. Il faut les faire correspondre à un int, soit, typiquement, à un index d'array.
