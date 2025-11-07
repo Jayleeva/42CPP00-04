@@ -1,7 +1,4 @@
-une reference ne peut pas etre reassignee, c'est une protection en plus et pour a qu'on en utilise avec humanA et b et leur weapon
-on utilise un pointeur pour la weapon de human b parce qu'elle n'est pas assignee tout de suite et possiblement jamais, or une reference ne peut pas ne pas etre initialisee.
-PAR CONTRE
-il faut une protection pour eviter de segfault au cas ou HumanB ne recoit pas d'arme et essaye d'attaquer
+
 
 sed: pour ouvrir le fichier, utiliser ifstream et ofstream comme type de variable, puis ifstream.open() puis if (!isopen()) pour check si ouverture a marche. 
 
@@ -83,9 +80,11 @@ De même que pour la heap/stack, bien qu'on ait déjà utilisé et les pointeurs
 Les deux permettent de passer des adresses mémoires au lieu de simples valeurs, ce qui permet de conserver les modifications effecutées sur leur contenu d'une fonction à l'autre.
 
 ### Pointeur - '\*'
-Un pointeur est une variable (avec sa propre adresse mémoire) dont la valeur est l'adresse mémoire de la variable sur laquelle il pointe.
+Un pointeur est une variable (avec sa propre adresse mémoire) dont la valeur est une référence à la variable sur laquelle il pointe, soit l'adresse mémoire de celle-ci.
 
-Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déférence le pointeur.
+Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déréférence le pointeur, ce qui permet d'accéder à la valeur pointée plutôt qu'à son adresse.
+
+Un pointeur peut ne pas être initialisé. Il peut être réassigné.
 
 Aussi, lorsqu'un pointeur a des propriétés (par ex. si c'est une instanciation d'une structure ou d'une classe), on y accède avec '->', au lieu de '.' si ce n'était pas un pointeur.
 
@@ -99,9 +98,12 @@ this->varExample;					//l'instance est référencée
 ASTUCE: Le mot-clé ```this``` (propre au C++) est toujours un pointeur.
 
 ### Référence - '&'
-Une référence est une adresse mémoire contenant la valeur de la variable qu'elle référence.
+Une référence est une variable "alias" qui partage son adresse mémoire avec celle de la variable sur laquelle elle pointe.
+La valeur d'une référence est donc celle de la variable qu'elle référence.
 
 Pour signifier une référence, on utilise '&'.
+
+Une référence DOIT être initialisée, elle ne peut pas être utilisée vide. De plus, elle ne peut pas être réassignée.
 
 
 ### Utilisation en C
@@ -138,16 +140,18 @@ class	MannequinA
 		MannequinA(std::string model, Bag &bag);
 	private:
 		std::string	model;
-		Color		&bag;
+		Bag		&bag;
 };
 ```
+Ici, la variable &bag est une référence car il s'agit en réalité d'une instance d'une autre classe.
+
 ATTENTION, si une référence est attendue par une fonction, elle doit être initialisée. Pour ce faire, soit elle l'est avant l'appel de la fonction, soit on ajoute ```: yourRef(yourRef)``` à la suite du nom de la fonction:
 ```
 MannequinA::MannequinA(std::string model, Bag &bag): bag(bag)
 ```
 Typiquement, une telle initialisation n'est nécessaire que dans un **constructeur** (voir chapitre sur les classes). En effet, quand on appelle un **constructeur par copie** ou un **constructeur par surcharge d'opérateur d'assignation** , la référence reçue est déjà initialisée: c'est la source à copier.
 
-ATTENTION, bien qu'on puisse utiliser les références, on peut toujours utiliser des pointeurs:
+ATTENTION, dans certains cas, il vaut mieux utiliser des pointeurs:
 ```
 class	MannequinB
 {
@@ -159,7 +163,7 @@ class	MannequinB
 		Bag		*bag;
 };
 ```
-Ici, il est plus intéressant d'utiliser un pointeur au lieu d'une référence car **???**
+De même que dans notre classe MannequinA précédente, la variable *bag est en réalité une instance d'une autre classe. En revanche ici, vu que cet objet n'est pas initialisé directement dans le constructeur mais dans un setter à part, qui ne sera pas forcément appelé, on utilise un pointeur au lieu d'une référence. Pour rappel, une référence DOIT être initialisée et ne peut pas être réassignée, alors qu'un pointeur n'a pas ces contraintes.
 
 Dans les exercices en C++, on peut aussi référencer les opérateurs, lorsqu'on veut les surcharger:
 ```
@@ -177,8 +181,9 @@ class	Bag
 ```
 *Je suppose que c'est une syntaxe obligatoire qui permet de faire la surcharge: sans, ça ne marche pas.*
 
-Il est intéressant de noter que dans le main, rien ne nous indique clairement qu'on utilise des références ou des pointeurs.
+Il est intéressant de noter que dans le main, aucun '\*' ou '&' ne nous indique clairement qu'on utilise des références ou des pointeurs.
 C'est dans la définition des fonctions appelées que cela devient visible.
+En revanche, si on sait que l'on instancie une classe avant de passer ce nouvel objet au constructeur d'une autre classe, comme c'est le cas ici, on comprend qu'il sera forcément pointé/référencé.
 ```
 int	main()
 {
@@ -208,17 +213,17 @@ Les classes me font penser aux structures du C, en mieux.
 - Les classes peuvent être liées entre elles par de l'héritage, ce qui permet d'éviter des répétitions ET d'affiner ses objets!
 
 ### Public, private, protected
-Les variables et fonctions membres sont classees en 3 categories: publiques, privees, et protegees.
+Les variables et fonctions membres sont classées en 3 categories: publiques, privées, et protégées.
 
-Une bonne pratique (exigee dans le cursus) est de mettre toutes les variables membres en prive/protected, afin qu'elles ne puissent pas etre accidentellement modifiees en-dehors de la classe. Les fonctions (constructeurs, destructeur, setter et getter, etc) sont elles mises en public afin de pouvoir etre utilisees en-dehors de la classe.
+Une bonne pratique (exigée dans le cursus) est de mettre toutes les variables membres en private/protected, afin qu'elles ne puissent pas être accidentellement modifiées en-dehors de la classe. Les fonctions (constructeurs, destructeur, setter et getter, etc) sont elles mises en public afin de pouvoir être utilisées en-dehors de la classe.
 
-Les setter et getter permettent d'acceder aux variables privees/protegees en-dehors de la classe. Ainsi, il y en a autant qu'il y a de variables privees/protegees qu'on doit pouvoir acceder.
+Les setter et getter permettent d'acceder aux variables privées/protégées en-dehors de la classe. Ainsi, il y en a autant qu'il y a de variables privées/protégées qu'on doit pouvoir accéder.
 
-C'est quoi etre "en-dehors de la classe"? Par defaut, si vous n'etes pas dans le scope de la declaration de votre classe, vous etes "en-dehors". Cependant, lorsque vous creez une instance de votre classe, vous pouvez y "rentrer" via cette instance, en y appondant un '.' ou un '->' si c'est un pointeur.
+C'est quoi être "en-dehors de la classe"? Par défaut, si vous n'êtes pas dans le scope de la déclaration de votre classe, vous êtes "en-dehors" de celle-ci. Cependant, lorsque vous créez une instance de votre classe, vous pouvez y "rentrer" via cette instance, en y appondant un '.' ou un '->' si c'est un pointeur.
 
-Dans les fichiers .cpp ou vous definissez les fonctions membres, le mot-cle ``this`` correspond a une instance. Il devient disponible quand vous precisez que votre fonction est membre de votre classe en ajoutant ``YourClass::`` devant le nom de la fonction.
+Dans les fichiers .cpp ou vous définissez les fonctions membres, le mot-clé ``this`` correspond à une instance. Il devient disponible quand vous précisez que votre fonction est membre de votre classe en ajoutant ``YourClass::`` devant le nom de la fonction.
 
-La categorie "protegee" n'est utilisee que lorsqu'il y a heritage. Elle permet de "partager" l'acces aux variables et fonctions qui y sont rangees avec les classes de la meme "famille".
+La catégorie "protégée" n'est utilisée que lorsqu'il y a héritage. Elle permet de "partager" l'accès aux variables et fonctions qui y sont rangées avec les classes de la même "famille".
 
 ### Structure générale d'une classe
 Dans le header (.hpp), on déclare les variables et fonctions publiques, privées et/ou protégées: 
@@ -246,7 +251,7 @@ YourClass::YourClass()
 
 YourClass::~YourClass()
 {
-	std::cout << "[YOURCLASS]: Destructor called" << std::endl;				//par exemple.
+	std::cout << "[YOURCLASS]: Destructor called" << std::endl;					//par exemple.
 }
 
 int		YourClas::getVarExample() const
@@ -401,14 +406,14 @@ Exemple:
 ~YourClass();
 ```
 
-### Heritage
-On peut faire "heriter" une classe d'une autre. Basiquement, la seconde classe aura des proprietes communes avec la premiere. Par exemple, la classe Velo peut heriter de la classe Vehicule, car un velo est un vehicule, et que tous les deux ont un nombre de roues par ex, meme si le nombre en soi peut etre different.
+### Héritage
+On peut faire "hériter" une classe d'une autre. Basiquement, la seconde classe aura des propriétés communes avec la première. Par exemple, la classe Vélo peut hériter de la classe Véhicule, car un vélo est un véhicule, et que tous les deux ont un nombre de roues par ex, même si le nombre en soi peut être different.
 
-C'est difficile de vraiment voir l'interet de ce systeme sans un exercice concret. Typiquement, dans un jeu video, on pourrait creer une classe Objet, puis des classes Arme, Munition, Consommable, Quete, ... Et on pourrait detailler ensuite avec d'autres classes encore, Epee, Massue, Fusil, ... Ce qui fait que quand vous voudrez coder "telle arme est utilisee et cause tant de degats", vous n'aurez besoin que des fonctions et variables de la classe parente, au lieu d'en avoir une differente par arme.
+C'est difficile de vraiment voir l'intérêt de ce système sans un exercice concret. Typiquement, dans un jeu video, on pourrait créer une classe Objet, puis des classes Arme, Munition, Consommable, Quête, ... Et on pourrait détailler ensuite avec d'autres classes encore, Epée, Massue, Fusil, ... Ce qui fait que quand vous voudrez coder "telle arme est utilisée et cause tant de dégâts", vous n'aurez besoin que des fonctions et variables de la classe parente, au lieu d'en avoir une différente par arme.
 
-Toutes les caracteristiques communes a plusieurs classes devraient donc idealement etre identifiees et declarees dans une classe parente dont elles heriteront. 
+Toutes les caractéristiques communes à plusieurs classes devraient donc idéalement être identifiées et déclarées dans une classe parente dont elles hériteront. 
 
-Pour signifier qu'une classe herite d'une autre, on ajoute ``: public YourParentClass`` apres la declaration de la classe heritiere. De son cote, la classe parente passe ses variables privees qu'elle va devoir partager en protegees.
+Pour signifier qu'une classe hérite d'une autre, on ajoute ``: public YourParentClass`` après la déclaration de la classe héritière. De son côté, la classe parente passe ses variables privées qu'elle va devoir partager en protégées.
 
 ```
 Class	YourParentClass
@@ -436,7 +441,7 @@ Class	YourHeritedClass0 : public YourParentClass
 }
 ```
 
-On peut faire heriter une classe de deux classes parentes differentes (A et B), qui elles-memes heritent d'une classe "chapeau": elle recupere certaines caracteristiques de la classe parente A, et d'autres de la B. Cependant, cela peut creer de l'ambiguite, qu'il faut contrer avec le mot-cle ``virtual`` apres le ``public`` qui precede le nom de la classe parente.
+On peut faire hériter une classe de deux classes parentes différentes (A et B), qui elles-mêmes héritent d'une classe "chapeau": elle récupère certaines caractéristiques de la classe parente A, et d'autres de la B. Cependant, cela peut créer de l'ambiguité, qu'il faut contrer avec le mot-clé ``virtual`` après le ``public`` qui précède le nom de la classe parente.
 
 ```
 Class	YourHeritedClass1 : public virtual YourParentClass
@@ -461,13 +466,13 @@ Class	YourDoubleHeritedClass : public YourHeritedClass0, public YourHeritedClass
 ```
 
 ### Polymorphisme
-Il est possible de redefinir des fonctions heritees pour qu'elles aient des comportements propres a la classe heritee a laquelle elles appartiennent. Par exemple, creons la classe parente Animal, les classes enfants Poule et Vache, et faisons-les heriter de la fonction product(): on peut preciser que pour Poule, cette fonction imprimera "oeuf", alors que pour Vache, elle imprimera "lait". Si c'est directement Animal qui l'appelle, elle imprimera un truc par defaut, par ex "produit".
+Il est possible de redéfinir des fonctions héritées pour qu'elles aient des comportements propres à la classe héritée à laquelle elles appartiennent. Par exemple, créons la classe parente Animal, les classes enfants Poule et Vache, et faisons-les hériter de la fonction product(): on peut préciser que pour Poule, cette fonction imprimera "oeuf", alors que pour Vache, elle imprimera "lait". Si c'est directement Animal qui l'appelle, elle imprimera un truc par defaut, par ex "produit".
 
-Les fonctions qui sont ainsi reecrites doivent etre rendues ``virtual`` dans la classe parente pour fonctionner, exemple:
+Les fonctions qui sont ainsi réécrites doivent être rendues ``virtual`` dans la classe parente pour fonctionner, exemple:
 ```
 virtual	void	product();
 ``` 
-Cela s'applique aussi aux deconstructeurs pour eviter les comportements inattendus suite au melange de ``delete`` avec le polymorphisme.
+Cela s'applique aussi aux déconstructeurs pour éviter les comportements inattendus suite au mélange de ``delete`` avec le polymorphisme.
 
 ## Différence entre deep et shallow copy
 Lorsqu'on copie une variable, on peut copier soit sa valeur, soit son adresse.
@@ -620,8 +625,8 @@ On peut les utiliser pour inserer des elements dans un stream (entrant ou sortan
 Dans les exercices de C++ de 42 autour des fixed points, on les emploie pour les deux utilisations. On surcharge specifiquement <<, qui insere des elements dans un stream de sortie, afin que s'il recoit un fixdePt, il insere non pas le fixedPt entier mais bien uniquement la valeur de ses raw bits (la version binaire du nombre recu a sa creation), qui par defaut sera recuperee sous forme de float. On ne touche cependant pas a leur role de bitshifters.
 
 ## Lire dans l'entree standard
-Le C++ permet d'utiliser simplement le mot-cle ``cin`` pour lire des inputs dans l'entree standard, cependant, il n'est pas toujours adapte pour ce qu'on souhaite faire.
+Le C++ permet d'utiliser simplement le mot-clé ``cin`` pour lire des inputs dans l'entrée standard, cependant, il n'est pas toujours adapté pour ce qu'on souhaite faire.
 
-La fonction ``getline()`` va etre importante, notamment pour lire des suites de mots separes par des espaces, mais il faut egalement la proteger au cas ou elle lirait EOF (fin du fichier), afin d'eviter des comportements inattendus.
+La fonction ``getline()`` va être importante, notamment pour lire des suites de mots séparés par des espaces, mais il faut egalement la protéger au cas où elle lirait EOF (fin du fichier), afin d'éviter des comportements inattendus.
 
-Pour verifier si une string est vide, on oublie le if (!str), et on utilise la fonction ``empty()``.
+Pour vérifier si une string est vide, on oublie le if (!str), et on utilise la fonction ``empty()``.
