@@ -599,7 +599,7 @@ Démonstration de bitshifting:
 	1010100		000000
 	10101000	000000
 ```
-	10101000000000<sub>2</sub> = 10752<sub>10</sub>
+10101000000000<sub>2</sub> = 10752<sub>10</sub>
 
 ```
 42.31 * (1 << 8)
@@ -611,7 +611,7 @@ Démonstration de bitshifting:
 	...
 		00000001	00000000
 ```
-	0000000100000000<sub>2</sub> = 256<sub>10</sub>
+0000000100000000<sub>2</sub> = 256<sub>10</sub>
 
 ### Les opérateur << et >>
 Ces opérateurs ont un sens différent en fonction du contexte. Me regardez pas moi hein, c'est pas ma décision.
