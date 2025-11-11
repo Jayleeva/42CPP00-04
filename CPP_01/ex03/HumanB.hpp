@@ -4,9 +4,9 @@
 #include <iostream>
 #include "Weapon.hpp"
 
-//Bien que l'arme soit assignée dans une fonction membre au lieu du constructeur, on utilise la même méthode, donc une référence.
-//En revanche, puisque l'arme est assignée dans un second temps, l'attribut weapon est un pointeur.
-//On pourrait utiliser une référence (avec les modifications appropriées) mais l'exercice veut nous faire utiliser un mix des deux. Pourquoi?
+//On utilise un pointeur pour la weapon d'ici parce qu'elle n'est pas assignée dans le constructeur et ne le sera possiblement jamais (aucune obligation d'appeler la fonction set), or une référence DOIT être initialisée, alors qu'un pointeur peut être vide.
+//Dans le setter, comme on reçoit un instance d'une autre classe, c'est forcément une référence?
+
 class	HumanB
 {
 	public:

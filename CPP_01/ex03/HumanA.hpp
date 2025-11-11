@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Weapon.hpp"
 
-//On construit en passant une référence à l'arme (pourquoi?)
+//On construit en passant une référence à l'arme, puisque le getter de weapon retourne une référence (car instance d'une autre classe?)
 //Donc, l'attribut weapon est une référence.
 class	HumanA
 {
