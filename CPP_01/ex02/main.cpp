@@ -7,9 +7,9 @@ int	main()
 	std::string	*stringPTR = &str;
 	std::string	&stringREF = str;
 
-	std::cout << std::setw(35) << std::left << "adress of string: " << &str << std::endl;
-	std::cout << std::setw(35) << std::left << "adress held by pointer: " << stringPTR << std::endl;
-	std::cout << std::setw(35) << std::left << "adress held by reference: " << &stringREF << std::endl;
+	std::cout << std::setw(35) << std::left << "address of string: " << &str << std::endl;
+	std::cout << std::setw(35) << std::left << "address held by pointer: " << stringPTR << std::endl;
+	std::cout << std::setw(35) << std::left << "address held by reference: " << &stringREF << std::endl;
 
 	std::cout << std::setw(35) << std::left << "value of string: " << str << std::endl;
 	std::cout << std::setw(35) << std::left << "value pointed to by pointer: " << *stringPTR << std::endl;

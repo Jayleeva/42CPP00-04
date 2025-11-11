@@ -13,14 +13,10 @@ void	Harl::safeGetline(std::string &input)
 		exit(0);
 }
 
-//On crée un premier array contenant les différents niveaux disponibles. Donc un array de string constantes.
-//On crée ensute un autre array contenant des références aux fonctions correspondantes aux niveaux disponibles. Donc un array de pointeurs sur fonctions, qui ne reçoivent pas d'argument (void). Ces fonctions appartiennet à la classe Harl (Harl::)
-//On parcourt notre premier array jusqu'à trouver le niveau reçu en argument, ce qui nous donne l'index à utiliser ensuite.
-//On appelle la fonction de notre deuxième array grâce à l'index, sans lui passer d'argument puisqu'aucun n'est attendu. On déréférence l'array pour que this puisse accéder à la fonction
 void Harl::complain( std::string level )
 {
-	std::string const	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-	void				(Harl::*funcPtr[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	std::string const levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	void	(Harl::*funcPtr[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
 	int i = 0;
 	while (i < 4)
@@ -48,7 +44,7 @@ void Harl::debug( void )
 void Harl::info( void )
 {
 	std::cout << BLUE << "[INFO]   ";
-	std::cout << "*I* am the ONLY one who knows how to properly code in C++." << DEFAULT << std::endl;
+	std::cout << "*I* am the ONLY one who knows how to properly code in c++." << DEFAULT << std::endl;
 }
 
 void Harl::warning( void )

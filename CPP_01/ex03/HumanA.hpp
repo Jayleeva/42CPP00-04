@@ -4,7 +4,8 @@
 #include <iostream>
 #include "Weapon.hpp"
 
-//On utilise une référence à weapon afin qu'elle ne puisse pas être réassignée (dans la déclaration ET dans le constructeur). Le code pourrait fonctionner sans cette protection.
+//On construit en passant une référence à l'arme (pourquoi?)
+//Donc, l'attribut weapon est une référence.
 class	HumanA
 {
 	public:

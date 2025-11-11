@@ -17,7 +17,7 @@ Weapon::~Weapon()
 {}
 
 //Retourne une string: le type d'arme assigné à l'instance.
-std::string Weapon::getType() const
+const std::string &Weapon::getType()
 {
 	return (this->type);
 }
