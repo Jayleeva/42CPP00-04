@@ -556,6 +556,8 @@ Un point décimal est tout simplement "la virgule" qui sépare un chiffre de ses
 
 Dans la même logique, le point binaire est "la virgule" qui sépare un chiffre de ses "binairales?" ou plutôt, de ses "fractional bits"; le repère qui nous dit la même chose que le point décimal.
 
+En choisissant de donner 8 fractional bits a nos binary points, on a ET une range ET une exactitude acceptable.
+
 Dans son article "Introduction to Fixed Point Number Representation", Hayden So nous explique que pour traduire un nombre binaire en base 10, on fait le calcul suivant:
 
 - Le byte voisin de gauche du binary point est multiplié par 2 (car base 2) puissance 0 (car premier byte pré-point)

@@ -3,18 +3,19 @@
 Fixed::Fixed()
 {
 	std::cout << YELLOW << "[DEBUG]: Default constructor called" << DEFAULT << std::endl;
-	this->setRawBits(0);
+	this->rawBits = 0;
 }
 
-// prend le int reçu et bitshift de 8 a gauche (le multiplie 8x par 2, donc x256)
+// prend le int reçu et bitshift de 8 a gauche (le multiplie 8x par 2, donc x256) pour mettre tous les fractional avant "la virgule"
 Fixed::Fixed(const int i)
 {
 	std::cout << YELLOW << "[DEBUG]: Int constructor called" << DEFAULT << std::endl;
 	this->rawBits = i << this->fractionnalBits;
 }
 
-// prend le float reçu et le multiplie par 256 (1x 2 puissance 8), puis l'arrondit, puis le cast en int
-// arrondit pour être sûre que le bitshift de 8 sera suffisant? cast en int pare que rawBits est déclaré comme un int, mais comme on a fait le bitshift, j'ai encore les infos ?
+// comme pour le int, prend le float reçu et le bitshift de 8 a gauche, puis l'arrondit, puis le cast en int
+// ppuisque les floats ne peuvent etre bitshift directement, on multiplie par 1 bitshifted de 8 a gauche 
+// arrondit pour plus d'exactitude(?) cast en int pare que rawBits est déclaré comme un int
 Fixed::Fixed(const float f)
 {
 	std::cout << YELLOW << "[DEBUG]: Float constructor called" << DEFAULT << std::endl;
@@ -34,29 +35,31 @@ Fixed::~Fixed()
 
 Fixed & Fixed::operator=(Fixed const &original)
 {
-	std::cout << YELLOW << "[DEBUG]: Copy assignment operator = called" << DEFAULT << std::endl;
-	this->rawBits = original.getRawBits();
+	std::cout << YELLOW << "[DEBUG]: Copy assignment operator called" << DEFAULT << std::endl;
+	//this->rawBits = original.getRawBits();
+	this->rawBits = original.rawBits;
 	return (*this);
 }
 
-//si pas un fixedPt, ne se lance pas?
+//si pas un fixedPt, ne se lance pas
 //Permet d'inserer dans le stream la valeur du fixedPt passee en float par defaut, et en int si on ajoute .ToInt().
-std::ostream &operator<<(std::ostream &o, Fixed const &fixedPt)
+std::ostream &operator<<(std::ostream &out, Fixed const &fixedPt)
 {
-	o << fixedPt.toFloat();
-	return (o);
+	out << fixedPt.toFloat();
+	return (out);
 }
 
-// refait le calcul dans l'autre sens, en divisant par 256 (1 x2 puissance 8) pour retrouver le nombre de base, puis en castant en float puisque c'est ce qu'on doit retourner
-float	Fixed::toFloat( void ) const
-{
-	return ((float)this->rawBits / (1 << this->fractionnalBits));
-}
-
-// refait le calcul dans l'autre sens en faisant du bitshift dans l'autre sens
+// refait le calcul dans l'autre sens en faisant du bitshift dans l'autre sens pour retrouver le nombre de base
 int 	Fixed::toInt( void ) const
 {
 	return (this->rawBits >> this->fractionnalBits);
+}
+
+// refait le calcul dans l'autre sens, en faisant du bitshit dans l'autre sens, puis en castant en float puisque c'est ce qu'on doit retourner 
+// comme avant, puisque les floats ne peuvent etre bitshift directement, on divise par 1 bitshifted de 8 a gauche 
+float	Fixed::toFloat( void ) const
+{
+	return ((float)this->rawBits / (1 << this->fractionnalBits));
 }
 
 int		Fixed::getRawBits( void ) const

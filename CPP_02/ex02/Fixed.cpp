@@ -3,7 +3,7 @@
 Fixed::Fixed()
 {
 	std::cout << YELLOW << "[DEBUG]: Default constructor called" << DEFAULT << std::endl;
-	this->setRawBits(0);
+	this->rawBits = 0;
 }
 
 Fixed::Fixed(const int i)
@@ -29,16 +29,64 @@ Fixed::~Fixed()
 	std::cout << YELLOW << "[DEBUG]: Destructor called" << DEFAULT << std::endl;
 }
 
-//-------- equal -------- 
 Fixed &Fixed::operator=(Fixed const &original)
 {
 	std::cout << YELLOW << "[DEBUG]: Copy assignment operator = called" << DEFAULT << std::endl;
-	this->rawBits = original.getRawBits();
+	this->rawBits = original.rawBits;
 	return (*this);
 }
 
+std::ostream &operator<<(std::ostream &out, Fixed const &fixedPt)
+{
+	out << fixedPt.toFloat();
+	return (out);
+}
 
+float	Fixed::toFloat( void ) const
+{
+	return ((float)this->rawBits / (1 << this->fractionnalBits));
+}
+
+int 	Fixed::toInt( void ) const
+{
+	return (this->rawBits >> this->fractionnalBits);
+}
+
+int		Fixed::getRawBits( void ) const
+{
+	std::cout << YELLOW << "[DEBUG]: getRawBits member function called" << DEFAULT << std::endl;
+	return (this->rawBits);
+}
+
+void	Fixed::setRawBits( int const raw )
+{
+	std::cout << YELLOW << "[DEBUG]: setRawBits member function called" << DEFAULT << std::endl;
+	this->rawBits = raw;
+}
+
+///---------- NEW OVERLOADS -----------
 //-------- lesser greater bool --------
+
+bool	Fixed::operator>(const Fixed &fixedPt) const
+{
+	return (this->toFloat() > fixedPt.toFloat());
+}
+
+bool	Fixed::operator<(const Fixed &fixedPt) const
+{
+	return (this->toFloat() < fixedPt.toFloat());
+}
+
+bool	Fixed::operator>=(const Fixed &fixedPt) const
+{
+	return (this->toFloat() >= fixedPt.toFloat());
+}
+
+bool	Fixed::operator<=(const Fixed &fixedPt) const
+{
+	return (this->toFloat() <= fixedPt.toFloat());
+}
+
 bool	Fixed::operator==(const Fixed &fixedPt) const
 {
 	return (this->toFloat() == fixedPt.toFloat());
@@ -47,55 +95,6 @@ bool	Fixed::operator==(const Fixed &fixedPt) const
 bool	Fixed::operator!=(const Fixed &fixedPt) const
 {
 	return (this->toFloat() != fixedPt.toFloat());
-}
-
-bool	Fixed::operator<=(const Fixed &fixedPt) const
-{
-	return (this->toFloat() <= fixedPt.toFloat());
-}
-
-bool	Fixed::operator>=(const Fixed &fixedPt) const
-{
-	return (this->toFloat() >= fixedPt.toFloat());
-}
-
-bool	Fixed::operator<(const Fixed &fixedPt) const
-{
-	return (this->toFloat() < fixedPt.toFloat());
-}
-
-bool	Fixed::operator>(const Fixed &fixedPt) const
-{
-	return (this->toFloat() > fixedPt.toFloat());
-}
-
-//-------- Min max functions --------
-const Fixed &Fixed::min(Fixed &a, Fixed &b)
-{
-	if (a.rawBits < b.rawBits)
-		return (a);
-	return (b);
-}
-
-const Fixed &Fixed::max(Fixed &a, Fixed &b)
-{
-	if (a.rawBits > b.rawBits)
-		return (a);
-	return (b);
-}
-
-const Fixed &Fixed::min(Fixed const &a, Fixed const &b)
-{
-	if (a.rawBits < b.rawBits)
-		return (a);
-	return (b);
-}
-
-const Fixed &Fixed::max(Fixed const &a, Fixed const &b)
-{
-	if (a.rawBits > b.rawBits)
-		return (a);
-	return (b);
 }
 
 //-------- Calculs --------
@@ -160,33 +159,31 @@ Fixed	Fixed::operator--(int)
 	return (tmp);
 }
 
-//-------- append --------
-std::ostream &operator<<(std::ostream &o, Fixed const &fixedPt)
+//-------- Min max functions --------
+const Fixed &Fixed::min(Fixed &a, Fixed &b)
 {
-	o << fixedPt.toFloat();
-	return (o);
+	if (a.rawBits < b.rawBits)
+		return (a);
+	return (b);
 }
 
-//-------- Convert --------
-float	Fixed::toFloat( void ) const
+const Fixed &Fixed::max(Fixed &a, Fixed &b)
 {
-	return ((float)this->rawBits / (1 << this->fractionnalBits));
+	if (a.rawBits > b.rawBits)
+		return (a);
+	return (b);
 }
 
-int 	Fixed::toInt( void ) const
+const Fixed &Fixed::min(Fixed const &a, Fixed const &b)
 {
-	return (this->rawBits >> this->fractionnalBits);
+	if (a.rawBits < b.rawBits)
+		return (a);
+	return (b);
 }
 
-//-------- getter setter --------
-int		Fixed::getRawBits( void ) const
+const Fixed &Fixed::max(Fixed const &a, Fixed const &b)
 {
-	std::cout << YELLOW << "[DEBUG]: getRawBits member function called" << DEFAULT << std::endl;
-	return (this->rawBits);
-}
-
-void	Fixed::setRawBits( int const raw )
-{
-	std::cout << YELLOW << "[DEBUG]: setRawBits member function called" << DEFAULT << std::endl;
-	this->rawBits = raw;
+	if (a.rawBits > b.rawBits)
+		return (a);
+	return (b);
 }
