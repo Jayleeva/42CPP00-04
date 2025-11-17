@@ -3,8 +3,8 @@
 
 # include "ClapTrap.hpp"
 
-// Classe dérivée. 
-class ScavTrap: public ClapTrap
+// Classe dérivée. On ajoute "virtual" pour pouvoir reecrire la fonction attack
+class ScavTrap: virtual public ClapTrap
 {
 	public:
 		ScavTrap();

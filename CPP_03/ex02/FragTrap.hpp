@@ -3,7 +3,7 @@
 
 #include "ClapTrap.hpp"
 
-// Derived class
+// Classe dérivée. 
 class FragTrap: public ClapTrap
 {
 	public:
