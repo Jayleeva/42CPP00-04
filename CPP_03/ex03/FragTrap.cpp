@@ -5,13 +5,13 @@ FragTrap::FragTrap(): ClapTrap()
 	std::cout << YELLOW << "[FRAGTRAP]: Default constructor called" << DEFAULT << std::endl;
 }
 
-FragTrap::FragTrap(std::string name): ClapTrap(name)
+FragTrap::FragTrap(std::string name_): ClapTrap(name_)
 {
 	std::cout << YELLOW << "[FRAGTRAP]: String constructor called" << DEFAULT << std::endl;
-	this->name = name;
-	this->hit = 100;
-	this->energy = 100;
-	this->damage = 30;
+	this->name = name_;
+	this->hitPoints = 100;
+	this->energyPoints = 100;
+	this->damagePoints = 30;
 }
 
 FragTrap::FragTrap(const FragTrap &original): ClapTrap(original)
@@ -30,18 +30,18 @@ FragTrap &FragTrap::operator=(const FragTrap &original)
     if (this != &original)
 	{
 		this->name = original.name;
-		this->hit = original.hit;
-		this->energy = original.energy;
-		this->damage = original.damage;
+		this->hitPoints = original.hitPoints;
+		this->energyPoints = original.energyPoints;
+		this->damagePoints = original.damagePoints;
     }
-    std::cout << YELLOW << "[FRAGTRAP]: Copy assignment operator = called" << DEFAULT << std::endl;
+    std::cout << YELLOW << "[FRAGTRAP]: Copy assignment operator called" << DEFAULT << std::endl;
     return (*this);
 }
 
 void	FragTrap::highFivesGuys()
 {
-	if (this->hit > 0 && this->energy > 0)
-		std::cout << "> \"HIGH FIVES, GUYS!!!\" requests FragTrap " << YELLOW << this->name << DEFAULT << " with hope of making new friends, shoving its hand in the air." << std::endl;
-	else
+	if (this->hitPoints <= 0 || this->energyPoints <= 0)
 		std::cout << "> FragTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to high fives anyone..." << std::endl;
+	else
+		std::cout << "> \"HIGH FIVES, GUYS!!!\" requests FragTrap " << YELLOW << this->name << DEFAULT << " with hope of making new friends, shoving its hand in the air." << std::endl;
 }

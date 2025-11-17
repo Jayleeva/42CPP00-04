@@ -5,13 +5,13 @@ ClapTrap::ClapTrap()
 	std::cout << YELLOW << "[CLAPTRAP]: Default constructor called" << DEFAULT << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name)
+ClapTrap::ClapTrap(std::string name_)
 {
 	std::cout << YELLOW << "[CLAPTRAP]: string constructor called" << DEFAULT << std::endl;
-	this->name = name;
-	this->hit = 10;
-	this->energy = 10;
-	this->damage = 0;
+	this->name = name_;
+	this->hitPoints = 10;
+	this->energyPoints = 10;
+	this->damagePoints = 0;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &original)
@@ -30,41 +30,40 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &original)
     if (this != &original)
 	{
 		this->name = original.name;
-		this->hit = original.hit;
-		this->energy = original.energy;
-		this->damage = original.damage;
+		this->hitPoints = original.hitPoints;
+		this->energyPoints = original.energyPoints;
+		this->damagePoints = original.damagePoints;
     }
-    std::cout << YELLOW << "[CLAPTRAP]: Copy assignment operator = called" << DEFAULT << std::endl;
+    std::cout << YELLOW << "[CLAPTRAP]: Copy assignment operator called" << DEFAULT << std::endl;
     return (*this);
 }
-
 void	ClapTrap::attack(const std::string &target)
 {
-	if (this->hit > 0 && this->energy > 0)
-	{
-		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " attacks " << YELLOW << target << DEFAULT << ", causing " << this->damage << " points of damage!" << std::endl;
-		this->energy--;
-	}
-	else
+	if (this->hitPoints <= 0 || this->energyPoints <= 0)
 		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to attack..." << std::endl;
+	else
+	{
+		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " attacks " << YELLOW << target << DEFAULT << ", causing " << this->damagePoints << " points of damage!" << std::endl;
+		this->energyPoints--;
+	}
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
 	std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " takes " << amount << " points of damage!" << std::endl;
-	this->hit -= amount;
+	this->hitPoints -= amount;
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	if (this->hit > 0 && this->energy > 0)
+	if (this->hitPoints <= 0 || this->energyPoints <= 0)
+		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to repair itself..." << std::endl;
+	else
 	{
 		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " regains " << amount << " hit points!" << std::endl;
-		this->hit += amount;
-		this->energy--;
+		this->hitPoints += amount;
+		this->energyPoints--;
 	}
-	else
-		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to repair itself..." << std::endl;
 }
 
 
@@ -75,35 +74,35 @@ std::string const	ClapTrap::getName() const
 
 int	ClapTrap::getHit() const
 {
-	return(this->hit);
+	return(this->hitPoints);
 } 
 
 int	ClapTrap::getEnergy() const
 {
-	return(this->energy);
+	return(this->energyPoints);
 }
 
 int	ClapTrap::getDamage() const
 {
-	return(this->damage);
+	return(this->damagePoints);
 }
 
-void	ClapTrap::setName(std::string name)
+void	ClapTrap::setName(std::string name_)
 {
-	this->name = name;
+	this->name = name_;
 }
 
 void	ClapTrap::setHit(int hit)
 {
-	this->hit = hit;
+	this->hitPoints = hit;
 }
 
 void	ClapTrap::setEnergy(int energy)
 {
-	this->energy = energy;
+	this->energyPoints = energy;
 }
 
 void	ClapTrap::setDamage(int damage)
 {
-	this->damage = damage;
+	this->damagePoints = damage;
 }

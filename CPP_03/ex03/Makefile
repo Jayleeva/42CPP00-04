@@ -4,8 +4,8 @@ OBJ = $(SRC:.cpp=.o)
 
 CC = c++
 RM = rm -f
-CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -Wno-shadow
-#-Wshadow -Wno-shadow
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
+# -Wshadow  -Wno-shadow
 
 NAME = diamond
 

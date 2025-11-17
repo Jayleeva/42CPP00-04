@@ -35,19 +35,19 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &original)
 		this->energy = original.energy;
 		this->damage = original.damage;
     }
-    std::cout << YELLOW << "[CLAPTRAP]: Copy assignment operator = called" << DEFAULT << std::endl;
+    std::cout << YELLOW << "[CLAPTRAP]: Copy assignment operator called" << DEFAULT << std::endl;
     return (*this);
 }
 
 void	ClapTrap::attack(const std::string &target)
 {
-	if (this->hit > 0 && this->energy > 0)
+	if (this->hit <= 0 || this->energy <= 0)
+		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to attack..." << std::endl;
+	else
 	{
 		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " attacks " << YELLOW << target << DEFAULT << ", causing " << this->damage << " points of damage!" << std::endl;
 		this->energy--;
 	}
-	else
-		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to attack..." << std::endl;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
@@ -58,14 +58,14 @@ void	ClapTrap::takeDamage(unsigned int amount)
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	if (this->hit > 0 && this->energy > 0)
+	if (this->hit <= 0 || this->energy <= 0)
+		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to repair itself..." << std::endl;
+	else
 	{
 		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " regains " << amount << " hit points!" << std::endl;
 		this->hit += amount;
 		this->energy--;
 	}
-	else
-		std::cout << "> ClapTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to repair itself..." << std::endl;
 }
 
 

@@ -9,7 +9,7 @@ class DiamondTrap: public FragTrap, public ScavTrap
 {
 	public:
 		DiamondTrap();
-		DiamondTrap(std::string name);
+		DiamondTrap(std::string name_);
 		DiamondTrap(const DiamondTrap &original);
 		~DiamondTrap();
 		DiamondTrap	&operator=(DiamondTrap const &original); // pour que diamond prenne bien les valeurs des classes enfants au lieu de parent, pas compris comment though

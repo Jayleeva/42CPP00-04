@@ -10,7 +10,7 @@ class	ClapTrap
 {
 	public:
 		ClapTrap();
-		ClapTrap(std::string name);
+		ClapTrap(std::string name_);
 		ClapTrap(const ClapTrap &original);
 		~ClapTrap();
 		ClapTrap	&operator=(const ClapTrap &original); // pour que diamond prenne bien les valeurs des classes enfants au lieu de parent, pas compris comment though
@@ -24,16 +24,16 @@ class	ClapTrap
 		int					getEnergy() const;
 		int					getDamage() const;
 
-		void				setName(std::string name);
+		void				setName(std::string name_);
 		void				setHit(int hit);
 		void				setEnergy(int energy);
 		void				setDamage(int damage);
 
 	protected:
 		std::string	name;
-		int			hit;
-		int			energy;
-		int			damage;
+		int			hitPoints;
+		int			energyPoints;
+		int			damagePoints;
 };
 
 #endif

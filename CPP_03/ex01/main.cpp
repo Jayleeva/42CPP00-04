@@ -1,10 +1,11 @@
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
+#include <iomanip>
 
 int main( void )
 {
-	ClapTrap	a("Clapper");
-	ScavTrap	b("Trapper");
+	ClapTrap	a("Clap");
+	ScavTrap	b("Scav");
 
 	a.attack(b.getName());
 	b.takeDamage(a.getDamage());
@@ -12,7 +13,17 @@ int main( void )
 	b.attack(a.getName());
 	a.takeDamage(b.getDamage());
 	a.beRepaired(5);
-	std::cout << "***\nAt the end of this terrible fight,";
-	std::cout << " ClapTrap " << YELLOW << a.getName() << DEFAULT << " has " << a.getHit() << " hit points and " << a.getEnergy() << " energy points, while";
-	std::cout << " ClapTrap " << YELLOW << b.getName() << DEFAULT << " has " << b.getHit() << " hit points and " << b.getEnergy() << " energy points.\n***" << std::endl;
+	std::cout << "***\nLet's look at the results of this terrible fight: \n";
+	std::cout << std::setw(15) << std::right << "Name" << "|";
+	std::cout << std::setw(15) << std::right << "Hit points" << "|";
+	std::cout << std::setw(15) << std::right << "Energy points" << "|";
+	std::cout << std::setw(15) << std::right << "\n---------------" << "|";
+	std::cout << std::setw(15) << std::right << "---------------" << "|";
+	std::cout << std::setw(15) << std::right << "---------------" << "|" << std::endl;
+	std::cout << std::setw(15) << std::right << a.getName() << "|";
+	std::cout << std::setw(15) << std::right << a.getHit() << "|";
+	std::cout << std::setw(15) << std::right << a.getEnergy() << "|" << std::endl;
+	std::cout << std::setw(15) << std::right << b.getName() << "|";
+	std::cout << std::setw(15) << std::right << b.getHit() << "|";
+	std::cout << std::setw(15) << std::right << b.getEnergy() << "|\n***" << std::endl;
 }

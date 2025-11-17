@@ -34,14 +34,14 @@ FragTrap &FragTrap::operator=(const FragTrap &original)
 		this->energy = original.energy;
 		this->damage = original.damage;
     }
-    std::cout << YELLOW << "[FRAGTRAP]: Copy assignment operator = called" << DEFAULT << std::endl;
+    std::cout << YELLOW << "[FRAGTRAP]: Copy assignment operator called" << DEFAULT << std::endl;
     return (*this);
 }
 
 void	FragTrap::highFivesGuys()
 {
-	if (this->hit > 0 && this->energy > 0)
-		std::cout << "> \"HIGH FIVES, GUYS!!!\" requests FragTrap " << YELLOW << this->name << DEFAULT << " with hope of making new friends, shoving its hand in the air." << std::endl;
-	else
+	if (this->hit <= 0 || this->energy <= 0)
 		std::cout << "> FragTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to high fives anyone..." << std::endl;
+	else
+		std::cout << "> \"HIGH FIVES, GUYS!!!\" requests FragTrap " << YELLOW << this->name << DEFAULT << " with hope of making new friends, shoving its hand in the air." << std::endl;
 }

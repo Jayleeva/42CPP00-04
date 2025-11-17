@@ -34,14 +34,24 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &original)
 		this->energy = original.energy;
 		this->damage = original.damage;
     }
-    std::cout << YELLOW << "[SCAVTRAP]: Copy assignment operator = called" << DEFAULT << std::endl;
+    std::cout << YELLOW << "[SCAVTRAP]: Copy assignment operator called" << DEFAULT << std::endl;
     return (*this);
 }
 
+void	ScavTrap::attack(const std::string &target)
+{
+	if (this->hit <= 0 || this->energy <= 0)
+		std::cout << "> ScavTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to attack..." << std::endl;
+	else
+	{
+		std::cout << "> ScavTrap " << YELLOW << this->name << DEFAULT << " attacks " << YELLOW << target << DEFAULT << ", causing " << this->damage << " points of damage!" << std::endl;
+		this->energy--;
+	}
+}
 void	ScavTrap::guardGate()
 {
-	if (this->hit > 0 && this->energy > 0)
-		std::cout << "> ScavTrap " << YELLOW << this->name << DEFAULT << " is now in Gate Keeper mode." << std::endl;
-	else
+	if (this->hit <= 0 || this->energy <= 0)
 		std::cout << "> ScavTrap " << YELLOW << this->name << DEFAULT << " tried, but it's too weak to enter Gate Keeper mode..." << std::endl;
+	else
+		std::cout << "> ScavTrap " << YELLOW << this->name << DEFAULT << " is now in Gate Keeper mode." << std::endl;
 }

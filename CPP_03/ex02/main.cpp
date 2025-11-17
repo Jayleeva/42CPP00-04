@@ -1,12 +1,13 @@
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
+#include <iomanip>
 
 int main( void )
 {
-	FragTrap	c("Frag");
 	ClapTrap	a("Clap");
 	ScavTrap	b("Scav");
+	FragTrap	c("Frag");
 
 	c.highFivesGuys();
 	a.attack(c.getName());
@@ -22,8 +23,21 @@ int main( void )
 	c.attack(b.getName());
 	b.takeDamage(c.getDamage());
 	b.beRepaired(5);
-	std::cout << "***\nAt the end of this terrible fight,";
-	std::cout << " ClapTrap " << YELLOW << a.getName() << DEFAULT << " has " << a.getHit() << " hit points and " << a.getEnergy() << " energy points, while";
-	std::cout << " ClapTrap " << YELLOW << b.getName() << DEFAULT << " has " << b.getHit() << " hit points and " << b.getEnergy() << " energy points, and";
-	std::cout << " ClapTrap " << YELLOW << c.getName() << DEFAULT << " has " << c.getHit() << " hit points and " << c.getEnergy() << " energy points.\n***" << std::endl;
+
+	std::cout << "***\nLet's look at the results of this terrible fight: \n";
+	std::cout << std::setw(15) << std::right << "Name" << "|";
+	std::cout << std::setw(15) << std::right << "Hit points" << "|";
+	std::cout << std::setw(15) << std::right << "Energy points" << "|";
+	std::cout << std::setw(15) << std::right << "\n---------------" << "|";
+	std::cout << std::setw(15) << std::right << "---------------" << "|";
+	std::cout << std::setw(15) << std::right << "---------------" << "|" << std::endl;
+	std::cout << std::setw(15) << std::right << a.getName() << "|";
+	std::cout << std::setw(15) << std::right << a.getHit() << "|";
+	std::cout << std::setw(15) << std::right << a.getEnergy() << "|" << std::endl;
+	std::cout << std::setw(15) << std::right << b.getName() << "|";
+	std::cout << std::setw(15) << std::right << b.getHit() << "|";
+	std::cout << std::setw(15) << std::right << b.getEnergy() << "|" << std::endl;
+	std::cout << std::setw(15) << std::right << c.getName() << "|";
+	std::cout << std::setw(15) << std::right << c.getHit() << "|";
+	std::cout << std::setw(15) << std::right << c.getEnergy() << "|\n***" << std::endl;
 }

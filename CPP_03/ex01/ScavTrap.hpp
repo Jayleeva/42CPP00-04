@@ -3,7 +3,7 @@
 
 # include "ClapTrap.hpp"
 
-// Derived class
+// Classe dérivée.
 class ScavTrap: public ClapTrap
 {
 	public:
@@ -14,6 +14,7 @@ class ScavTrap: public ClapTrap
 		ScavTrap	&operator=(const ScavTrap &original);
 
 		void	guardGate();
+		void	attack(const std::string &target);
 };
 
 #endif
