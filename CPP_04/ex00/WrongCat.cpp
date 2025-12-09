@@ -25,8 +25,3 @@ WrongCat &WrongCat::operator=(const WrongCat &original)
     std::cout << YELLOW << "[WRONG CAT]: Copy assignment operator = called" << DEFAULT << std::endl;
     return (*this);
 }
-
-void    WrongCat::makeSound() const
-{
-    std::cout << "WRONG MEOW MEOW" << std::endl;
-}

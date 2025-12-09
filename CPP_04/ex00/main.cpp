@@ -38,11 +38,17 @@ int main()
         std::cout << "***\nMain 2\n------" << std::endl;
         Animal  a("Cat");
         Animal  b("Dog");
-        Cat     c(&a);
-        Dog     d();
-        std::cout << a.getType() << " goes: ";
-        c.makeSound() << std::endl;
-        std::cout << b.getType() << " goes: ";
-        d.makeSound() << std::endl;
+        Animal  c = Cat();
+        Animal  d = Dog();
+
+        std::cout << a.getType() << " a goes: ";
+        a.makeSound();
+        std::cout << b.getType() << " b goes: ";
+        b.makeSound();
+        std::cout << c.getType() << " c goes: ";
+        c.makeSound();
+        std::cout << d.getType() << " d goes: ";
+        d.makeSound();
+        std::cout << std::endl;
     }
 }

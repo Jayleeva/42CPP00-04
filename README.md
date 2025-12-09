@@ -473,15 +473,15 @@ Cela s'applique aussi aux déconstructeurs pour éviter les comportements inatte
 ## Différence entre deep et shallow copy
 Lorsqu'on copie une variable, on peut copier soit sa valeur, soit son adresse.
 
-- Si on copie son adresse, les deux variables contiendront toujours la même valeur partagée, car elles accèdent au même endroit de la mémoire. Modifier l'une modifiera l'autre.
-- Si on copie sa valeur, les deux variables ne seront pas liées, et modifier l'une ne modifiera pas l'autre.
+- Si on copie son adresse, les deux variables contiendront toujours la même valeur partagée, car elles accèdent au même endroit de la mémoire. Modifier l'une modifiera l'autre. C'est une shallow copy.
+- Si on copie sa valeur, les deux variables ne seront pas liées, et modifier l'une ne modifiera pas l'autre. C'est une deep copy.
 
-### Deep copy
+### Deep copy: copie de la valeur
 La deep copy nécessite d'aller copier un à un tous les attributs de l'objet copié.
 
 Lors de la libération de la mémoire, il faudra libérer les espaces attribués à chaque objet, car ce sont bien deux objets séparés.
 
-### Shallow copy
+### Shallow copy: copie de l'adresse
 La shallow copy nécessite uniquement de copier l'adresse de l'objet.
 
 Lors de la libération de la mémoire, il ne faudra libérer que l'unique espace partagé par chaque objet.
