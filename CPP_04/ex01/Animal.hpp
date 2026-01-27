@@ -21,7 +21,7 @@ class   Animal
 		std::string		getType(void) const;
 		void	        setType(std::string type);
     
-		virtual Brain   &getBrain(void) const = 0;
+		virtual Brain   &getBrain(void) const;
     
         virtual void    makeSound() const;
 
