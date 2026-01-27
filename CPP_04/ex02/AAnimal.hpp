@@ -7,7 +7,7 @@
 # define DEFAULT "\001\033[0;39m\002"
 # define YELLOW "\001\033[1;93m\002"
 
-//les constructeurs passent en protected pour qu'on ne puisse plus instancier la classe.
+//une fonction membre est passee en pure virtual ("virtual" + " = 0") pour qu'on ne puisse plus instancier la classe. Le destructeur est passe en virtual. On peut aussi passer les constructeurs en protected mais pas necessaire.
 class   AAnimal
 {
     public:
