@@ -628,6 +628,52 @@ Démonstration de bitshifting:
 ```
 0000000100000000<sub>2</sub> = 256<sub>10</sub>
 
+### Les surcharges d'operateurs des FixedPoints
+Il nous est demande de creer un nouveau type de nombre, il faut donc nous assurer que toutes les operations, notamment mathematiques, fonctionnent avec ce nouveau type. Pour cela, on surcharge les operateurs: on reecrit ce qu'ils font.
+
+Pour ne pas perdre de precision et pouvoir faire les calculs entre meme types, on passe nos FixedPoint en float. Une fois cela fait, on peut les additionner, soustraire, multiplier, etc sans probleme. On retourne un nouvel objet FixedPoint qui contient cette valeur, passee en float a la construction.
+
+Concernant les **incrementations/decrementations** specifiquement, il nous faut comprendre les choses suivantes:
+- Une post-incr/decr signifie que l'incr/decr est faite APRES avoir utilise la valeur de la variable. On la signale en placant les operateurs APRES la variable (ex.: i++).
+- Une pre-incr/decr signifie que l'incr/decr est faite AVANT d'utiliser la valeur de la variable. On la signale en placant les operateurs AVANT la variable (ex.: ++i).
+
+Ainsi, au lieu d'ecrire quelque chose comme:
+```
+int i = 0;
+while (i < 10)
+{
+	yourfunction(i);
+	i ++;
+}
+```
+Vous pouvez ecrire:
+```
+int	i = 0;
+while (i++ < 10)
+	yourfunction(i);
+```
+Dans cet exemple, la variable i sera passee en argument a yourfunction avec une valeur de 0, puis de 1, puis de 2, etc. Car l'incrementation se fait APRES l'entree dans la boucle.
+
+Si vous ecrivez:
+```
+int	i = 0;
+while (++i < 10)
+	yourfunction(i);
+```
+Ici, la variable i sera passee avec une valeur de 1, puis de 2, etc. Car l'incrementation se fait AVANT l'entree dans la boucle.
+
+Ainsi, lorsque vous ecrirez vos surcharges de ces operateurs, vous devrez prendre cet ordre en compte, ce qui impacte sur s'il recoit un argument ou non, et s'il necessite une temporaire ou non.
+
+En effet, 
+- si l'incr/décr est faite après, la fonction ne reçoit pas d'argument, car il n'y a rien après les ++/--.
+- si elle est faite avant, la fonction reçoit un int (pas nommé car pas important), soit la variable à incr/décr.
+
+D'autre part,
+- si l'incr/décr est faite après, on déréférence "this" au moment de return uniquement, soit APRES l'incr/décr.
+- si elle est faite avant, on déréférence "this" dès le départ, soit AVANT l'incr/décr. C'est pourquoi une temporaire est nécessaire.
+
+ASTUCE: pas besoin de s'embêter à trouver ce que vaut "the smallest representable epsilon" demande dans le sujet, on peut juste utiliser ++/--.
+
 ### Les opérateur << et >>
 Ces opérateurs ont un sens différent en fonction du contexte. Me regardez pas moi hein, c'est pas ma décision.
 
