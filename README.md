@@ -616,8 +616,9 @@ Avec un int
 	1010100		000000			...
 	10101000	000000			resultat apres avoir "pousse" 8 fois.
 
-10101000000000<sub>2</sub> = 10752<sub>10</sub>
+
 ```
+10101000000000<sub>2</sub> = 10752<sub>10</sub>
 
 ```
 Avec un float
@@ -630,11 +631,14 @@ Avec un float
 	2x	00			00000100	idem
 	...							...
 	8x	00000001	00000000	resultat apres avoir "pousse" 8 fois.
-
+```
 0000000100000000<sub>2</sub> = 256<sub>10</sub>
+
+```
 42.31 * 256 = 10831.36
 (int)roundf(10831.36) = 10831	on perd un peu de precision, mais on en a suffisamment pour pouvoir retrouver le 42.31 initial lorsqu'on operera le bitshift en sens inverse.
 ```
+
 Une fois cette transformation effectuee, on peut stocker notre FixedPoint dans un int. Quand on voudra y acceder, il faudra choisir si on le veut en int ou en float. Dans les deux cas, on effectue l'operation inverse de toute a l'heure (au lieu de faire un equivalent de * 256, on fait un equivalent de / 256).
 
 Avec notre exemple de tout a l'heure:
