@@ -9,6 +9,10 @@
 
 //le deconstructeur doit etre virtual pour eviter les comportements inattendus venant du melange delete et polymorphisme.
 //la func makeSound doit etre virtual parce que doit etre overwritten par celles des animaux (polymorphisme).
+//la func getBrain doit etre une pure virtual car Animal n'a pas d'attribut cerveau,
+//  donc on ne peut pas definir la fonction dans Animal a cause du return
+// meme si cela en fait, de fait, une classe abstraite.
+
 class   Animal
 {
     public:
@@ -21,7 +25,7 @@ class   Animal
 		std::string		getType(void) const;
 		void	        setType(std::string type);
     
-		virtual Brain   &getBrain(void) const;
+		virtual Brain   &getBrain(void) const = 0;
     
         virtual void    makeSound() const;
 

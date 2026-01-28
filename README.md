@@ -80,7 +80,7 @@ Un pointeur est une variable (avec sa propre adresse mémoire) dont la valeur es
 
 Pour signifier un pointeur lors de la déclaration du type de variable, on utilise '\*'. Attention, en-dehors des déclarations de type, si on utilise '\*', on déréférence le pointeur, ce qui permet d'accéder à la valeur pointée plutôt qu'à son adresse.
 
-Un pointeur peut ne pas être initialisé. Il peut être réassigné.
+Un pointeur peut ne pas être initialisé? Il peut être réassigné.
 
 Aussi, lorsqu'un pointeur a des propriétés (par ex. si c'est une instanciation d'une structure ou d'une classe), on y accède avec '->', au lieu de '.' si ce n'était pas un pointeur.
 
@@ -502,7 +502,7 @@ Pour des choses simples, nous n'avons pas besoin d'une exactitude parfaite. Cepe
 
 Est-ce que les fixed points règlent ce problème? Non (lol). A quoi bon alors?
 
-Les fixed points permettent ET d'utiliser des entiers (pour plus de précision), ET de détailler des décimales au besoin (pour plus d'exactitude).
+Les fixed points permettent ET d'utiliser des entiers (pour plus de précision), ET de détailler des décimales au besoin (pour plus d'exactitude). Concretement, ils sont utiles lorsque votre programme a besoin par moment de la precision des entiers (par ex., ma valeur doit etre strictement 0 ou strictement 1, et rien entre deux), et a d'autre moments de l'exactitude des floats (ma valeur doit etre exactement 0.125), tout en utilisant un seul et meme type (ni int ni float: le fixedPoint). Le seul exemple que j'aie trouve est celui des deplacements dans un jeu video: a certains moments, le programme doit reflechir strictement en terme de "soit la soit la, pas d'entre deux", et a d'autres, il a besoin de plus de nuances, sans pour autant changer le type qui permet de stocker la position.
 
 ### Les fixed points: comment ça marche?
 Pour comprendre les fixed points, il faut comprendre les binary points. Pas de panique! On respire.
@@ -512,37 +512,50 @@ Même si vous ne le savez pas, vous êtes familier-es avec les decimal points, p
 #### Base 10, 16, 2...
 Vous avez appris à compter en base 10. Qu'entend-on par là? Si vous deviez compter jusqu'à 50, vous itéreriez une première base 10, puis une deuxième, etc jusqu'à 5 itérations + 1. En effet, nos chiffres occidentaux commencent à 0 et vont jusqu'à 9 (donc 10 chiffres, base 10, tout ça), puis on recommence, en mettant à jour la dizaine, la centaine, etc.
 
-	0	0|1|2|3|4|5|6|7|8|9
-	1	0|1|2|3|4|5|6|7|8|9
-	2	0|1|2|3|4|5|6|7|8|9
+	0|1|2|3|4|5|6|7|8|9		suite composant la base 10
+
+	0	-> "0"				la premiere iteration de la serie commence par le premier symbole de celle-ci (appelons-le "i", qui vaut ici "0").
+	1	-> "1"				
 	...
-	10	0|1|2|3|4|5|6|7|8|9
-	11	0|1|2|3|4|5|6|7|8|9
-	12	0|1|2|3|4|5|6|7|8|9
+	9	-> "9"
+	10	-> "1 + 0"			une fois le dernier symbole de la suite utilise, si on incremente d'un, on prend le symbole suivant le "i": ici, "1", et on y appond le premier symbole de la serie (ici, "0"), une fois.
+	...
+	19	-> "1 + 9"
+	20	-> "2 + 0"			la meme logique qu'a la fin de la premiere iteration s'applique. Le "i" a pris la valeur "2".
+	...
+	99	-> "9 + 9"		
+	100	-> "1 + 0 + 0"		ici, le "i" a deja parcouru toute la suite, et revient donc a "1". On y appond le premier symbole de la serie (ici, "0"), deux fois de suite.
 	...
 
 En informatique, on compte parfois en base 16. Ces chiffres vont de 0 à 16, mais pour plus de clareté (dépendant du point de vue), la suite est la suivante: 0 1 2 3 4 5 6 7 8 9 A B C D E F. De même que pour la base 10, une fois arrivé à F, on reprend avec le 0 en mettant à jour la "seizaine". Par exemple, la valeur 17 en base 10 s'écrirait 11 en base 16 (on passe de (0)F à 10, puis de 10 à 11), la valeur 30 en base 10 s'écrirait 1E en base 16.
 
-	0	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
-	1	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F		suite composant la base 16
+
+	0	-> "0"				meme logique que pour la base 10.
+	1	-> "1"
 	...
-	9	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
-	A	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
-	B	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	15	-> "F"
+	16	-> "1 + 0" 
 	...
-	10	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
-	11	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
+	31	-> "1 + F"
+	32	-> "2 + 0"
 	...
-	1F	0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F
 
 Pour les fixed points, on s'intéressera à la base 2, celle utilisée par... le langage binaire (bi = 2). La suite est bien plus courte: 0 1. Donc dès la valeur 2 en base 10, on réitère, ce qui donne 10 en base 2.
 
-	0	0|1|	-> 0|1 en base 10
-	1	0|1|	-> 2|3 en base 10
-	10	0|1|	-> 4|5 en base 10
-	11	0|1|	-> 6|7 en base 10
-	100	0|1|	-> 8|9 en base 10
-	101	0|1|	-> 10|11 en base 10
+	0|1		suite composant la base 2
+
+	0	-> "0"				meme logique que pour la base 10.
+	1	-> "1"
+	2	-> "1 + 0"
+	3	-> "1 + 1"
+	4	-> "1 + 0 + 0"
+	5	-> "1 + 0 + 1"
+	6	-> "1 + 1 + 0"
+	7	-> "1 + 1 + 1"
+	8	-> "1 + 0 + 0 + 0"
+	9	-> "1 + 0 + 0 + 1"
+	10	-> "1 + 0 + 1 + 0"
 	...
 
 Un byte a la valeur d'un chiffre de cette suite: soit 1 soit 0.
@@ -591,27 +604,27 @@ ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalité 
 Démonstration de bitshifting:
 ```
 42 << 8
-				101010
-	1			010100
-	10			101000
-	101			010000
-	1010		100000
-	10101		000000
-	101010		000000
-	1010100		000000
-	10101000	000000
+				101010			traduction en binaire (base 2) de 42 en decimal (base 10)
+	1			010100			on "pousse" le premier chiffre sur le cote, et pour conserver la meme longueur, on ajoute une valeur par defaut (0) de l'autre cote pour le remplacer.
+	10			101000			on "pousse" le chiffre suivant, et idem, on ajoute une valeur par defaut.
+	101			010000			idem
+	1010		100000			...
+	10101		000000			...
+	101010		000000			...
+	1010100		000000			...
+	10101000	000000			resultat apres avoir "pousse" 8 fois.
 ```
 10101000000000<sub>2</sub> = 10752<sub>10</sub>
 
 ```
-42.31 * (1 << 8)
-1 << 8
+42.31 * (1 << 8)				un float ne peut pas etre bitshift directement, on le mutiplie alors avec 1 bitshifte 8 fois.
+1 << 8							
 
-		00000000	00000001
-	1	00000000	00000010
-	0	00000000	00000100
-	...
-		00000001	00000000
+					00000001	traduction en binaire (base 2) de 1 en decimal (base 10)
+	1x	0			00000010	on "pousse" exactement comme avant.
+	2x	00			00000100	idem
+	...							...
+	8x	00000001	00000000	resultat apres avoir "pousse" 8 fois.
 ```
 0000000100000000<sub>2</sub> = 256<sub>10</sub>
 
