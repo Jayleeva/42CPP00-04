@@ -601,11 +601,13 @@ Seulement, on ne peut pas bitshift un float. Pour contourner ce probleme, au lie
 
 ATTENTION: quand on crée le fixedPt en recevant un float, on doit en réalité cast le résultat de notre calcul en int, car c'est le type donné à la variable qui en stocke la valeur. A l'inverse, au moment d'accéder à sa forme float (dans la fonction ToFloat(), appelé notamment par la surcharge d'opérateur <<), il faut cast le résultat en float pour correspondre au type de retour attendu.
 
-Démonstration de bitshifting:
+Démonstration de leftbitshifting:
 ```
+Avec un int
+------------
 42 << 8
 				101010			traduction en binaire (base 2) de 42 en decimal (base 10)
-	1			010100			on "pousse" le premier chiffre sur le cote, et pour conserver la meme longueur, on ajoute une valeur par defaut (0) de l'autre cote pour le remplacer.
+	1			010100			on "pousse" le premier chiffre sur la gauche, et pour conserver la meme longueur, on ajoute une valeur par defaut (0) a droite pour le remplacer.
 	10			101000			on "pousse" le chiffre suivant, et idem, on ajoute une valeur par defaut.
 	101			010000			idem
 	1010		100000			...
@@ -613,10 +615,13 @@ Démonstration de bitshifting:
 	101010		000000			...
 	1010100		000000			...
 	10101000	000000			resultat apres avoir "pousse" 8 fois.
-```
+
 10101000000000<sub>2</sub> = 10752<sub>10</sub>
+```
 
 ```
+Avec un float
+--------------
 42.31 * (1 << 8)				un float ne peut pas etre bitshift directement, on le mutiplie alors avec 1 bitshifte 8 fois.
 1 << 8							
 
@@ -625,8 +630,17 @@ Démonstration de bitshifting:
 	2x	00			00000100	idem
 	...							...
 	8x	00000001	00000000	resultat apres avoir "pousse" 8 fois.
-```
+
 0000000100000000<sub>2</sub> = 256<sub>10</sub>
+42.31 * 256 = 10831.36
+(int)roundf(10831.36) = 10831	on perd un peu de precision, mais on en a suffisamment pour pouvoir retrouver le 42.31 initial lorsqu'on operera le bitshift en sens inverse.
+```
+Une fois cette transformation effectuee, on peut stocker notre FixedPoint dans un int. Quand on voudra y acceder, il faudra choisir si on le veut en int ou en float. Dans les deux cas, on effectue l'operation inverse de toute a l'heure (au lieu de faire un equivalent de * 256, on fait un equivalent de / 256).
+
+Avec notre exemple de tout a l'heure:
+``
+10831 / 256 = 42.31
+``
 
 ### Les surcharges d'operateurs des FixedPoints
 Il nous est demande de creer un nouveau type de nombre, il faut donc nous assurer que toutes les operations, notamment mathematiques, fonctionnent avec ce nouveau type. Pour cela, on surcharge les operateurs: on reecrit ce qu'ils font.
